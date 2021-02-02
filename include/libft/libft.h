@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:15:22 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:44:58 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/01/31 12:59:11 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 int					get_next_line(int fd, char **line);
 void				ft_print_array(char	**a);
-
+char				**ft_sort_array(char **a);
 
 #endif

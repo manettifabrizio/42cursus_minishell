@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 18:27:27 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 21:10:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/02 22:29:38 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@ static void		env_parser(t_main *m, char **env)
 	}
 }
 
+static char	**add_slash(char **a)
+{
+	int 	x;
+	char	**path;
+
+	x = 0;
+	while (a[x] != NULL)
+		x++;
+	if (!(path = malloc(++x * sizeof(char*))))
+		return (NULL); //exit error
+	x = 0;
+	// printf("a = %s\n", a[x]);
+	while (a[x] != NULL)
+	{
+		// printf("a = %s\n", a[x]);
+		if (!(path[x] = malloc((ft_strlen(a[x]) + 1) * sizeof(char))))
+			return (NULL); //exit error
+		path[x] = ft_strjoin(a[x], "/");
+		x++;
+	}
+	path[x] = NULL;
+	// free(a);
+	return (path);
+}
+
 char			**path_parser(t_env *head)
 {
 	t_env	*tmp;
@@ -44,11 +69,13 @@ char			**path_parser(t_env *head)
 	while (ft_strcmp(tmp->name, "PATH") != 0 && tmp != NULL)
 		tmp = tmp->next;
 	path = ft_split(tmp->value, ':');
+	path = add_slash(path);
 	return (path);
 }
 
 void			line_parse(t_main *m, char **env)
 {
-	env_parser(m, env); 
+	// env = ft_sort_array(env);
+	env_parser(m, env);
 	m->path = path_parser(m->ehead);
 }

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_list.c                                    :+:      :+:    :+:   */
+/*   ft_sort_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 17:12:30 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 18:06:25 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/01/31 12:57:43 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/01/31 12:58:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_print_list(t_env *head)
+char		**ft_sort_array(char **a)
 {
-	t_env	*tmp;
+	int 	x;
+	char	*tmp;
 
-	tmp = head;
-	while (tmp != NULL)
-	{
-		printf("* %s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
-	}
+	x = 0;
+	while (a[x + 1])
+		if (ft_strcmp(a[x], a[x + 1]) > 0)
+		{
+			tmp = a[x + 1];
+			a[x + 1] = a[x];
+			a[x] = tmp;
+			x = 0;
+		}
+		else
+			x++;
+	return (a);
 }

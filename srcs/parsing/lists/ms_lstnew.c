@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:35:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 14:35:00 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:16:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_env	*ft_lstnew_e()
 
 	if (!(element = malloc(sizeof(*element))))
 		return (NULL);
-	element->next = NULL;
+	element->name = NULL;
+	element->value = NULL;
+	element->next = NULL; 
 	return (element);
 }

@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/01/28 17:46:09 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/01/31 12:59:02 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ FILES	=	ft_memset.c \
 			ft_swap.c \
 			ft_swap_f.c \
 			get_next_line.c	\
-			ft_print_array.c
+			ft_print_array.c	\
+			ft_sort_array.c
 
 BFILES	=	ft_lstnew.c \
 			ft_lstadd_front.c \
