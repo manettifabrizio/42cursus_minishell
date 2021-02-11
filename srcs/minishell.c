@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/02 17:05:19 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/11 09:53:45 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ char	**line_read()
 	(str)[ft_strlen(str) - 1] = '\0';
 	// printf("|%s|\n", str);
 	// printf("|%s|\n", a[0]);
+	int x = -1;
+	char **a;
+	while (str[++x])
+		if (str[x] == '\"')
+		{
+			a = malloc(3 * sizeof(char*));
+			a[0] = ft_strdup("echo");
+			a[1] = ft_substr(str, 5, ft_strlen (str) - 5);
+			a[2] = NULL;
+			return (a);
+		}
 	return (ft_split(str, ' '));
 }
 
@@ -60,6 +71,7 @@ int		main(int ac, char **av, char **env)
 {
 	char		*str;
 	t_main		m;
+	int x;
 
 	ac = 1; av = NULL;
 	// ft_print_array(env);
@@ -68,6 +80,9 @@ int		main(int ac, char **av, char **env)
 	{
 		prompt();
 		m.arr = line_read();
+		// ft_print_array(m.arr);
+		// if (strcmp("echo", m.arr[0]))
+		// 		m.arr[1] = av[1]
 		// printf("str = %s", str);
 		if ((m.arr)[0])
 			line_execute(&m, env);

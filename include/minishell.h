@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/02 20:37:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/10 13:27:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void				line_execute(t_main *m, char **env);
 int					search_path(t_main m, char **env);
 
 int					builtins(t_main *m);
+int					ft_echo(char **a, t_env *head);
 int					ft_export(char **a, t_env *head);
 int					ft_unset(char **a, t_env *head);
 
@@ -59,5 +60,8 @@ t_env				*ft_lstnew_e();
 t_env				*ft_lstlast_e(t_env *lst);
 void				ft_lstadd_back_e(t_env **alst, t_env *new);
 void				ms_print_list(t_env *head);
-char				**ms_split(char const *s, char c);
 t_env				*ms_list_sort(t_env *head);
+
+// SPLIT
+char				**ms_split_exp(char const *s, char c);
+char				**ms_split_var(char *s);

@@ -6,42 +6,11 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/02 20:05:24 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/04 19:26:16 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int		ft_echo(char **a)
-{
-	int x;
-
-	x = 1;
-	if (!(a[1]))
-		printf("\n");
-	else
-		if (ft_strcmp(a[1], "-n") == 0)
-		{
-			if (a[2])
-				while (a[++x])
-				{
-					ft_putstr(a[x]);
-					if (a[x + 1])
-						ft_putchar(' ');
-				}
-		}
-		else
-		{
-			while (a[x])
-			{
-				ft_putstr(a[x++]);
-				if (a[x])
-					ft_putchar(' ');
-			}
-			printf ("\n");
-		}
-	return (1);
-}
 
 static int		ft_cd(char **a)
 {
@@ -92,7 +61,7 @@ static int		ft_exit()
 int				builtins(t_main *m)
 {
 	if (ft_strcmp((m->arr)[0], "echo") == 0)
-		return (ft_echo(m->arr));
+		return (ft_echo(m->arr, m->ehead));
 	else if (ft_strcmp((m->arr)[0], "cd") == 0) // absolut path or relative
 		return (ft_cd(m->arr));
 	else if (ft_strcmp((m->arr)[0], "pwd") == 0)

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/02 22:29:09 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:27:23 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int		ft_export_var(char **a, t_env *head)
 	tmp = head;
 	while (a[++x])
 	{
-		cmd = ms_split(a[x], '=');
+		cmd = ms_split_exp(a[x], '=');
 		// ft_print_array(cmd);
 		if (check_errors(cmd, a[x]))
 			if (!(check_name(cmd, head, ft_strchr(a[x], '='))))

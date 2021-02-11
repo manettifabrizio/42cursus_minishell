@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_split.c                                         :+:      :+:    :+:   */
+/*   ms_split_exp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 19:23:34 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/02 21:46:19 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/02/10 12:27:03 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/02/10 12:27:04 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int		free_all(char **t, int x)
 }
 
 // da migliorare
-char			**ms_split(char const *s, char c)
+char			**ms_split_exp(char const *s, char c)
 {
 	int		x;
 	int		i;
