@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/10 13:27:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:43:40 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef	struct		s_main
 	char			**path;
 }					t_main;
 
+char				**line_read();
 void				line_parse(t_main *m, char **env);
 void				line_execute(t_main *m, char **env);
 int					search_path(t_main m, char **env);
