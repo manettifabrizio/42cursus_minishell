@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:43 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/30 19:21:28 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:08:23 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,16 @@
 int		search_path(t_main m, char **env)
 {
 	int		x;
-	void	*dirp;
+	void	*dirstream;
 	t_dir	*ds;
-	char	**b;
 	char	*path;
 	pid_t	pid;
 
-	x = 0;
-	b = malloc(2 * sizeof(char*));
-	b[0] = (m.arr)[0];
-	b[1] = NULL;
-	// m.path[0] = "/usr/bin/vim";
-	while ((m.path)[x] != NULL)
+	x = -1;
+	while ((m.path)[++x])
 	{
-		dirp = opendir((m.path)[x]);
-		while ((ds = readdir(dirp)))
+		dirstream = opendir((m.path)[x]);
+		while ((ds = readdir(dirstream)))
 			if (ft_strcmp(ds->d_name, (m.arr)[0]) == 0)
 			{
 				if ((pid = fork()) < 0)
@@ -38,14 +33,13 @@ int		search_path(t_main m, char **env)
 				if (pid == 0)
 				{
 					path = ft_strjoin((m.path)[x], (m.arr)[0]);
-					printf("n = %d\n", execve(path, b, env));
+					printf("n = %d\n", execve(path, m.arr, env));
 					free (path);
 				}
 				waitpid(pid, NULL, 0);
 				return (1);
 			}
-		closedir(dirp);
-		x++;
+		closedir(dirstream);
 	}
 	return (0);
 }

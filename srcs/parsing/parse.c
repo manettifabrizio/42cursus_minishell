@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 18:27:27 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/02 22:29:38 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:48:28 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void		env_parser(t_main *m, char **env)
 	t_env	*tmp;
 
 	x = 0;
-	// printf("%s\n", "ciao1");
 	while (env[x] != NULL)
 	{
 		tmp = ft_lstnew_e();
@@ -31,6 +30,7 @@ static void		env_parser(t_main *m, char **env)
 		tmp->value = a[1];
 		// printf("%s\n", tmp->value);
 		ft_lstadd_back_e(&(m->ehead), tmp);
+		//free_array
 		x++;
 	}
 }

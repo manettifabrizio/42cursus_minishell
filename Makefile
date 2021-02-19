@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/02/11 13:44:30 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/02/15 17:35:37 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		=	minish
 FILES		=	minishell.c							\
 				read.c								\
 				path.c								\
+				signals_term.c						\
 				builtins/builtins.c					\
 				builtins/ft_echo.c					\
 				builtins/ft_export.c				\
