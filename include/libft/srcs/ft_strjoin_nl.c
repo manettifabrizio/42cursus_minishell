@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_nl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:20:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/22 21:49:29 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/02/22 22:17:59 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/02/22 22:23:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned long	ft_strlen(const char *s)
+char 	*ft_strjoin_nl(char *s, char *s1)
 {
-	int i;
+	char 	*tmp;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	tmp = ft_strdup(s);
+	free(s);
+	s = ft_strjoin(tmp, s1);
+	free(tmp);
+	return (s);
 }

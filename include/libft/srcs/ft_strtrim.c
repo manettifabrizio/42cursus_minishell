@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 16:13:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:24:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/22 21:52:22 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 	if (!s1 || !set)
 		return (0);
 	x = front_check(s1, set);
-	if (x == ft_strlen(s1))
+	if (x == (int)ft_strlen(s1))
 		return (ft_strdup(""));
 	y = back_check(s1, set);
 	s2 = ft_substr(s1, x, (ft_strlen(s1) - x - y));

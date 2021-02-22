@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 16:20:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/22 21:49:29 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/02/22 14:07:42 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/02/22 22:09:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-unsigned long	ft_strlen(const char *s)
+int		control_c(char *s)
 {
-	int i;
+	ft_putchar('\n');
+	s[0] = '\0';
+	return (1);
+}
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+int		control_d(struct termios *base_term)
+{
+	set_term(0, base_term);
+	ft_putstr("exit\n");
+	exit(EXIT_SUCCESS);
+	return (1);
 }

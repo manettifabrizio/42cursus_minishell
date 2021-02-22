@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/11 10:40:22 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:01:13 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static char		*create_string(char **a)
 static char		*check_vars(char *s, t_env *head)
 {
 	int		x;
-	char	*tmp;
 	char 	**a;
 	t_env	*l;
 	

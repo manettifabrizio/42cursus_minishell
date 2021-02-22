@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 21:00:53 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:24:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:58:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 		dst[i] = src[i];
 		i++;
 	}
+	dst[i] = '\0';
 	if (i == len)
 		return (dst);
 	while (i < len)
 	{
-		dst[i] = 0;
+		dst[i] = '\0';
 		i++;
 	}
 	return (dst);

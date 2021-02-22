@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:43 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/17 18:08:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:19:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int		search_path(t_main m, char **env)
 				if (pid == 0)
 				{
 					path = ft_strjoin((m.path)[x], (m.arr)[0]);
-					printf("n = %d\n", execve(path, m.arr, env));
-					free (path);
+					execve(path, m.arr, env);
+					free(path);
 				}
 				waitpid(pid, NULL, 0);
 				return (1);

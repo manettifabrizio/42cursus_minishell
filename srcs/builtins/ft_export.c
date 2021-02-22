@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/10 12:27:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:01:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int		ft_export_var(char **a, t_env *head)
 
 int		ft_export(char **a, t_env *head)
 {
-	char	**cmd;
 	t_env	*l;
 	t_env	*lhead;
 

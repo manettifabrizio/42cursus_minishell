@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 12:44:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/19 12:29:57 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/20 14:08:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	set_term(int n, struct termios *base_term)
 	// Set non-canonical input
 	if (n == 1)
 	{
-		mode = 1;
 		tcgetattr(STDIN_FILENO, &new);
 		// Disable canonic mode, signals and echo for "^C"
 		new.c_lflag &= ~(ICANON|ISIG|ECHO);	
@@ -32,10 +31,7 @@ void	set_term(int n, struct termios *base_term)
 	}
 	// Set back strandard canoncal input
 	else if (n == 0)
-	{
-		mode = 0;
 		tcsetattr(STDIN_FILENO, TCSADRAIN, base_term);
-	}
 }
 
 // c_lflag
