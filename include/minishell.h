@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/22 23:07:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:58:10 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ int signaln;
 #define		CTRL_BSLASH		28
 #define		BACKSPACE		127
 
+#define		DELETE			51
 #define		ARR_UP			65
 #define		ARR_DOWN		66
 #define		ARR_RIGHT		67
 #define		ARR_LEFT		68
+#define		END				70
+#define		HOME			72
 
 typedef struct dirent t_dir;
 
@@ -72,9 +75,17 @@ typedef	struct		s_main
 	struct termios	*base_term;
 }					t_main;
 
+// READ
 char				**line_read(struct termios *base_term, t_cursor *pos);
-char 				*str_print_and_handle(char *s, char *buf, t_cursor *pos);
+int					check_key(char *s, char *buf, struct termios *base_term,
+								t_cursor *pos);
+char 				*str_print_and_handle(char *s, char *buf, t_cursor pos);
+char				*inword_erase(char *s, unsigned int len);
+
+// PARSE
 void				line_parse(t_main *m, char **env);
+
+//EXECUTE
 void				line_execute(t_main *m, char **env);
 int					search_path(t_main m, char **env);
 void				ft_signal(int num);
@@ -98,10 +109,13 @@ char				**ms_split_exp(char const *s, char c);
 char				**ms_split_var(char *s);
 
 // KEYS
-int					control_c(char *s);
-int					control_d(struct termios *base_term);
-int					backspace(char *s, t_cursor *pos);
 int					arrow_up();
 int					arrow_down();
 int					arrow_right(t_cursor *pos);
 int					arrow_left(char *s, t_cursor *pos);
+int					control_c(char *s);
+int					control_d(struct termios *base_term);
+int					backspace(char *s, t_cursor pos);
+int					delete(char *s, char *buf, t_cursor *pos);
+int					home(char *s, t_cursor *pos);
+int					end(t_cursor *pos);
