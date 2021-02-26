@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 12:27:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/10 12:27:04 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/25 22:34:51 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ static int		count_word(char const *s, char c)
 
 	x = 0;
 	wrd = 0;
-	while (s[x] != '\0')
+	while (s[x])
 	{
 		if (s[x] == c)
 		{
 			if (s[x + 1] == c)
 				wrd++;
-			while (s[x] == c && s[x] != '\0')
+			while (s[x] == c && s[x])
 				x++;
 		}
 		else
 		{
-			while (s[x] != c && s[x] != '\0')
+			while (s[x] != c && s[x])
 				x++;
 			wrd++;
 		}
@@ -47,10 +47,10 @@ static char		*fill_string(char const *s, char c, char *t, int i)
 	x = i;
 	a = i;
 	z = 0;
-	while (s[x] == c && s[x] != '\0')
+	while (s[x] == c && s[x])
 		x++;
 	
-	while (s[x] != c && s[x] != '\0')
+	while (s[x] != c && s[x])
 		x++;
 	if (!(t = malloc((x - i + 1) * sizeof(char))))
 		return (NULL);
@@ -78,7 +78,7 @@ static int		set_index(char const *s, char c, int i, int z)
 		}
 		else
 		{
-			while (s[i] != c && s[x] != '\0' && z != 1)
+			while (s[i] != c && s[x] && z != 1)
 				i++;
 			x++;
 		}

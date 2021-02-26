@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 19:50:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/26 12:38:53 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,20 @@ static void		init_shell(t_main *m)
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, ft_signal);
 	if (!(m->base_term = malloc(sizeof(struct termios))))
-		return ;
+		return ; //error
 	if (!(m->pos = malloc(sizeof(t_cursor))))
-		return ;
+		return ; //error
 	tcgetattr(STDIN_FILENO, m->base_term);
 	m->pos->x = 0;
 	m->pos->y = 0;
+	if (!(m->hist = malloc(1 * sizeof(char*))))
+		return ; //error
+	m->hist[0] = NULL;
 }
 
 int		main(int ac, char **av, char **env)
 {
+	char		*s;
 	t_main		*m;
 
 	ac = 1; av = NULL;
@@ -60,12 +64,10 @@ int		main(int ac, char **av, char **env)
 		set_term(1, m->base_term);
 		prompt();
 		signaln = 0;
-		// printf ("2\n");
-		m->arr = line_read(m->base_term, m->pos);
-		// // ft_print_array(m->arr);
-		// // if (strcmp("echo", m->arr[0]))
-		// // 		m->arr[1] = av[1]
-		// // printf("str = %s", str);
+		s = line_read(m);
+		// ft_print_array(m->hist);
+		m->arr = ft_split(s, ' ');
+		// ft_print_array(m->arr);
 		if ((m->arr)[0])
 			line_execute(m, env);
 		// ms_print_list(m->ehead);

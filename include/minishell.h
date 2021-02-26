@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 18:58:10 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/26 11:51:12 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int signaln;
 
 #define		CURSOR_LEFT		"\033[D"
 #define		CURSOR_RIGHT	"\033[C"
+#define		CLEAR_LINE		"\033[0K"
 
 #define		CTRL_C			3
 #define		CTRL_D			4
@@ -42,7 +43,8 @@ int signaln;
 #define		END				70
 #define		HOME			72
 
-typedef struct dirent t_dir;
+typedef struct dirent	t_dir;
+typedef unsigned int	t_uint;
 
 typedef	struct		s_tree
 {
@@ -59,28 +61,32 @@ typedef	struct		s_env
 
 typedef struct		s_cursor
 {
-	unsigned int	x;
-	unsigned int	y;
+	t_uint	x;
+	t_uint	y;
 }					t_cursor;
 
 typedef	struct		s_main
 {
 	t_tree			*thead;
 	t_env			*ehead;
+	t_cursor		*pos;
+	char			**hist;
 	// commands
 	char			**arr;
 	// path variable
 	char			**path;
-	t_cursor		*pos;
 	struct termios	*base_term;
 }					t_main;
 
 // READ
-char				**line_read(struct termios *base_term, t_cursor *pos);
-int					check_key(char *s, char *buf, struct termios *base_term,
-								t_cursor *pos);
+char				*line_read(t_main *m);
+int					check_key(char **s, char *buf, t_main *m);
 char 				*str_print_and_handle(char *s, char *buf, t_cursor pos);
-char				*inword_erase(char *s, unsigned int len);
+char				*inword_erase(char *s, t_uint len);
+
+// HISTORY
+
+char				**history(char *s, char **a, t_uint i, t_cursor *pos);
 
 // PARSE
 void				line_parse(t_main *m, char **env);
@@ -109,8 +115,8 @@ char				**ms_split_exp(char const *s, char c);
 char				**ms_split_var(char *s);
 
 // KEYS
-int					arrow_up();
-int					arrow_down();
+int					arrow_up(char **s, char **h, t_cursor *pos);
+int					arrow_down(char **s, char **h, t_cursor *pos);
 int					arrow_right(t_cursor *pos);
 int					arrow_left(char *s, t_cursor *pos);
 int					control_c(char *s);

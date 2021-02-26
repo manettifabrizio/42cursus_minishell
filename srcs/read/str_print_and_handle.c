@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:02:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 19:13:42 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/26 13:06:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ static char		*frankenstr(char *s, char *buf, char *s1)
 	return (s2);
 }
 
-char		*inword_erase(char *s, unsigned int len)
+char		*inword_erase(char *s, t_uint len)
 {
 	int		i;
 	char	*tmp;
 
 	i = ft_strlen(s) - len;
-	// printf("len = %d str = %lu\n", len, ft_strlen(s));
-	// if (i < 1)
-	// 	return (NULL);
 	tmp = ft_substr(s, i, len);
 	s[i - 1] = '\0';
 	s = ft_strjoin_nl(s, tmp);
@@ -42,11 +39,10 @@ char		*inword_erase(char *s, unsigned int len)
 		ft_putstr(CURSOR_LEFT);
 	ft_putstr(CURSOR_LEFT);
 	free(tmp);
-	// printf("\ns = %s\n", s);
 	return (s);
 }
 
-static char		*inword_write(char *s, char *buf, unsigned int len)
+static char		*inword_write(char *s, char *buf, t_uint len)
 {
 	char	*tmp;
 
@@ -57,7 +53,6 @@ static char		*inword_write(char *s, char *buf, unsigned int len)
 		ft_putstr(CURSOR_LEFT);
 	s = frankenstr(s, buf, tmp);
 	free(tmp);
-	// printf("\ninwrite = |%s|\n", s);
 	return (s);
 }
 
@@ -80,6 +75,5 @@ char 	*str_print_and_handle(char *s, char *buf, t_cursor pos)
 			s = inword_erase(s, pos.x);
 		else
 			s = inword_write(s, buf, pos.x);
-	// printf("*s = %s\n", s);
 	return (s);
 }

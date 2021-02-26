@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 16:13:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/22 21:52:22 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/25 22:34:51 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		front_check(char const *s1, char const *set)
 	x = 0;
 	y = 0;
 	z = 0;
-	while (s1[x] != '\0')
+	while (s1[x])
 	{
 		y = 0;
 		while (set[y] != s1[x] && set[y] != '\0')

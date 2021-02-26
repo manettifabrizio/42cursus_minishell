@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:07:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:24:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/25 22:34:51 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 	len = ft_strlen(s);
 	if (!(s1 = malloc((len + 1) * sizeof(char))))
 		return (0);
-	while (s[x] != '\0')
+	while (s[x])
 	{
 		s1[x] = f(x, s[x]);
 		x++;

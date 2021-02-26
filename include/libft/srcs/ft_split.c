@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:50:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:24:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/25 22:34:51 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int		count_word(char const *s, char c)
 
 	x = 0;
 	y = 0;
-	while (s[x] != '\0')
+	while (s[x])
 	{
 		if (s[x] == c)
-			while (s[x] == c && s[x] != '\0')
+			while (s[x] == c && s[x])
 				x++;
 		else
 		{
-			while (s[x] != c && s[x] != '\0')
+			while (s[x] != c && s[x])
 				x++;
 			y++;
 		}
@@ -43,9 +43,9 @@ static char		*fill_string(char const *s, char c, char *t, int y)
 	x = y;
 	a = y;
 	z = 0;
-	while (s[x] == c && s[x] != '\0')
+	while (s[x] == c && s[x])
 		x++;
-	while (s[x] != c && s[x] != '\0')
+	while (s[x] != c && s[x])
 		x++;
 	if (!(t = malloc((x - y + 1) * sizeof(char))))
 		return (NULL);
@@ -74,7 +74,7 @@ static int		set_y(char const *s, char c, int y, int z)
 		}
 		else
 		{
-			while (s[y] != c && s[x] != '\0' && z != 1)
+			while (s[y] != c && s[x] && z != 1)
 				y++;
 			x++;
 		}

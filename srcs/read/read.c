@@ -6,37 +6,42 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 19:31:36 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/26 13:05:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**line_read(struct termios *base_term, t_cursor *pos)
+char	*line_read(t_main *m)
 {
-	char	*str;
+	t_uint	i;
+	char	*s;
 	char	buf[2];
 	
+	i = 0;
 	ft_bzero(buf, 2);
-	if (!(str = malloc(1)))
+	if (!(s = malloc(1)))
 		return (NULL);
-	(str)[0] = '\0';
+	(s)[0] = '\0';
 	while (buf[0] != '\n')
 	{
+		m->hist = history(s, m->hist, i++, m->pos);
 		read(STDOUT_FILENO, buf, 1);
-		if (check_key(str, buf, base_term, pos))
+		if (check_key(&s, buf, m))
 		{
 			if (buf[0] == CTRL_C)
 				break;
 		}
-		// without if backspace character is added to str
+		// without if backspace character is added to s
 		else
-			str = str_print_and_handle(str, buf, *pos);
+			s = str_print_and_handle(s, buf, *(m->pos));
 	}
-	pos->x = 0;
-	// printf("s = %s\n", str);
-	// if ((ft_strlen(str) - 1) >= 0)
-	// 	(str)[ft_strlen(str) - 1] = '\0';
-	set_term(0, base_term);
-	return (ft_split(str, ' '));
+	m->pos->x = 0;
+	m->pos->y = 0;
+	m->hist = history(s, m->hist, i, m->pos);
+	// printf("s = %s\n", s);
+	// if ((ft_slen(s) - 1) >= 0)
+	// 	(s)[ft_slen(s) - 1] = '\0';
+	set_term(0, m->base_term);
+	return (s);
 }

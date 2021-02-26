@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   home_end.c                                         :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/23 13:53:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/26 12:36:44 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/02/25 20:33:37 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/02/25 21:07:35 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		home(char *s, t_cursor *pos)
+void	ft_free_array(char **a)
 {
-	int		i;
+	int i;
 
-	i = ft_strlen(s) - pos->x;
-	while (i--)
-		arrow_left(s, pos);
-	return (1);
-}
-
-int		end(t_cursor *pos)
-{
-	int		i;
-
-	i = pos->x;
-	while (i--)
-		arrow_right(pos);
-	return (1);
+	i = -1;
+	while (a[++i])
+		ft_memdel((void**)(&(a[i])));
+	ft_memdel((void**)a);
 }

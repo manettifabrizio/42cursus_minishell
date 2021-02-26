@@ -6,15 +6,13 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/02/23 14:05:13 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/02/25 21:20:21 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minish
 
 FILES		=	minishell.c							\
-				path.c								\
-				signals_term.c						\
 				read/read.c							\
 				read/check_keys.c					\
 				read/str_print_and_handle.c			\
@@ -22,6 +20,9 @@ FILES		=	minishell.c							\
 				keys/control.c						\
 				keys/delete.c						\
 				keys/home_end.c						\
+				history/history.c					\
+				execute/path.c						\
+				execute/signals_term.c				\
 				builtins/builtins.c					\
 				builtins/ft_echo.c					\
 				builtins/ft_export.c				\

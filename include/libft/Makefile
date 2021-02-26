@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/02/22 22:27:18 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/02/25 20:58:13 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ FILES	=	ft_atof.c			\
 			ft_atoi.c			\
 			ft_bzero.c			\
 			ft_calloc.c			\
+			ft_free_array.c		\
 			ft_isalnum.c		\
 			ft_isalpha.c		\
 			ft_isascii.c		\
