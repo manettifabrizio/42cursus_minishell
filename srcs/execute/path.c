@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 11:37:43 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/19 16:19:52 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 20:09:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		search_path(t_main m, char **env)
 	{
 		dirstream = opendir((m.path)[x]);
 		while ((ds = readdir(dirstream)))
+			// Search command with readdir
 			if (ft_strcmp(ds->d_name, (m.arr)[0]) == 0)
 			{
 				if ((pid = fork()) < 0)

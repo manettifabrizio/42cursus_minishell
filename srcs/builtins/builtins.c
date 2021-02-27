@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/17 11:20:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 21:06:51 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ static int		ft_env(t_env *head)
 	return (1);
 }
 
-static int		ft_exit(struct termios *base_term)
+static int		ft_exit(struct termios *base_term, char **h)
 {
 	set_term(0, base_term);
+	make_history(h);
 	exit(0);
 	return (1);
 }
@@ -74,6 +75,6 @@ int				builtins(t_main *m)
 	else if (ft_strcmp((m->arr)[0], "env") == 0)
 		return (ft_env(m->ehead));
 	else if (ft_strcmp((m->arr)[0], "exit") == 0)
-		return (ft_exit(m->base_term));
+		return (ft_exit(m->base_term, m->hist));
 	return (0);
 }

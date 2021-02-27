@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/13 19:57:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/26 14:30:38 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/02/27 20:42:53 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/02/27 22:02:30 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s)
+void	make_history(char **h)
 {
-	int			i;
-	char		*s1;
-	size_t		len;
+	int		i;
+	int		fd;
 
 	i = 0;
-	len = ft_strlen(s);
-	if (!(s1 = malloc((len + 1) * sizeof(char))))
-		return (NULL);
-	while (len--)
+	if ((fd = open(".minish_history", O_WRONLY | O_APPEND | O_CREAT | O_TRUNC, 0640)) < 0)
+		printf("Errno = %s\n", strerror(errno)); //error
+	while (h[i++]);
+	while (i--)
 	{
-		s1[i] = s[i];
-		i++;
+		ft_putstr_fd(h[i], fd);
+		ft_putchar_fd(SEPARATOR, fd);
+		ft_putchar_fd('\n', fd);
+		ft_putchar_fd(SEPARATOR, fd);
 	}
-	s1[i] = '\0';
-	return (s1);
+	close(fd);
 }

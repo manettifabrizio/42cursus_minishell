@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/26 11:51:12 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 21:07:58 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
@@ -21,6 +22,8 @@
 # include <string.h>
 # include <termios.h>
 # include <math.h>
+// # include <curses.h>
+// # include <term.h>
 # include "libft/libft.h"
 
 int signaln;
@@ -29,12 +32,12 @@ int signaln;
 #define		CURSOR_RIGHT	"\033[C"
 #define		CLEAR_LINE		"\033[0K"
 
+#define		SEPARATOR		31
+
 #define		CTRL_C			3
 #define		CTRL_D			4
 #define		ESCAPE			27
 #define		CTRL_BSLASH		28
-#define		BACKSPACE		127
-
 #define		DELETE			51
 #define		ARR_UP			65
 #define		ARR_DOWN		66
@@ -42,6 +45,7 @@ int signaln;
 #define		ARR_LEFT		68
 #define		END				70
 #define		HOME			72
+#define		BACKSPACE		127
 
 typedef struct dirent	t_dir;
 typedef unsigned int	t_uint;
@@ -83,19 +87,22 @@ char				*line_read(t_main *m);
 int					check_key(char **s, char *buf, t_main *m);
 char 				*str_print_and_handle(char *s, char *buf, t_cursor pos);
 char				*inword_erase(char *s, t_uint len);
+int					ms_get_next_line(int fd, char **line);
 
 // HISTORY
-
-char				**history(char *s, char **a, t_uint i, t_cursor *pos);
+char				**init_history();
+char				**history(char *s, char **a, t_uint i, t_uint posy);
+void				make_history(char **h);
 
 // PARSE
-void				line_parse(t_main *m, char **env);
+void				shell_parse(t_main *m, char **env);
 
 //EXECUTE
 void				line_execute(t_main *m, char **env);
 int					search_path(t_main m, char **env);
 void				ft_signal(int num);
 void				set_term(int n, struct termios *base_term);
+int					heredoc(t_main *m, char *keywrd);
 
 // BUILTINS
 int					builtins(t_main *m);
@@ -120,7 +127,7 @@ int					arrow_down(char **s, char **h, t_cursor *pos);
 int					arrow_right(t_cursor *pos);
 int					arrow_left(char *s, t_cursor *pos);
 int					control_c(char *s);
-int					control_d(struct termios *base_term);
+int					control_d(struct termios *base_term, char **h);
 int					backspace(char *s, t_cursor pos);
 int					delete(char *s, char *buf, t_cursor *pos);
 int					home(char *s, t_cursor *pos);

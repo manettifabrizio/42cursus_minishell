@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 18:27:27 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/15 18:48:28 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 20:04:14 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char			**path_parser(t_env *head)
 	return (path);
 }
 
-void			line_parse(t_main *m, char **env)
+void			shell_parse(t_main *m, char **env)
 {
 	// env = ft_sort_array(env);
 	env_parser(m, env);

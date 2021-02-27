@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/26 12:38:53 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 20:41:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,23 @@ void	prompt()
 	ft_putstr("\e[0;32m\e[1mminish $ \e[0m");
 }
 
+void	redirect()
+{}
+
 void	line_execute(t_main *m, char **env)
 {
-	// printf("m3 = %p\n", m);
+	if ((m->arr)[1])
+		if (ft_strcmp((m->arr)[1], "<<") == 0)
+			{
+				heredoc(m, (m->arr)[2]);
+				redirect(); // <
+			}
+	// ^\ in cat stopped working rimane in non-canonic
 	if (!(builtins(m)))
 	{
-		// printf("Error: builtin not found");
 		if (!(search_path(*m, env)))
 			printf("Error: command not found\n"); //ERROR: command not found
 	}
-	// ms_print_list(m->ehead);
 }
 
 static void		init_shell(t_main *m)
@@ -43,9 +50,6 @@ static void		init_shell(t_main *m)
 	tcgetattr(STDIN_FILENO, m->base_term);
 	m->pos->x = 0;
 	m->pos->y = 0;
-	if (!(m->hist = malloc(1 * sizeof(char*))))
-		return ; //error
-	m->hist[0] = NULL;
 }
 
 int		main(int ac, char **av, char **env)
@@ -57,21 +61,25 @@ int		main(int ac, char **av, char **env)
 	if (!(m = malloc(sizeof(t_main))))
 		return (0); //error
 	init_shell(m);
-	line_parse(m, env);
+	shell_parse(m, env);
+	m->hist = init_history();
 	while (1)
 	{
-		// printf("pos = %d\n", m->pos->x);
 		set_term(1, m->base_term);
+		
+		// READ
 		prompt();
-		signaln = 0;
 		s = line_read(m);
-		// ft_print_array(m->hist);
+
+		// LEXE && PARSE
 		m->arr = ft_split(s, ' ');
-		// ft_print_array(m->arr);
+
+		// EXECUTE
 		if ((m->arr)[0])
 			line_execute(m, env);
 		// ms_print_list(m->ehead);
 	}
+	make_history(m->hist);
 	set_term(0, m->base_term);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/26 13:04:34 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 20:38:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static char		**add_history(char *s, char **a)
 	return (tmp);
 }
 
-char			**history(char *s, char **a, t_uint i, t_cursor *pos)
+char			**history(char *s, char **a, t_uint i, t_uint posy)
 {
-	if (pos->y == 0)
+	if (posy == 0)
 	{
 		if (i == 0) //scale array by one
 			a = add_history(s, a);

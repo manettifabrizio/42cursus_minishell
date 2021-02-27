@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 23:13:11 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/27 21:08:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		check_key(char **s, char *buf, t_main *m)
 	if (buf[0] == CTRL_C)
 		return (control_c(*s));
 	if (buf[0] == CTRL_D && (*s)[0] == '\0')
-		return (control_d(m->base_term));
+		return (control_d(m->base_term, m->hist));
 	if (buf[0] == BACKSPACE)
 		return (backspace(*s, *(m->pos)));
 	if (buf[0] == ESCAPE)
