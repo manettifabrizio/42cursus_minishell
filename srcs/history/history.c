@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/27 20:38:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:00:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,46 @@ static char		**first_line(char *s, t_uint size)
 	return (tmp);
 }
 
+size_t		ft_arrlen_c(char **a)
+{
+	size_t	len;
+
+	len = 0;
+	while (a[len])
+		len++;
+	return (len);
+}
+
+static char		**other_lines(char *s, char **a)
+{
+	size_t	len;
+	char	**tmp;
+
+	len = ft_arrlen_c(a);
+	tmp = NULL;
+	if (a[0][0]) // Avoiding "\0" line
+	{
+		tmp = first_line(s, len + 1);
+		copy_array(tmp, a, 1);
+	}
+	else
+	{
+		tmp = first_line(s, len);
+		copy_array(tmp, a, 0);
+	}
+	return (tmp);
+}
+
 static char		**add_history(char *s, char **a)
 {
-	int		len;
+	size_t	len;
 	char 	**tmp;
 	
+	len = ft_arrlen_c(a);
 	if (!(a[0]))
 		tmp = first_line(s, 1);
 	else
-	{
-		len = -1;
-		while (a[++len]);
-		if (a[0][0]) // Avoid that a line of tmp is "\0"
-		{
-			tmp = first_line(s, len + 1);
-			copy_array(tmp, a, 1);
-		}
-		else
-		{
-			tmp = first_line(s, len);
-			copy_array(tmp, a, 0);
-		}
-	}
+		tmp = other_lines(s, a);
 	ft_free_array(a);
 	return (tmp);
 }
@@ -67,11 +85,15 @@ char			**history(char *s, char **a, t_uint i, t_uint posy)
 	{
 		if (i == 0) //scale array by one
 			a = add_history(s, a);
-		else // string is been written
+		else // string is still being written
 		{
+			if (a[1]) // avoid same command repetition
+				if (ft_strcmp(s, a[1]) == 0)
+					s[0] = '\0';
 			free(a[0]);
 			if (!(a[0] = ft_strdup(s)))
-				return (NULL); 
+				return (NULL);
+			free(s); 
 		}
 	}
 	return (a);

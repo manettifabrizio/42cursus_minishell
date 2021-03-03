@@ -6,17 +6,25 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 17:07:08 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 19:13:51 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/02 20:39:17 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_print_array(char	**a)
+void	ft_print_array(char	**a, char *name)
 {
 	int x;
 
 	x = 0;
 	while (a[x] != NULL)
-		printf("%s\n", a[x++]);
+	{
+		ft_putstr(name);
+		ft_putchar('[');
+		ft_putnbr(x);
+		ft_putchar(']');
+		ft_putstr(" = |");
+		ft_putstr(a[x++]);
+		ft_putstr("|\n");
+	}
 }

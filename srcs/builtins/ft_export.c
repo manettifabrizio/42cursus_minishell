@@ -6,26 +6,27 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/19 17:01:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/02 20:00:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		check_name(char **a, t_env *head, char *c)
+static int		check_name(char **cmd, t_env *head, char *c)
 {
 	t_env	*tmp;
 
 	tmp = head;
 	while (tmp)
 	{
-		if (ft_strcmp(a[0], tmp->name) == 0)
+		if (ft_strcmp(cmd[0], tmp->name) == 0)
 		{
-			// printf("%s\n%s\n", tmp->name, tmp->value);
-			if (c && !(a[1]))
+			if (tmp->value)
+				free(tmp->value);
+			if (c && !(cmd[1]))
 				tmp->value = "";
-			else if (a[1])
-				tmp->value = a[1];
+			else if (cmd[1])
+				tmp->value = cmd[1];
 			return (1);
 		}
 		tmp = tmp->next;
@@ -33,27 +34,22 @@ static int		check_name(char **a, t_env *head, char *c)
 	return (0);
 }
 
-static int		check_errors(char **a, char *s)
+static int		check_errors(t_main *m, char *varname, char *s)
 {
 	int		x;
 
 	x = -1;
-	// Perchè è qui? Il controllo lo faccio già a riga 92
-	// if (!(a[0]))
-	// {
-	// 	printf("* minish: export: `%s': not a valid identifier\n", s);
-	// 	return (0);
-	// }
-	while (a[0][++x])
-		if (!(ft_isalpha(a[0][x])))
+	while (varname[++x])
+		if (!(ft_isalpha(varname[x])))
 		{
-			printf("minish: export: `%s': not a valid identifier\n", s);
+			printf("minish: %s: `%s': not a valid identifier\n", ERROR, s);
+			m->exit_status = -1;
 			return (0);
 		}
 	return (1);
 }
 
-static int		ft_export_var(char **a, t_env *head)
+static int		export_var(t_main *m, char **a, t_env *head)
 {
 	int		x;
 	t_env	*tmp;
@@ -62,31 +58,28 @@ static int		ft_export_var(char **a, t_env *head)
 	x = 0;
 	tmp = head;
 	while (a[++x])
-	{
+	{	// cmd non ha bisogno di essere free() perchè l'inidirizzo finisce in ehead
 		cmd = ms_split_exp(a[x], '=');
-		// ft_print_array(cmd);
-		if (check_errors(cmd, a[x]))
+		if (cmd[1])
+			cmd[1] = check_vars(cmd[1], head, m->exit_status);
+		if (check_errors(m, cmd[0], a[x]))
 			if (!(check_name(cmd, head, ft_strchr(a[x], '='))))
 			{
 				tmp = ft_lstnew_e();
 				tmp->name = cmd[0];
-				printf("cmd = %s\n", cmd[0]);
 				if (cmd[1])
 					tmp->value = cmd[1];
 				ft_lstadd_back_e(&head, tmp);
-				//free(cmd);
 			}
 	}
 	return (0);
 }
 
-int		ft_export(char **a, t_env *head)
+int		ft_export(t_main *m, char **a, t_env *head)
 {
 	t_env	*l;
 	t_env	*lhead;
 
-	// printf ("---- head->name = %s\n ---- head->value = %s\n", head->name, head->value);
-	// ms_print_list(head);
 	lhead = ms_list_sort(head);
 	l = lhead;
 	if (!(a[1]))
@@ -98,8 +91,9 @@ int		ft_export(char **a, t_env *head)
 				printf ("declare -x %s\n", l->name);
 			l = l->next;
 		}
-	else
-		if (ft_export_var(a, head))
-			return (1); //error
+	else // a deve arrivare con le variabili già separate e divise nell'array
+		if (export_var(m, a, head))
+			return (1);
+	m->exit_status = (m->exit_status == -1) ? 1 : 0;
 	return (1);
 }

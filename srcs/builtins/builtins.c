@@ -6,75 +6,27 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/27 21:06:51 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/03 22:35:56 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		ft_cd(char **a)
-{
-	if (!(a[1]))
-		chdir("/");
-	else
-	{
-		if (chdir(a[1]) != 0)
-		{
-			printf("%s\n", strerror(errno));
-			return (0);
-		}
-	}
-	return (1);
-}
-
-static int		ft_pwd()
-{
-	char *str;
-	char buf[1024];
-	
-	if (!(str = getcwd(buf, 1024)))
-		return (0); //error
-	printf ("%s\n", str);
-	return (1);
-}
-
-static int		ft_env(t_env *head)
-{
-	t_env	*l;
-
-	l = head;
-	while (l != NULL)
-	{
-		if (l->value)
-			printf("%s=%s\n", l->name, l->value);
-		l = l->next;
-	}
-	return (1);
-}
-
-static int		ft_exit(struct termios *base_term, char **h)
-{
-	set_term(0, base_term);
-	make_history(h);
-	exit(0);
-	return (1);
-}
-
 int				builtins(t_main *m)
 {
 	if (ft_strcmp((m->arr)[0], "echo") == 0)
-		return (ft_echo(m->arr, m->ehead));
+		return (ft_echo(m, m->arr, m->ehead));
 	else if (ft_strcmp((m->arr)[0], "cd") == 0) // absolut path or relative
-		return (ft_cd(m->arr));
+		return (ft_cd(m, (m->arr)[1]));
 	else if (ft_strcmp((m->arr)[0], "pwd") == 0)
-		return (ft_pwd());
+		return (ft_pwd(m, m->ehead));
 	else if (ft_strcmp((m->arr)[0], "export") == 0)
-		return (ft_export(m->arr, m->ehead));
+		return (ft_export(m, m->arr, m->ehead));
 	else if (ft_strcmp((m->arr)[0], "unset") == 0)
-		return (ft_unset(m->arr, m->ehead));
+		return (ft_unset(m, m->arr, m->ehead));
 	else if (ft_strcmp((m->arr)[0], "env") == 0)
-		return (ft_env(m->ehead));
+		return (ft_env(m, m->ehead));
 	else if (ft_strcmp((m->arr)[0], "exit") == 0)
-		return (ft_exit(m->base_term, m->hist));
+		return (ft_exit(m, m->arr));
 	return (0);
 }

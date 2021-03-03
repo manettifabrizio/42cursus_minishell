@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   home_end.c                                         :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/03 20:12:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:31:55 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/02/28 17:28:59 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/02 16:52:44 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		home(char *s, t_cursor *pos)
+int		ft_env(t_main *m, t_env *head)
 {
-	int		i;
+	t_env	*l;
 
-	i = ft_strlen(s) - pos->x;
-	while (i--)
-		arrow_left(s, pos);
-	return (1);
-}
-
-int		end(t_cursor *pos)
-{
-	int		i;
-
-	i = pos->x;
-	while (i--)
-		arrow_right(pos);
+	l = head;
+	m->exit_status = 0;
+	while (l != NULL)
+	{
+		if (l->value)
+			printf("%s=%s\n", l->name, l->value);
+		l = l->next;
+	}
 	return (1);
 }

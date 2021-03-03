@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 19:57:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/26 14:30:38 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/02/28 19:21:22 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s)
 	char		*s1;
 	size_t		len;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	len = ft_strlen(s);
 	if (!(s1 = malloc((len + 1) * sizeof(char))))

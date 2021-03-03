@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/02/27 21:57:53 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/02 19:09:24 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,16 +29,22 @@ FILES		=	minishell.c							\
 				execute/heredoc.c					\
 				builtins/builtins.c					\
 				builtins/ft_echo.c					\
+				builtins/ft_cd.c					\
+				builtins/ft_pwd.c					\
 				builtins/ft_export.c				\
 				builtins/ft_unset.c					\
-				parse/parse.c						\
+				builtins/ft_env.c					\
+				builtins/ft_exit.c					\
+				builtins/vars.c						\
+				parse/env_path_parser.c				\
 				parse/lists/ms_lstnew.c				\
 				parse/lists/ms_lstlast.c			\
 				parse/lists/ms_lstadd_back.c		\
 				parse/lists/ms_list_sort.c			\
 				parse/lists/ms_print_list.c			\
 				parse/split/ms_split_exp.c			\
-				parse/split/ms_split_var.c		
+				parse/split/ms_split_var.c			\
+				errors/error.c
 
 HFILES		=	minishell.h
 

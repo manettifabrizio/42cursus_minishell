@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/27 19:05:22 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/02 12:20:36 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int		heredoc(t_main *m, char *keywrd)
 		while (buf[0] != '\n')
 		{
 			read(STDOUT_FILENO, buf, 1);
-			if (check_key(&s, buf, m))
+			if (check_key(m, &s, buf))
 			{
 				if (buf[0] == CTRL_C)
 					break;
 			}
 			else
-				s = str_print_and_handle(s, buf, *(m->pos));
+				s = str_print_and_handle(m, s, buf, *(m->pos));
 		}
 		if (ft_strcmp(keywrd, s) != 0)
 		{

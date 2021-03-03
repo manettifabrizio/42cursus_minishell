@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/27 20:41:34 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:47:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,31 @@ void	line_execute(t_main *m, char **env)
 				heredoc(m, (m->arr)[2]);
 				redirect(); // <
 			}
-	// ^\ in cat stopped working rimane in non-canonic
 	if (!(builtins(m)))
 	{
-		if (!(search_path(*m, env)))
-			printf("Error: command not found\n"); //ERROR: command not found
+		if (!(search_path(m, env)))
+		{
+			error(1, "command not found");
+			m->exit_status = 127;
+		}
 	}
 }
 
-static void		init_shell(t_main *m)
+static void		init_shell(t_main *m, char **env)
 {
-	signaln = 0;
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, ft_signal);
-	if (!(m->base_term = malloc(sizeof(struct termios))))
-		return ; //error
+	m->ehead = env_parser(m->ehead, env);
 	if (!(m->pos = malloc(sizeof(t_cursor))))
 		return ; //error
-	tcgetattr(STDIN_FILENO, m->base_term);
 	m->pos->x = 0;
 	m->pos->y = 0;
+	m->hist_path = ft_strjoin(get_env(m->ehead, "PWD"), "/.minish_history");
+	m->path = path_parser(m->ehead);
+	if (!(m->base_term = malloc(sizeof(struct termios))))
+		return ; //error
+	m->exit_status = 0;
+	tcgetattr(STDIN_FILENO, m->base_term);
 }
 
 int		main(int ac, char **av, char **env)
@@ -60,26 +65,26 @@ int		main(int ac, char **av, char **env)
 	ac = 1; av = NULL;
 	if (!(m = malloc(sizeof(t_main))))
 		return (0); //error
-	init_shell(m);
-	shell_parse(m, env);
+	init_shell(m, env);
+	// printf("init_shell\n");
 	m->hist = init_history();
 	while (1)
 	{
 		set_term(1, m->base_term);
-		
 		// READ
 		prompt();
+		signaln = 0;
 		s = line_read(m);
-
 		// LEXE && PARSE
 		m->arr = ft_split(s, ' ');
 
 		// EXECUTE
 		if ((m->arr)[0])
 			line_execute(m, env);
+		printf("exit status = %d\n", m->exit_status);
 		// ms_print_list(m->ehead);
 	}
-	make_history(m->hist);
+	make_history(m->hist_path, m->hist);
 	set_term(0, m->base_term);
 	return (0);
 }
