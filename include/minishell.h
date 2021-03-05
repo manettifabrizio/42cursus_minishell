@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 11:25:40 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 12:30:55 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@
 # include <string.h>
 # include <termios.h>
 # include <math.h>
-# include <curses.h>
-# include <term.h>
+// # include <curses.h>
+// # include <term.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
+# include <sys/types.h>
 
 # include "struct.h"
+# include "struct1.h"
 # include "keys.h"
-# include "libft/libft.h"
+
 
 int signaln;
 
@@ -48,11 +50,24 @@ char				**init_history();
 char				**history(char *s, char **a, t_uint i, t_uint posy);
 void				make_history(char *hist_path, char **h);
 
+// LEXER
+int         		build_lexer(char **tab, t_lexer *lexer);
+int         		create_token(char *data, t_token_type type, t_lexer *lexer);
+
 // PARSE
 t_env				*env_parser(t_env *head, char **env);
 char				**path_parser(t_env *head);
 char				*get_env(t_env *head, char *name);
 void				set_env(t_env *head, char *name, char *value);
+
+int         		parse(t_lexer *lexer, t_node **exec_tree);
+t_node      		*build_line(t_list **token);
+t_node      		*build_job(t_list **token);
+t_node      		*build_command(t_list **token);
+t_node      		*build_filename(t_list **token);
+t_node      		*build_builtin(t_list **token);
+t_node      		*build_args(t_list **token);
+int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
 
 //EXECUTE
 void				line_execute(t_main *m, char **env);
@@ -60,6 +75,14 @@ int					search_path(t_main *m, char **env);
 void				ft_signal(int num);
 void				config_term(int n, struct termios *base_term);
 int					heredoc(t_main *m, char *keywrd);
+
+int         		execute_bin(t_node *cmd, t_executor *exec, t_flux *flux);
+void        		handle_redirection(t_node *node_redirect);
+void        		handle_piping(t_flux *flux);
+void        		set_pipe_bool(int stdin_pipe, int stdout_pipe, int *fd , t_flux *flux);
+// char        		*search_path(char *cmd_name, char **directories);
+char        		**get_directories_path(char **env);
+void        		execute_ast_tree(t_node *exec_tree, char **env);
 
 // BUILTINS
 int					builtins(t_main *m);
@@ -79,6 +102,13 @@ void				ft_lstadd_back_e(t_env **alst, t_env *new);
 void				ms_print_list(t_env *head);
 t_env				*ms_list_sort(t_env *head);
 
+// AST TREE
+void        		ast_delete_node(t_node *node);
+void        		ast_set_data(t_node *node, char *data);
+void        		ast_set_type(t_node *node, int type);
+void        		ast_attach_branch(t_node *root, t_node *left, t_node *right);
+void        		execute_ast_tree(t_node *exec, char **env);
+
 // SPLIT
 char				**ms_split_exp(char const *s, char c);
 char				**ms_split_var(char *s);
@@ -86,5 +116,12 @@ char				**ms_split_var(char *s);
 // ERRORS
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
+
+// int         		error(char *msg, int ret);
+int         		error_parsing(char *data);
+
+// UTILS
+void        		free_tab(char **tab);
+t_token     		*t_access(t_list *lst);
 
 #endif
