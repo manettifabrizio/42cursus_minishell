@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 12:26:45 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:58:10 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int     build_lexer(char **tab, t_lexer *lexer)
             else
                 ret = create_token(tab[i] + j, WORD, lexer);
             if (ret == -1)
-                return (error("Missing closinig quote\n", -1));
+                return (error(NO_ERRNO, "Missing closinig quote\n"));
             j += ret;
         }
         i++;

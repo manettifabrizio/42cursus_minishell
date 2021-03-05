@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/05 12:53:48 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/05 14:02:10 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ FILES		=	minishell.c							\
 				read/check_keys.c					\
 				read/str_print_and_handle.c			\
 				read/ms_get_next_line.c				\
-				lexer/lexer.c						\
-				lexer/create_tokens.c				\
+				lexe/lexer.c						\
+				lexe/create_tokens.c				\
 				parse/env_path_parser.c				\
 				parse/lists/ms_lstnew.c				\
 				parse/lists/ms_lstlast.c			\
@@ -27,12 +27,12 @@ FILES		=	minishell.c							\
 				parse/lists/ms_print_list.c			\
 				parse/split/ms_split_exp.c			\
 				parse/split/ms_split_var.c			\
-				parse/build_args.c					\
-				parse/build_builtin.c				\
-				parse/build_command.c				\
-				parse/build_filename.c				\
-				parse/build_job.c					\
-				parse/build_line.c					\
+				parse/build/args.c					\
+				parse/build/builtin.c				\
+				parse/build/command.c				\
+				parse/build/filename.c				\
+				parse/build/job.c					\
+				parse/build/line.c					\
 				parse/parser.c						\
 				keys/arrows.c						\
 				keys/control.c						\
@@ -47,7 +47,6 @@ FILES		=	minishell.c							\
 				execute/heredoc.c					\
 				execute/execute.c					\
 				execute/execute_bin.c				\
-				execute/path.c						\
 				execute/pipe.c						\
 				execute/redirection.c				\
 				builtins/builtins.c					\
@@ -59,7 +58,7 @@ FILES		=	minishell.c							\
 				builtins/ft_env.c					\
 				builtins/ft_exit.c					\
 				builtins/vars.c						\
-				utils/utils.c						\ 
+				utils.c								\
 				ast_tree/ast_tree.c					\
 				errors/error.c
 

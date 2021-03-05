@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 12:30:55 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:39:02 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,17 @@ t_node      		*build_args(t_list **token);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
 
 //EXECUTE
-void				line_execute(t_main *m, char **env);
-int					search_path(t_main *m, char **env);
 void				ft_signal(int num);
 void				config_term(int n, struct termios *base_term);
 int					heredoc(t_main *m, char *keywrd);
 
-int         		execute_bin(t_node *cmd, t_executor *exec, t_flux *flux);
+int					execute_bin(t_main *m, t_node *cmd, t_flux *flux);
 void        		handle_redirection(t_node *node_redirect);
 void        		handle_piping(t_flux *flux);
 void        		set_pipe_bool(int stdin_pipe, int stdout_pipe, int *fd , t_flux *flux);
-// char        		*search_path(char *cmd_name, char **directories);
+char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
-void        		execute_ast_tree(t_node *exec_tree, char **env);
+void     			execute_ast_tree(t_main *m, t_node *exec_tree);
 
 // BUILTINS
 int					builtins(t_main *m);
@@ -107,17 +105,29 @@ void        		ast_delete_node(t_node *node);
 void        		ast_set_data(t_node *node, char *data);
 void        		ast_set_type(t_node *node, int type);
 void        		ast_attach_branch(t_node *root, t_node *left, t_node *right);
-void        		execute_ast_tree(t_node *exec, char **env);
 
 // SPLIT
 char				**ms_split_exp(char const *s, char c);
 char				**ms_split_var(char *s);
 
+// KEYS
+int					arrow_up(char **s, char **h, t_cursor *pos);
+int					arrow_down(char **s, char **h, t_cursor *pos);
+int					arrow_right(t_cursor *pos);
+int					arrow_left(char *s, t_cursor *pos);
+int					control_c(t_main *m, char *s);
+int					control_d(t_main *m);
+int					backspace(char *s, t_cursor pos);
+int					delete(char *s, char *buf, t_cursor *pos);
+int					home(char *s, t_cursor *pos);
+int					end(t_cursor *pos);
+int					word_right(char *s, t_cursor *pos);
+int					word_left(char *s, t_cursor *pos);
+
 // ERRORS
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
 
-// int         		error(char *msg, int ret);
 int         		error_parsing(char *data);
 
 // UTILS

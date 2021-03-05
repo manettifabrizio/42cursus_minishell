@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:28:28 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 12:28:17 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:36:49 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ typedef struct s_node {
     struct s_node   *right;
 }   t_node;
 
-typedef struct s_executor {
-    char **env;
-    char **directories;
-    char *path;
-} t_executor;
+// typedef struct s_executor {
+//     char **env;
+//     char **directories;
+//     char *path;
+// } t_executor;
 
 typedef struct s_flux
 {

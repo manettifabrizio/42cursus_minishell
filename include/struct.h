@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 11:26:02 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:32:33 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 
 typedef unsigned int	t_uint;
 
-typedef	struct		s_tree
-{
-	char			*w1;
-	char			*w2;
-}					t_tree;
+// typedef	struct		s_tree
+// {
+// 	char			*w1;
+// 	char			*w2;
+// }					t_tree;
 
 typedef	struct		s_env
 {
@@ -39,7 +39,7 @@ typedef struct		s_cursor
 
 typedef	struct		s_main
 {
-	t_tree			*thead;
+	char			**env;
 	t_env			*ehead;
 	t_cursor		*pos;
 	char			**hist;
@@ -48,7 +48,7 @@ typedef	struct		s_main
 	// commands
 	char			**arr;
 	// path variable
-	char			**path;
+	char			**pathdirs;
 	//multilines
 	t_uint			multilns;
 	struct termios	*base_term;

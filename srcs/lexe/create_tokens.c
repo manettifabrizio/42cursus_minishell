@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 12:26:45 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 14:34:56 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int         create_token(char *data, t_token_type type, t_lexer *lexer)
     t_token *token;
     int     len;
 
+	lexer->nb_tokens = 0;
     if (!(token = malloc(sizeof(t_token))))
         return (-1);
     token->type = type;
@@ -130,7 +131,10 @@ int         create_token(char *data, t_token_type type, t_lexer *lexer)
     }
     if ( !(token) || !(lst = ft_lstnew(token)))
         return (-1);
-    ft_lstadd_back(&(lexer->tokens), lst);
+	if (!(lexer->tokens))
+		lexer->tokens = lst;
+    else
+		ft_lstadd_back(&(lexer->tokens), lst);
     lexer->nb_tokens++;
     return (len);
 }
