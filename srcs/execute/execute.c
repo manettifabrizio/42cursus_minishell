@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 13:38:13 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:31:46 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 static void        execute_builtin(t_main *m, t_node *builtin, t_flux *flux)
 {
-    execute_bin(m, builtin, flux);
+    m->arr = create_cmd_table(builtin);
+    if ((builtins(m, builtin->data)));
+    else
+        execute_bin(m, builtin, flux);
 }
 
 static void        execute_command(t_main *m, t_node *command, t_flux *flux)

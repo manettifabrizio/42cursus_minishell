@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 14:39:02 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:32:49 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@ void        		set_pipe_bool(int stdin_pipe, int stdout_pipe, int *fd , t_flux *f
 char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
 void     			execute_ast_tree(t_main *m, t_node *exec_tree);
+char                **create_cmd_table(t_node *root);
 
 // BUILTINS
-int					builtins(t_main *m);
+int					builtins(t_main *m, char *cmd_name);
 int					ft_echo(t_main *m, char **a, t_env *head);
 int					ft_cd(t_main *m, char *s);
 int					ft_pwd(t_main *m, t_env *head);
