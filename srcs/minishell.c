@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:47:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		main(int ac, char **av, char **env)
 	m->hist = init_history();
 	while (1)
 	{
-		set_term(1, m->base_term);
+		config_term(1, m->base_term);
 		// READ
 		prompt();
 		signaln = 0;
@@ -85,6 +85,6 @@ int		main(int ac, char **av, char **env)
 		// ms_print_list(m->ehead);
 	}
 	make_history(m->hist_path, m->hist);
-	set_term(0, m->base_term);
+	config_term(0, m->base_term);
 	return (0);
 }

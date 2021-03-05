@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/02 19:09:24 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/04 12:10:42 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ FILES		=	minishell.c							\
 				keys/control.c						\
 				keys/delete.c						\
 				keys/home_end.c						\
+				keys/word_move.c					\
 				history/init_history.c				\
 				history/history.c					\
 				history/make_history.c				\

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:46:49 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ char	*line_read(t_main *m)
 	m->pos->y = 0;
 	// Set a[0] = s
 	m->hist = history(ft_strdup(s), m->hist, 1, m->pos->y);
-	set_term(0, m->base_term);
+	config_term(0, m->base_term);
 	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:30:46 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <string.h>
 # include <termios.h>
 # include <math.h>
-// # include <curses.h>
-// # include <term.h>
+# include <curses.h>
+# include <term.h>
 # include "libft/libft.h"
 
 int signaln;
@@ -115,7 +115,7 @@ void				set_env(t_env *head, char *name, char *value);
 void				line_execute(t_main *m, char **env);
 int					search_path(t_main *m, char **env);
 void				ft_signal(int num);
-void				set_term(int n, struct termios *base_term);
+void				config_term(int n, struct termios *base_term);
 int					heredoc(t_main *m, char *keywrd);
 
 // BUILTINS
@@ -151,6 +151,8 @@ int					backspace(char *s, t_cursor pos);
 int					delete(char *s, char *buf, t_cursor *pos);
 int					home(char *s, t_cursor *pos);
 int					end(t_cursor *pos);
+int					word_right(char *s, t_cursor *pos);
+int					word_left(char *s, t_cursor *pos);
 
 // ERRORS
 int					error(int errtype, char *message);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 12:44:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/20 14:08:01 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_signal(int num)
 	signaln = num;
 }
 
-void	set_term(int n, struct termios *base_term)
+void	config_term(int n, struct termios *base_term)
 {
 	struct termios new;
 	

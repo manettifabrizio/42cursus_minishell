@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control.c                                          :+:      :+:    :+:   */
+/*   ft_arrlen_c.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 14:07:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/04 17:37:52 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/04 17:38:38 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		control_c(t_main *m, char *s)
+size_t		ft_arrlen_c(char **a)
 {
-	ft_putchar('\n');
-	m->exit_status = 1;
-	s[0] = '\0';
-	return (1);
-}
+	size_t	i;
 
-int		control_d(t_main *m)
-{
-	config_term(0, m->base_term);
-	make_history(m->hist_path, m->hist);
-	ft_putstr("exit\n");
-	exit(EXIT_SUCCESS);
-	return (1);
+	i = 0;
+	while (a[i])
+		i++;
+	return (i);
 }

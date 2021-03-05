@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:00:08 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:44:14 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,6 @@ static char		**first_line(char *s, t_uint size)
 			return NULL; //error
 	tmp[1] = NULL;
 	return (tmp);
-}
-
-size_t		ft_arrlen_c(char **a)
-{
-	size_t	len;
-
-	len = 0;
-	while (a[len])
-		len++;
-	return (len);
 }
 
 static char		**other_lines(char *s, char **a)

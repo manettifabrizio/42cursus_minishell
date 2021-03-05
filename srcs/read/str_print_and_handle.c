@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:02:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:30:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:33:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,35 @@ static char		*frankenstr(char *s, char *buf, char *s1)
 	return (s2);
 }
 
-char		*inword_erase(char *s, t_uint len)
+char		*inword_erase(char *s, t_uint posx)
 {
 	int		i;
 	char	*tmp;
 
-	i = ft_strlen(s) - len;
-	tmp = ft_substr(s, i, len);
+	if (ft_strlen(s) == posx)
+		return (s);
+	i = ft_strlen(s) - posx;
+	tmp = ft_substr(s, i, posx);
 	s[i - 1] = '\0';
 	s = ft_strjoin_nl(s, tmp);
 	ft_putstr(CURSOR_LEFT);
 	ft_putstr(tmp);
 	ft_putchar(' ');
-	while (len--)
+	while (posx--)
 		ft_putstr(CURSOR_LEFT);
 	ft_putstr(CURSOR_LEFT);
 	free(tmp);
 	return (s);
 }
 
-static char		*inword_write(char *s, char *buf, t_uint len)
+static char		*inword_write(char *s, char *buf, t_uint posx)
 {
 	char	*tmp;
 
-	tmp = ft_substr(s, ft_strlen(s) - len, len);
+	tmp = ft_substr(s, ft_strlen(s) - posx, posx);
 	ft_putchar(buf[0]);
 	ft_putstr(tmp);
-	while (len--)
+	while (posx--)
 		ft_putstr(CURSOR_LEFT);
 	s = frankenstr(s, buf, tmp);
 	free(tmp);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:15:22 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 20:39:43 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:41:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 int					get_next_line(int fd, char **line);
+size_t				ft_arrlen_c(char **a);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
+size_t				ft_strlen(const char *s);
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 								void (*del)(void *));
 t_list				*ft_lstnew(void *content);
-unsigned long		ft_strlen(const char *s);
 void				*ft_calloc(size_t count, size_t size);
 void				*ft_memalloc(size_t size);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);

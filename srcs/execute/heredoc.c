@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 12:20:36 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		heredoc(t_main *m, char *keywrd)
 	char	*s;
 	char	buf[2];
 	
-	set_term(1, m->base_term);
+	config_term(1, m->base_term);
 	if (!(fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC)))
 		return (0);
 	if (!(s = malloc(1)))
@@ -51,6 +51,6 @@ int		heredoc(t_main *m, char *keywrd)
 	}
 	close(fd);
 	free(s);
-	set_term(0, m->base_term);
+	config_term(0, m->base_term);
 	return (1);
 }
