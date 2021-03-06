@@ -6,13 +6,11 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 20:03:36 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/06 11:20:14 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Non funziona con le "" ma teoricamente l'array dovrebbe arrivare senza
 
 int				ft_echo(t_main *m, char **a, t_env *head)
 {

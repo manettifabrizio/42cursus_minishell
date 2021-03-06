@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 12:09:55 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 12:24:59 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/06 12:48:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,12 @@ static int		how_many(char *s, char c)
 	return (x);
 }
 
-static char		check_multi(char *s)
+t_uint		multilines(t_main *m, char *s, char c)
 {
-	if (how_many(s, '\'') % 2 != 0)
-		return ('\'');
-	if (how_many(s, '\`') % 2 != 0)
-		return ('\`');
-	if (how_many(s, '\"') % 2 != 0)
-		return ('\"');
-	return (0);
-}
+	int		i;
+	char	buf[2];
 
-t_uint		multilines(t_main *m, char *s, char *buf)
-{
-// 	bash-3.2$ echo "asdafasdfsdf
-// 	> bash: unexpected EOF while looking for matching `"'
-// 	bash: syntax error: unexpected end of file
-	check_multi(s);
+	i = 0;
 	while (buf[0] != c)
 	{
 		m->hist = history(s, m->hist, i++, m->pos->y);
@@ -53,7 +42,12 @@ t_uint		multilines(t_main *m, char *s, char *buf)
 		}
 		// without if backspace character is added to s
 		else
-			s = str_print_and_handle(s, buf, *(m->pos));
-		m->multi = multilines(s, buf);
+			s = str_print_and_handle(m, s, buf, *(m->pos));
+		// m->multi = multilines(s, buf);
 	}
 }
+
+//	CTRL-D
+// 	bash-3.2$ echo "asdafasdfsdf
+// 	> bash: unexpected EOF while looking for matching `"'
+// 	bash: syntax error: unexpected end of file
