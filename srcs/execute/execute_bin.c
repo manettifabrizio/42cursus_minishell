@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 19:42:01 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/06 15:34:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,28 @@ int		exit_status(pid_t pid)
 
 int     execute_bin(t_main *m, t_node *cmd, t_flux *flux)
 {
-    char *path;
-    pid_t pid;
+    char	*path;
+    pid_t	pid;
     
-    if ((pid = fork()) < 0)
-        return (-1);
-    if (pid == 0)
-    {   
-        if (cmd->data[0] == '/' || cmd->data[0] == '.')
-            path = cmd->data;
-        else
-        	path = search_path(cmd->data, m->pathdirs);
-        handle_piping(flux);
-        if ((execve(path, m->arr, m->env)) == -1)
-        {
-            write(2, strerror(errno), ft_strlen(strerror(errno)));
-            write(2, "\n", 1);
-        }
-        ft_free_array(m->arr);
-    }
-	else
-		m->exit_status = exit_status(pid);
-    return (1);
+	if (cmd->data[0] == '/' || cmd->data[0] == '.')
+        path = cmd->data;
+    else
+        path = search_path(cmd->data, m->pathdirs);
+	if (path)
+	{
+    	if ((pid = fork()) < 0)
+    	    return (0);
+    	if (pid == 0)
+    	{   
+   			handle_piping(flux);
+        	if ((execve(path, m->arr, m->env)) == -1)
+				return (0);	
+        	ft_free_array(m->arr);
+			return (1);
+    	}
+		else
+			m->exit_status = exit_status(pid);
+		return (1);
+	}
+    return (0);
 }

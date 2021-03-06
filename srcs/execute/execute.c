@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 19:31:46 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:16:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 static void        execute_builtin(t_main *m, t_node *builtin, t_flux *flux)
 {
     m->arr = create_cmd_table(builtin);
-    if ((builtins(m, builtin->data)));
-    else
-        execute_bin(m, builtin, flux);
+    if (!(builtins(m, builtin->data)))
+        if (!(execute_bin(m, builtin, flux)))
+		{
+			error(NO_ERRNO, "command not found");
+			m->exit_status = 127;
+		}
 }
 
 static void        execute_command(t_main *m, t_node *command, t_flux *flux)

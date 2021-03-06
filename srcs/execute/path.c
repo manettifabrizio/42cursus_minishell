@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:12:43 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 13:47:50 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:10:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char    *search_path(char *cmd_name, char **pathdirs)
     while (pathdirs[i])
     {
         if (!(dir_stream = opendir(pathdirs[i])))
-            return (cmd_name);
+            return (NULL);
         while ((dir = readdir(dir_stream)) > 0)
         {
             if (ft_strncmp(dir->d_name, cmd_name, ft_strlen(dir->d_name)) == 0)
@@ -54,5 +54,5 @@ char    *search_path(char *cmd_name, char **pathdirs)
         i++;
         closedir(dir_stream);
     }
-    return (cmd_name);
+    return (NULL);
 }
