@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:30:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 20:31:24 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 16:07:16 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int				ft_cd(t_main *m, char *s)
 	char	buf[1024];
 
 	if (s)
-		path = check_vars(s, m->ehead, m->exit_status);
+		path = check_vars(m, s, m->ehead, m->exit_status);
 	if (!(s) || ft_strcmp(path, "\0") == 0 || ft_strcmp(path, "-") == 0)
 		if (!(path = home_or_back(m, s, path)))
 			return (1);
 	if (chdir(path))
 		return (status_error(m, ERRNO, 1, ""));
 	if (!(path = getcwd(buf, 1024)))
-		return (status_error(m, ERRNO, 1, " error retrieving current \
+		return (status_error(m, ERRNO, 0, " error retrieving current \
 directory: getcwd: cannot access parent directories:"));
 	if (s && ft_strcmp(s, ".") != 0)
 		set_env(m->ehead, "OLDPWD", get_env(m->ehead, "PWD"));

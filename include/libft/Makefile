@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/04 17:41:15 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/07 16:14:34 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ FILES	=	ft_arrlen_c.c		\
 			ft_memdel.c			\
 			ft_memmove.c		\
 			ft_memset.c			\
+			ft_merge.c			\
 			ft_print_array.c	\
 			ft_putchar.c		\
 			ft_putchar_fd.c		\

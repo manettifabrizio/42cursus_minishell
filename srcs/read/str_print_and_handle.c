@@ -6,22 +6,11 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:02:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/04 17:33:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 19:48:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char		*frankenstr(char *s, char *buf, char *s1)
-{
-	char *s2;
-
-	s2 = ft_substr(s, 0, ft_strlen(s) - ft_strlen(s1));
-	s2 = ft_strjoin_nl(s2, buf);
-	s2 = ft_strjoin_nl(s2, s1);
-	free(s);
-	return (s2);
-}
 
 char		*inword_erase(char *s, t_uint posx)
 {

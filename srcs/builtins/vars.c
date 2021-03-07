@@ -6,34 +6,11 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 22:58:10 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 19:45:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char		*array_to_string(char **a)
-{
-	int		x;
-	int		len;
-	char	*s;
-
-	x = -1;
-	len = 0;
-	while (a[++x])
-		len += ft_strlen(a[x]);
-	if (!(s = malloc((len + 1) * sizeof(char))))
-		return (NULL); //error
-	x = -1;
-	while (a[++x])
-		if (x == 0)
-			ft_strcpy(s, a[x]);
-		else
-			ft_strcpy(s + ft_strlen(a[x - 1]), a[x]);
-	s[len] = '\0';
-	// ft_free_array(a);
-	return (s);
-}
 
 static char		*vars_replacer(char *s, t_env *head)
 {
@@ -47,25 +24,50 @@ static char		*vars_replacer(char *s, t_env *head)
 	return (tmp);
 }
 
-char			*check_vars(char *s, t_env *head, int exit_status)
+static char		*home_replacer(char *s, char *home, t_env *head)
+{
+	int		len;
+	char	*tmp;
+	char	*username;
+
+	username = get_env(head, "USER");
+	len = ft_strlen(username);
+	if (ft_strcmp(s, "~") == 0 || ft_strcmp(s + 1, username) == 0)
+		tmp = ft_strdup(home);
+	else
+	{
+		tmp = ft_strjoin(home, "/");
+		if ((ft_strncmp(s + 1, username, len) == 0 && s[len + 1] == '/'))
+			tmp = ft_strjoin_nl(tmp, s + (len + 2));
+		else if (ft_strncmp(s, "~/", 2) == 0)
+			tmp = ft_strjoin_nl(tmp, s + 2);
+		else
+			tmp = ft_strdup(s);
+	}
+	free(s);
+	return (tmp);
+}
+
+char			*check_vars(t_main *m, char *s, t_env *head, int exit_status)
 {
 	int		x;
+	char	*tmp;
 	char 	**a;
-	t_env	*l;
 	
 	x = -1;
 	a = ms_split_var(s);
-	l = head;
 	if (a[0])
 		while (a[++x])
-			if (a[x][0] == '$')
+			if (a[x][0] == '$' || a[x][0] == '~')
 			{
-				if (ft_strcmp(a[x] + 1, "?") == 0)
+				if (ft_strcmp(a[x], "$?") == 0)
 					a[x] = ft_itoa(exit_status);
+				else if (a[x][0] == '~')
+					a[x] = home_replacer(s, m->home, head);
 				else
 					a[x] = vars_replacer(a[x], head);
 			}
-	// if (!(a[0]))
-	// 	return (NULL); commentati perchè non ne vedo la necessità
-	return (array_to_string(a));
+	if (!(tmp = ft_merge(a)))
+		malloc_error(m, s, NO_READING);
+	return (tmp);
 }
