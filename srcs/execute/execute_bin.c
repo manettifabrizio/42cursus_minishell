@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/06 15:34:52 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:12:26 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char        **create_cmd_table(t_node *root)
         nbcmd++;
         node = node->left;
     }
-    args = malloc(sizeof(char *) * (nbcmd + 1));
+    if (!(args = malloc(sizeof(char *) * (nbcmd + 1))))
+		return (NULL);
     node = root;
     nbcmd = 0;
     while (node)
@@ -82,10 +83,10 @@ int     execute_bin(t_main *m, t_node *cmd, t_flux *flux)
     	if ((pid = fork()) < 0)
     	    return (0);
     	if (pid == 0)
-    	{   
+    	{
    			handle_piping(flux);
-        	if ((execve(path, m->arr, m->env)) == -1)
-				return (0);	
+			if ((execve(path, m->arr, m->env)) == -1)
+				return (0);
         	ft_free_array(m->arr);
 			return (1);
     	}

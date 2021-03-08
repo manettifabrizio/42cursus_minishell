@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_merge.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 16:07:16 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/07 16:12:21 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/07 17:32:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int				ft_echo(t_main *m, char **a, t_env *head)
+char	*ft_merge(char **a)
 {
-	int x;
+	int		x;
+	int		len;
+	char	*s;
 
-	x = 0;
-	if (!(a[1]))
-		ft_putchar('\n');
-	else
-	{
-		if (ft_strcmp(a[1], "-n") == 0)
-			x = 1;
-		while (a[++x])
-		{
-			ft_putstr(check_vars(m, a[x], head, m->exit_status));
-			if (a[x + 1])
-				ft_putchar(' ');
-		}
-		if (ft_strcmp(a[1], "-n") != 0)
-			ft_putchar('\n');
-	}
-	m->exit_status = 0;
-	return (1);
+	x = -1;
+	len = 0;
+	while (a[++x])
+		len += ft_strlen(a[x]);
+	if (!(s = malloc((len + 1) * sizeof(char))))
+		return (NULL);
+	x = -1;
+	while (a[++x])
+		if (x == 0)
+			ft_strcpy(s, a[x]);
+		else
+			ft_strcpy(s + ft_strlen(s), a[x]);
+	s[len] = '\0';
+	ft_free_array(a);
+	return (s);
 }

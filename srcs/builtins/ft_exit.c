@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:29:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:43:58 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		the_end(t_main *m, int status)
 	config_term(0, m->base_term);
 	make_history(m->hist_path, m->hist);
 	//free_all();
+	printf("exit status = %d\n", status);
 	exit(status);
 }
 
@@ -29,10 +30,9 @@ int				ft_exit(t_main *m, char **a)
 		status = m->exit_status;
 	else
 	{
-		status = ft_atoi(check_vars(ft_strdup(a[1]), m->ehead,
+		status = ft_atoi(check_vars(m, ft_strdup(a[1]), m->ehead,
 			m->exit_status));
 		i = -1;
-		printf("a[1] = |%s|\n", a[1]);
 		while (a[1][++i])
 			if (ft_isdigit(a[1][i]) == 0 && a[1][i] != '-')
 			{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 19:32:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/07 19:48:28 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # include "struct.h"
 # include "struct1.h"
-# include "keys.h"
+# include "keys_and_errors.h"
 
 
 int signaln;
@@ -92,7 +92,7 @@ int					ft_export(t_main *m, char **a, t_env *head);
 int					ft_unset(t_main *m, char **a, t_env *head);
 int					ft_env(t_main *m, t_env *head);
 int					ft_exit(t_main *m, char **a);
-char				*check_vars(char *s, t_env *head, int exit_status);
+char				*check_vars(t_main *m, char *s, t_env *head, int exit_status);
 
 // LISTS
 t_env				*ft_lstnew_e();
@@ -128,11 +128,11 @@ int					word_left(char *s, t_cursor *pos);
 // ERRORS
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
-
+void				malloc_error(t_main *m, char *s, int errtype);
 int         		error_parsing(char *data);
 
 // UTILS
-void        		free_tab(char **tab);
 t_token     		*t_access(t_list *lst);
+char				*frankenstr(char *s, char *buf, char *s1);
 
 #endif

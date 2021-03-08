@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/04 17:44:14 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:10:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static char		**first_line(char *s, t_uint size)
 	char	**tmp;
 
 	if (!(tmp = malloc((size + 1) * sizeof(char*))))
-			return NULL; //error
+			return (NULL);
 	if (!(tmp[0] = ft_strdup(s)))
-			return NULL; //error
+			return (NULL);
 	tmp[1] = NULL;
 	return (tmp);
 }
@@ -44,12 +44,14 @@ static char		**other_lines(char *s, char **a)
 	tmp = NULL;
 	if (a[0][0]) // Avoiding "\0" line
 	{
-		tmp = first_line(s, len + 1);
+		if (!(tmp = first_line(s, len + 1)))
+			return (NULL);
 		copy_array(tmp, a, 1);
 	}
 	else
 	{
-		tmp = first_line(s, len);
+		if (!(tmp = first_line(s, len + 1)))
+			return (NULL);
 		copy_array(tmp, a, 0);
 	}
 	return (tmp);

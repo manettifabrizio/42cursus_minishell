@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 20:00:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 16:07:16 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int		export_var(t_main *m, char **a, t_env *head)
 	{	// cmd non ha bisogno di essere free() perchè l'inidirizzo finisce in ehead
 		cmd = ms_split_exp(a[x], '=');
 		if (cmd[1])
-			cmd[1] = check_vars(cmd[1], head, m->exit_status);
+			cmd[1] = check_vars(m, cmd[1], head, m->exit_status);
 		if (check_errors(m, cmd[0], a[x]))
 			if (!(check_name(cmd, head, ft_strchr(a[x], '='))))
 			{

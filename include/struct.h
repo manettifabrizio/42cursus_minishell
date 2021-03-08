@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 13:32:33 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:37:39 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct		s_cursor
 typedef	struct		s_main
 {
 	char			**env;
+	char			*home;
 	t_env			*ehead;
 	t_cursor		*pos;
 	char			**hist;

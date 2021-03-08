@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/06 13:16:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:22:35 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void        execute_builtin(t_main *m, t_node *builtin, t_flux *flux)
 {
-    m->arr = create_cmd_table(builtin);
+    if (!(m->arr = create_cmd_table(builtin)))
+		malloc_error(m, NULL, NO_READING);
     if (!(builtins(m, builtin->data)))
         if (!(execute_bin(m, builtin, flux)))
 		{
@@ -67,9 +68,7 @@ static void        execute_job(t_main *m, t_node *job, t_flux *flux)
     if (!job)
         return;
     if (job->type == NODE_PIPE)
-    {
         execute_pipe(m, job, flux);
-    }
     else
         execute_command(m, job, flux);
 }
