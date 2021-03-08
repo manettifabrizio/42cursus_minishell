@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:46:05 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 19:20:37 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:09:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ void		malloc_error(t_main *m, char *s, int errtype)
 	exit(status);
 }
 
-int     error_parsing(char *data)
+int		malloc_error_1(t_main *m)
 {
-    char *error;
+	printf("minish: %s: %s\n", ERROR, strerror(errno));
+	m->exit_status = 1;
+	return (-1);
+}
 
-    error = ft_strjoin("Syntax error near: ", data);
-    write(1, error, ft_strlen(error));
-    write(1, "\n", 1);
-    free(error);
-    return (-1);
+char		*malloc_error_2(t_main *m)
+{
+	printf("minish: %s: %s\n", ERROR, strerror(errno));
+	m->exit_status = 1;
+	return (NULL);
 }

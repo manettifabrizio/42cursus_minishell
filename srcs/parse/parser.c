@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 12:09:08 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:11:02 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int       parse(t_lexer *lexer, t_node **exec_tree)
     tokens = lexer->tokens;
     *exec_tree = build_line(&(tokens));
      if (tokens != NULL)
-        return (error_parsing(t_access_tok(tokens)->data));
+     {
+         printf("minish: Syntax error near: %s\n", t_access_tok(tokens)->data);
+         return (0);
+     }
     // printf("PARSING\n");
     // print_preorder(*exec_tree);
-    return (0);
+    return (1);
 } 
