@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 17:32:20 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:18:13 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,9 @@ int     execute_bin(t_main *m, t_node *cmd)
     char	*path;
     pid_t	pid;
     
-	if (cmd->data[0] == '/' || cmd->data[0] == '.')
-        path = cmd->data;
-    else
-        path = search_path(cmd->data, m->pathdirs);
+    if (!(path = search_path(cmd->data, m->pathdirs))
+        || !( m->arr = create_cmd_table(cmd)))
+        return (-1);
 	if (path)
 	{
     	if ((pid = fork()) < 0)
@@ -87,6 +86,7 @@ int     execute_bin(t_main *m, t_node *cmd)
 			if ((execve(path, m->arr, m->env)) == -1)
 				return (0);
         	ft_free_array(m->arr);
+            free(path);
 			return (1);
     	}
 		else

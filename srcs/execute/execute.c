@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 17:33:25 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:47:27 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,71 @@ static void        execute_command(t_main *m, t_node *command)
 
 static void        execute_pipe(t_main *m, t_node *node_pipe)
 {
-    execute_command(m, node_pipe->left);
-    execute_command(m, node_pipe->right);
+    int     fd[2];
+    int     tmp_in;
+    int     tmp_out;
+    t_node  *job;
+    int     fd_in;
+    int     fd_out;
+
+    tmp_in = dup(0);
+    tmp_out = dup(1);
+    pipe(fd);
+    fd_in = fd[0];
+    fd_out = fd[1];
+    dup2(fd_out, 1);
+    execute_bin(m, node_pipe->left);
+    job = node_pipe->right;
+    while (job->type == NODE_PIPE)
+    {
+        close(fd_out);
+        pipe(fd);
+        fd_out = fd[1];
+        dup2(fd_in, 0);
+        dup2(fd_out, 1);
+        close(fd_in);
+        execute_bin(m, job->left);
+        fd_in = fd[0];
+        job = job->right;
+    }
+    dup2(fd_in, 0);
+    close(fd_out);
+    dup2(tmp_out, 1);
+    execute_command(m, job);
+    dup2(tmp_out, 1);
+    dup2(tmp_in, 0);
+    close(fd_in);
+    return ;
 }
 
 static void        execute_job(t_main *m, t_node *job)
 {
+    int tmp_out;
+
+    tmp_out = dup(0);
     if (!job)
         return;
     if (job->type == NODE_PIPE)
         execute_pipe(m, job);
     else
+    {
         execute_command(m, job);
+        dup2(tmp_out, 1);
+    }
 }
 
 static void        execute_command_line(t_main *m, t_node *cmd_line)
 {
-    int tmp_in;
-    int tmp_out;
-    
     if (!cmd_line)
         return ;
-    tmp_in = dup(0);
-    tmp_out = dup(1);
     if (cmd_line->type == NODE_LINE)
     {
         execute_job(m, cmd_line->left);
-        dup2(tmp_in, 0);
-        dup2(tmp_out, 1);
         execute_command_line(m, cmd_line->right);
     }
     else
     {   
         execute_job(m, cmd_line);
-        dup2(tmp_in, 0);
-        dup2(tmp_out, 1);
     }
 }
 

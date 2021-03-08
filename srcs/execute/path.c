@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:12:43 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 16:25:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:55:56 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char    *search_path(char *cmd_name, char **pathdirs)
     int             i;
     
     i = 0;
+    if (cmd_name[0] == '/' || cmd_name[0] == '.')
+        return (cmd_name);
     while (pathdirs[i])
     {
         if (!(dir_stream = opendir(pathdirs[i])))

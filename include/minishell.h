@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 17:37:26 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:38:55 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
 void				ft_signal(int num);
 void				config_term(int n, struct termios *base_term);
 int					heredoc(t_main *m, char *keywrd);
-
+void                execute_simple_pipe(t_main *m, t_node *node_pipe);
 int					execute_bin(t_main *m, t_node *cmd);
 void        		handle_redirection(t_node *node_redirect);
 char        		*search_path(char *cmd_name, char **directories);
