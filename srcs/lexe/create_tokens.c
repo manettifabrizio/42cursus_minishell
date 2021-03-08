@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 16:55:11 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:29:43 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int         create_token(t_main *m, char *data, t_token_type type, t_lexer *lexe
     else if (type == DQUOTE || type == QUOTE)
     {
         if (!(len = len_quote(data, data[0])))
-            return (error(NO_ERRNO, "minish: missing closing quote\n"));
+            return (-3);
         if (!(token->data = get_data_quote(data, len, data[0])))
             return (malloc_error_1(m));
         token->type = WORD;

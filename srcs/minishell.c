@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 21:00:53 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:32:54 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		main(int ac, char **av, char **env)
 	t_main		*m;
 	t_lexer		*lexer;
     t_node		*exec_tree;
+	int			ret;
 
 	ac = 1; av = NULL;
 	if (!(m = malloc(sizeof(t_main))))
@@ -99,10 +100,16 @@ int		main(int ac, char **av, char **env)
         	malloc_error(m, NULL, NO_READING);
 		lexer->tokens = NULL;
 		lexer->nb_tokens = 0;
-		m->arr = ft_split(s, ' ');
-		if ((build_lexer(m, lexer) == -2))
+		if ((ret = build_lexer(m, s, lexer)))
 		{
-			printf("<< detected\n");
+			if (ret == -3)
+			{
+				// read again
+				printf("Missing quote");
+			}
+				
+			if (ret == -2)
+				printf("<< detected\n");
 		}
 		if (m->arr)
 			free(m->arr);

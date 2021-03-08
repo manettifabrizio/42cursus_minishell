@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 21:01:54 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:32:41 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 # include <sys/types.h>
-# include "libft/libft.h"
 # include "struct.h"
 # include "keys_and_errors.h"
 
@@ -47,7 +46,7 @@ char				**history(char *s, char **a, t_uint i, t_uint posy);
 void				make_history(char *hist_path, char **h);
 
 // LEXER
-int         		build_lexer(t_main *m, t_lexer *lexer);
+int         		build_lexer(t_main *m, char *s, t_lexer *lexer);
 int         		create_token(t_main *m, char *data, t_token_type type, t_lexer *lexer);
 
 // PARSE
