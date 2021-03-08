@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_swap_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 14:36:12 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 14:36:37 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/08 17:54:57 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/08 17:58:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_env		*ft_lstlast_e(t_env *lst)
+void	ft_swap_s(char **s1, char **s2)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	char	*tmp;
+
+	tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
 }

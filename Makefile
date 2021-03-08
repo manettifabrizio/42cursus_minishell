@@ -6,7 +6,7 @@
 #    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/08 20:46:26 by viroques         ###   ########.fr        #
+#    Updated: 2021/03/08 20:58:11 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,9 @@ FILES		=	minishell.c							\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
 				parse/env_path_parser.c				\
-				parse/lists/ms_lstnew.c				\
-				parse/lists/ms_lstlast.c			\
-				parse/lists/ms_lstadd_back.c		\
-				parse/lists/ms_list_sort.c			\
-				parse/lists/ms_print_list.c			\
+				parse/lists/t_access.c				\
+				parse/lists/list_sort.c				\
+				parse/lists/print_list.c			\
 				parse/split/ms_split_exp.c			\
 				parse/split/ms_split_var.c			\
 				parse/build/args.c					\
@@ -57,11 +55,14 @@ FILES		=	minishell.c							\
 				builtins/ft_env.c					\
 				builtins/ft_exit.c					\
 				builtins/vars.c						\
-				utils.c								\
 				ast_tree/ast_tree.c					\
-				errors/error.c
+				errors_and_free/error.c				\
+				errors_and_free/free.c				\
+				utils.c
 
-HFILES		=	minishell.h
+HFILES		=	minishell.h							\
+				struct.h							\
+				keys_and_errors.h					
 
 LIB			=	libft.a
 
@@ -82,7 +83,7 @@ WHITE		=	\033[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADERS)
+$(NAME): $(OBJ) $(HEADERS) $(INCLUDE)
 	@printf "[ $(NAME) ] Compiling...\r"
 	@($(CC) -o $(NAME) $(SOURCE) $(INCLUDE) $(CFLAGS) $(FSANITIZE))
 	@printf "${GREEN}"

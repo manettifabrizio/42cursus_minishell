@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:46:05 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 17:38:14 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:09:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		status_error(t_main *m, int errtype, int status, char *message)
 
 void		malloc_error(t_main *m, char *s, int errtype)
 {
+	int		status;
+
 	if (errtype == READING)
 	{
 		printf("minish: %s: %s\n", ERROR, strerror(errno));
@@ -40,9 +42,9 @@ void		malloc_error(t_main *m, char *s, int errtype)
 	}
 	else if (errtype == NO_READING)
 		printf("minish: %s: %s\n", ERROR, strerror(errno));
-	m->exit_status = 1;
-	// free_all()
-	// ft_exit();
+	status = 1;
+	free_all(m);
+	exit(status);
 }
 
 int		malloc_error_1(t_main *m)

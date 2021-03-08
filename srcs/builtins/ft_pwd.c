@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:31:04 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 15:49:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:11:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_pwd(t_main *m, t_env *head)
+int		ft_pwd(t_main *m, t_list **head)
 {
 	printf("%s\n", (get_env(head, "PWD")));
 	m->exit_status = 0;

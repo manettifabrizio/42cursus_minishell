@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 20:34:28 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:55:53 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int     check(t_token_type tok_type, char** bufferptr, t_list **token)
 {
 	if (*token == NULL)
 		return 0;
-    if (t_access(*token)->type == tok_type)
+    if (t_access_tok(*token)->type == tok_type)
     {
 		if (bufferptr != NULL) {
-			if (!(*bufferptr = ft_strdup(t_access(*token)->data)))
+			if (!(*bufferptr = ft_strdup(t_access_tok(*token)->data)))
                 return (-1);
 		}
 		*token = (*token)->next;
-        return 1;
+        return (1);
     }
     *token = (*token)->next;
-    return 0;
+    return (0);
 }
 
 void        print_preorder(t_node *node)
@@ -46,7 +46,7 @@ int       parse(t_lexer *lexer, t_node **exec_tree)
     *exec_tree = build_line(&(tokens));
      if (tokens != NULL)
      {
-         printf("minish: Syntax error near: %s\n", t_access(tokens)->data);
+         printf("minish: Syntax error near: %s\n", t_access_tok(tokens)->data);
          return (0);
      }
     // printf("PARSING\n");

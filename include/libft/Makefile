@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/07 16:14:34 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/08 17:58:01 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ FILES	=	ft_arrlen_c.c		\
 			ft_substr.c			\
 			ft_swap.c			\
 			ft_swap_f.c			\
+			ft_swap_s.c			\
 			ft_tolower.c		\
 			ft_toupper.c		\
 			get_next_line.c

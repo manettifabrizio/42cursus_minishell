@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   print_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 14:34:34 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 14:34:35 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/01/28 17:12:30 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/08 14:32:09 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstadd_back_e(t_env **alst, t_env *new)
+void	print_list(t_list **head)
 {
-	if (!new)
-		return ;
-	if (*alst == NULL)
-		*alst = new;
-	else
+	t_list	*tmp;
+
+	tmp = *head;
+	while (tmp != NULL)
 	{
-		ft_lstlast_e(*alst)->next = new;
-		new->next = NULL;
+		if (t_access_env(tmp)->value)
+			printf("%s=%s\n", t_access_env(tmp)->name, t_access_env(tmp)->value);
+		else
+			printf("%s\n", t_access_env(tmp)->name);
+		tmp = tmp->next;
 	}
 }

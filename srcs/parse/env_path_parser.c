@@ -6,60 +6,59 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:23:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:02:09 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:21:54 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env		*env_parser(t_env *head, char **env)
+t_list		**env_parser(t_list **head, char **env)
 {
 	int		x;
 	char	**a;
-	t_env	*tmp;
+	t_list	*tmp;
 
 	x = -1;
 	while (env[++x])
 	{
-		tmp = ft_lstnew_e();
-		if (x == 0)
-			head = tmp;
 		a = ft_split(env[x], '=');
-		tmp->name = a[0];
-		tmp->value = a[1];
-		ft_lstadd_back_e(&(head), tmp);
+		tmp = create_env_elem(a);
+		if (x == 0)
+			*head = tmp;
+		else
+			ft_lstadd_back(head, tmp);
 	}
 	return (head);
 }
 
-char		*get_env(t_env *head, char *name)
+char		*get_env(t_list **head, char *name)
 {
-	t_env	*tmp;
+	t_list	*l;
 
-	tmp = head;
-	while (tmp && ft_strcmp(tmp->name, name) != 0)
-		tmp = tmp->next;
-	if (tmp)
-		return (tmp->value);
+	l = *head;
+	while (l && ft_strcmp(t_access_env(l)->name, name) != 0)
+		l = l->next;
+	if (l)
+		return (t_access_env(l)->value);
 	else
 		return (NULL);
 }
 
-void		set_env(t_env *head, char *name, char *value)
+void		set_env(t_list **head, char *name, char *value)
 {
-	t_env	*tmp;
+	t_list	*l;
 
-	tmp = head;
-	while (tmp && ft_strcmp(tmp->name, name) != 0)
-		tmp = tmp->next;
-	if (tmp)
+	l = *head;
+	while (l && ft_strcmp(t_access_env(l)->name, name) != 0)
+		l = l->next;
+	if (l)
 	{
-		free(tmp->value);
-		tmp->value = ft_strdup(value);
+		free(t_access_env(l)->value);
+		t_access_env(l)->value = ft_strdup(value);
 	}
 }
 
-char			**path_parser(t_env *head)
+char			**path_parser(t_list **head)
 {
 	int		x;
 	char	**path;
