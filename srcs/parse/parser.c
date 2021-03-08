@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 12:26:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:09:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int     check(t_token_type tok_type, char** bufferptr, t_list **token)
 {
 	if (*token == NULL)
 		return 0;
-    if (t_access(*token)->type == tok_type)
+    if (t_access_tok(*token)->type == tok_type)
     {
 		if (bufferptr != NULL) {
-			if (!(*bufferptr = ft_strdup(t_access(*token)->data)))
+			if (!(*bufferptr = ft_strdup(t_access_tok(*token)->data)))
                 return (-1);
 		}
 		*token = (*token)->next;
-        return 1;
+        return (1);
     }
     *token = (*token)->next;
-    return 0;
+    return (0);
 }
 
 void        print_preorder(t_node *node)
@@ -45,7 +45,7 @@ int       parse(t_lexer *lexer, t_node **exec_tree)
     tokens = lexer->tokens;
     *exec_tree = build_line(&(tokens));
      if (tokens != NULL)
-        return (error_parsing(t_access(tokens)->data));
+        return (error_parsing(t_access_tok(tokens)->data));
     // printf("PARSING\n");
     // print_preorder(*exec_tree);
     return (0);

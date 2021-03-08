@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 16:07:16 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:11:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				ft_echo(t_main *m, char **a, t_env *head)
+int				ft_echo(t_main *m, char **a, t_list **head)
 {
 	int x;
 
