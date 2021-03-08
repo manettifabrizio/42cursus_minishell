@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 17:37:26 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:09:02 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <signal.h>
 # include <fcntl.h>
 # include <dirent.h>
@@ -30,7 +27,6 @@
 # include <sys/types.h>
 
 # include "struct.h"
-# include "struct1.h"
 # include "keys_and_errors.h"
 
 
@@ -55,10 +51,10 @@ int         		build_lexer(t_main *m, t_lexer *lexer);
 int         		create_token(t_main *m, char *data, t_token_type type, t_lexer *lexer);
 
 // PARSE
-t_env				*env_parser(t_env *head, char **env);
-char				**path_parser(t_env *head);
-char				*get_env(t_env *head, char *name);
-void				set_env(t_env *head, char *name, char *value);
+t_list				**env_parser(t_list **head, char **env);
+char				**path_parser(t_list **head);
+char				*get_env(t_list **head, char *name);
+void				set_env(t_list **head, char *name, char *value);
 
 int         		parse(t_lexer *lexer, t_node **exec_tree);
 t_node      		*build_line(t_list **token);
@@ -83,21 +79,20 @@ char                **create_cmd_table(t_node *root);
 
 // BUILTINS
 int					builtins(t_main *m, char *cmd_name);
-int					ft_echo(t_main *m, char **a, t_env *head);
+int					ft_echo(t_main *m, char **a, t_list **head);
 int					ft_cd(t_main *m, char *s);
-int					ft_pwd(t_main *m, t_env *head);
-int					ft_export(t_main *m, char **a, t_env *head);
-int					ft_unset(t_main *m, char **a, t_env *head);
-int					ft_env(t_main *m, t_env *head);
+int					ft_pwd(t_main *m, t_list **head);
+int					ft_export(t_main *m, char **a, t_list **head);
+int					ft_unset(t_main *m, char **a, t_list **head);
+int					ft_env(t_main *m, t_list **head);
 int					ft_exit(t_main *m, char **a);
-char				*check_vars(t_main *m, char *s, t_env *head, int exit_status);
+char				*check_vars(t_main *m, char *s, t_list **head, int exit_status);
 
 // LISTS
-t_env				*ft_lstnew_e();
-t_env				*ft_lstlast_e(t_env *lst);
-void				ft_lstadd_back_e(t_env **alst, t_env *new);
-void				ms_print_list(t_env *head);
-t_env				*ms_list_sort(t_env *head);
+t_token     		*t_access_tok(t_list *lst);
+t_env	     		*t_access_env(t_list *lst);
+t_list				*list_sort(t_list **head);
+void				print_list(t_list **head);
 
 // AST TREE
 void        		ast_delete_node(t_node *node);
@@ -123,15 +118,17 @@ int					end(t_cursor *pos);
 int					word_right(char *s, t_cursor *pos);
 int					word_left(char *s, t_cursor *pos);
 
-// ERRORS
+// ERRORS and FREE
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
 void				malloc_error(t_main *m, char *s, int errtype);
+int         		error_parsing(char *data);
+void				free_all(t_main *m);
+void				free_lexer(t_list *lst_tokens);
 int		            malloc_error_1(t_main *m);
 char		        *malloc_error_2(t_main *m);
 
 // UTILS
-t_token     		*t_access(t_list *lst);
-char				*frankenstr(char *s, char *buf, char *s1);
+t_list				*create_env_elem(char **a);
 
 #endif

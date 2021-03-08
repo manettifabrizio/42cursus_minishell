@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 12:27:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 22:34:51 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 19:29:36 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int		set_index(char const *s, char c, int i, int z)
 	return (i + 1);
 }
 
-static int		free_all(char **t, int x)
+static int		free_split(char **t, int x)
 {
 	while (x)
 	{
@@ -122,7 +122,7 @@ char			**ms_split_exp(char const *s, char c)
 		else
 			i = set_index(s, c, i, 2);
 		if (!(t[x] = fill_string(s, c, t[x], i)))
-			if (!free_all(t, wrd - 1))
+			if (!(free_split(t, wrd - 1)))
 				return (NULL);
 		x++;
 	}

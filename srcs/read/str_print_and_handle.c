@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:02:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 19:48:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:24:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ char		*inword_erase(char *s, t_uint posx)
 	ft_putstr(CURSOR_LEFT);
 	free(tmp);
 	return (s);
+}
+
+static char		*frankenstr(char *s, char *buf, char *s1)
+{
+	char *s2;
+
+	s2 = ft_substr(s, 0, ft_strlen(s) - ft_strlen(s1));
+	s2 = ft_strjoin_nl(s2, buf);
+	s2 = ft_strjoin_nl(s2, s1);
+	free(s);
+	return (s2);
 }
 
 static char		*inword_write(char *s, char *buf, t_uint posx)

@@ -6,19 +6,21 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 16:07:16 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:19:46 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		check_name(char **cmd, t_env *head, char *c)
+static int		check_varname(char **cmd, t_list **head, char *c)
 {
+	t_list	*l;
 	t_env	*tmp;
 
-	tmp = head;
-	while (tmp)
+	l = *head;
+	while (l)
 	{
+		tmp = t_access_env(l);
 		if (ft_strcmp(cmd[0], tmp->name) == 0)
 		{
 			if (tmp->value)
@@ -29,7 +31,7 @@ static int		check_name(char **cmd, t_env *head, char *c)
 				tmp->value = cmd[1];
 			return (1);
 		}
-		tmp = tmp->next;
+		l = l->next;
 	}
 	return (0);
 }
@@ -49,51 +51,47 @@ static int		check_errors(t_main *m, char *varname, char *s)
 	return (1);
 }
 
-static int		export_var(t_main *m, char **a, t_env *head)
+static int		export_var(t_main *m, char **a, t_list **head)
 {
 	int		x;
-	t_env	*tmp;
 	char	**cmd;
 
 	x = 0;
-	tmp = head;
 	while (a[++x])
 	{	// cmd non ha bisogno di essere free() perchè l'inidirizzo finisce in ehead
 		cmd = ms_split_exp(a[x], '=');
 		if (cmd[1])
 			cmd[1] = check_vars(m, cmd[1], head, m->exit_status);
 		if (check_errors(m, cmd[0], a[x]))
-			if (!(check_name(cmd, head, ft_strchr(a[x], '='))))
-			{
-				tmp = ft_lstnew_e();
-				tmp->name = cmd[0];
-				if (cmd[1])
-					tmp->value = cmd[1];
-				ft_lstadd_back_e(&head, tmp);
-			}
+			if (!(check_varname(cmd, head, ft_strchr(a[x], '='))))
+				ft_lstadd_back(head, create_env_elem(cmd));
 	}
-	return (0);
+	return (1);
 }
 
-int		ft_export(t_main *m, char **a, t_env *head)
+int		ft_export(t_main *m, char **a, t_list **head)
 {
-	t_env	*l;
-	t_env	*lhead;
+	t_list	*l;
+	t_env	*tmp;
+	t_list	*lhead;
 
-	lhead = ms_list_sort(head);
+	if (!(lhead = list_sort(head)))
+		malloc_error(m, NULL, NO_READING);
 	l = lhead;
 	if (!(a[1]))
 		while (l)
 		{
-			if (l->value)
-				printf ("declare -x %s=\"%s\"\n", l->name, l->value);
+			tmp = t_access_env(l);
+			if (tmp->value)
+				printf ("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
 			else
-				printf ("declare -x %s\n", l->name);
+				printf ("declare -x %s\n", tmp->name);
 			l = l->next;
 		}
-	else // a deve arrivare con le variabili già separate e divise nell'array
-		if (export_var(m, a, head))
-			return (1);
+	else
+		if (!(export_var(m, a, head)))
+			malloc_error(m, NULL, NO_READING);
 	m->exit_status = (m->exit_status == -1) ? 1 : 0;
+	// free_list();
 	return (1);
 }

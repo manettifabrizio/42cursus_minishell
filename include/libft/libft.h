@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:15:22 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 16:14:09 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:57:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void				ft_putstr(char *str);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_swap(int *a, int *b);
 void				ft_swap_f(double *a, double *b);
+void				ft_swap_s(char **s1, char **s2);
 
 #endif

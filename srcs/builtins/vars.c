@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 19:45:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 12:11:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		*vars_replacer(char *s, t_env *head)
+static char		*vars_replacer(char *s, t_list **head)
 {
 	char 	*tmp;
 	
@@ -24,7 +24,7 @@ static char		*vars_replacer(char *s, t_env *head)
 	return (tmp);
 }
 
-static char		*home_replacer(char *s, char *home, t_env *head)
+static char		*home_replacer(char *s, char *home, t_list **head)
 {
 	int		len;
 	char	*tmp;
@@ -48,7 +48,7 @@ static char		*home_replacer(char *s, char *home, t_env *head)
 	return (tmp);
 }
 
-char			*check_vars(t_main *m, char *s, t_env *head, int exit_status)
+char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 {
 	int		x;
 	char	*tmp;

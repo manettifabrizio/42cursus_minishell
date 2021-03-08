@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 16:05:19 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:24:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				builtins(t_main *m, char *cmd_name)
 {
 	if (ft_strcmp(cmd_name, "echo") == 0)
 		return (ft_echo(m, m->arr, m->ehead));
-	else if (ft_strcmp(cmd_name, "cd") == 0) // absolut path or relative
+	else if (ft_strcmp(cmd_name, "cd") == 0)
 		return (ft_cd(m, (m->arr)[1]));
 	else if (ft_strcmp(cmd_name, "pwd") == 0)
 		return (ft_pwd(m, m->ehead));

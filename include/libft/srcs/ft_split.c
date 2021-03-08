@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:50:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 22:34:51 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 19:17:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int		set_y(char const *s, char c, int y, int z)
 	return (y++);
 }
 
-static int		free_all(char **t, int x)
+static int		free_split(char **t, int x)
 {
 	while (x)
 	{
@@ -117,7 +117,7 @@ char			**ft_split(char const *s, char c)
 		else
 			y = set_y(s, c, y, 2);
 		if (!(t[x] = fill_string(s, c, t[x], y)))
-			if (!free_all(t, wrd - 1))
+			if (!free_split(t, wrd - 1))
 				return (NULL);
 		x++;
 	}

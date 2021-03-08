@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 17:43:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:11:18 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static int		init_shell(t_main *m, char **env)
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, ft_signal);
 	m->env = env;
-	m->ehead = env_parser(m->ehead, env);
+	m->ehead = malloc(sizeof(t_list));
+	if (!(m->ehead = env_parser(m->ehead, env)))
+		return (0);
 	if (!(m->home = ft_strdup(get_env(m->ehead, "HOME"))))
 		return (0);
 	if (!(m->pos = malloc(sizeof(t_cursor))))
@@ -67,24 +69,6 @@ void	print_lst_tokens(t_lexer *lexer)
         toto = toto->next;
     }
     printf("nb=%d\n", lexer->nb_tokens);
-}
-
-void	free_lexer(t_list *lst_tokens)
-{
-    t_list *lst;
-    t_list *tmp;
-    t_token *tok;
-
-    lst = lst_tokens;
-    while (lst)
-    {
-        tok = lst->content;
-        free(tok->data);
-        free(tok);
-        tmp = lst;
-        lst = lst->next;
-        free(tmp);
-    }
 }
 
 int		main(int ac, char **av, char **env)

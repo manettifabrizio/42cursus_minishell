@@ -6,18 +6,21 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:40:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/02 11:57:10 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 18:03:06 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		delete_elem(t_env *l, t_env *prev)
+static void		delete_elem(t_list *l, t_list *prev)
 {
+	t_env	*tmp;
+
+	tmp = t_access_env(l);
 	prev->next = l->next;
-	free(l->name);
-	if (l->value)
-		free(l->value);
+	free(tmp->name);
+	if (tmp->value)
+		free(tmp->value);
 }
 
 static int		check_errors(t_main *m, char *s)
@@ -27,11 +30,11 @@ static int		check_errors(t_main *m, char *s)
 	return (0);
 }
 
-int		ft_unset(t_main *m, char **a, t_env *head)
+int		ft_unset(t_main *m, char **a, t_list **head)
 {
 	int x;
-	t_env	*l;
-	t_env	*prev;
+	t_list	*l;
+	t_list	*prev;
 
 	x = 0;
 	m->exit_status = 0;
@@ -39,11 +42,11 @@ int		ft_unset(t_main *m, char **a, t_env *head)
 	{
 		if (check_errors(m, a[x]))
 			return (1);
-		prev = head;
-		l = head;
+		l = *head;
+		prev = *head;
 		while (l)
 		{
-			if (ft_strcmp(a[x], l->name) == 0)
+			if (ft_strcmp(a[x], t_access_env(l)->name) == 0)
 				delete_elem(l, prev);
 			prev = l;
 			l = l->next;
