@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/05 12:26:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:35:50 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int       parse(t_lexer *lexer, t_node **exec_tree)
     tokens = lexer->tokens;
     *exec_tree = build_line(&(tokens));
      if (tokens != NULL)
-        return (error_parsing(t_access(tokens)->data));
+     {
+         printf("minish: Syntax error near: %s\n", t_access(tokens)->data);
+         return (0);
+     }
     // printf("PARSING\n");
     // print_preorder(*exec_tree);
-    return (0);
+    return (1);
 } 

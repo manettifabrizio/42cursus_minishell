@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 19:48:28 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:37:26 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char				**history(char *s, char **a, t_uint i, t_uint posy);
 void				make_history(char *hist_path, char **h);
 
 // LEXER
-int         		build_lexer(char **tab, t_lexer *lexer);
-int         		create_token(char *data, t_token_type type, t_lexer *lexer);
+int         		build_lexer(t_main *m, t_lexer *lexer);
+int         		create_token(t_main *m, char *data, t_token_type type, t_lexer *lexer);
 
 // PARSE
 t_env				*env_parser(t_env *head, char **env);
@@ -74,10 +74,8 @@ void				ft_signal(int num);
 void				config_term(int n, struct termios *base_term);
 int					heredoc(t_main *m, char *keywrd);
 
-int					execute_bin(t_main *m, t_node *cmd, t_flux *flux);
+int					execute_bin(t_main *m, t_node *cmd);
 void        		handle_redirection(t_node *node_redirect);
-void        		handle_piping(t_flux *flux);
-void        		set_pipe_bool(int stdin_pipe, int stdout_pipe, int *fd , t_flux *flux);
 char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
 void     			execute_ast_tree(t_main *m, t_node *exec_tree);
@@ -129,7 +127,8 @@ int					word_left(char *s, t_cursor *pos);
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
 void				malloc_error(t_main *m, char *s, int errtype);
-int         		error_parsing(char *data);
+int		            malloc_error_1(t_main *m);
+char		        *malloc_error_2(t_main *m);
 
 // UTILS
 t_token     		*t_access(t_list *lst);

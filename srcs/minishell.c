@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:39:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 17:40:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:43:49 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,24 @@ int		main(int ac, char **av, char **env)
         	malloc_error(m, NULL, NO_READING);
 		lexer->tokens = NULL;
 		lexer->nb_tokens = 0;
-		
 		m->arr = ft_split(s, ' ');
-		if (build_lexer(m->arr, lexer) == -1)
-            free_lexer(lexer->tokens);
-		if (lexer->nb_tokens == 0 || parse(lexer, &exec_tree) == -1)
-			error(NO_ERRNO, "parse error");
-		free_lexer(lexer->tokens);
-		
-		// EXECUTE
-		execute_ast_tree(m, exec_tree);
-        ast_delete_node(exec_tree);
+		if ((build_lexer(m, lexer) == -2))
+		{
+			printf("<< detected\n");
+		}
+		if (m->arr)
+			free(m->arr);
+		if (lexer->nb_tokens > 0)
+		{
+			if (parse(lexer, &exec_tree))
+			{
+				//execute
+				execute_ast_tree(m, exec_tree);
+        		ast_delete_node(exec_tree);
+			}
+		}
+		if (lexer->tokens)
+			free(lexer->tokens);
 		printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);

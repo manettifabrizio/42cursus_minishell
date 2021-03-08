@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/07 17:00:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 16:55:11 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char        *get_data_quote(char *str, int len, char quote)
     return (data);
 }
 
-int         create_token(char *data, t_token_type type, t_lexer *lexer)
+int         create_token(t_main *m, char *data, t_token_type type, t_lexer *lexer)
 {
     t_list  *lst;
     t_token *token;
@@ -110,27 +110,30 @@ int         create_token(char *data, t_token_type type, t_lexer *lexer)
 
 	lexer->nb_tokens = 0;
     if (!(token = malloc(sizeof(t_token))))
-        return (-1);
+        return (malloc_error_1(m));
     token->type = type;
     if (type == WORD)
     {
         len = len_word(data);
-        token->data = get_data_word(data);
+        if (!(token->data = get_data_word(data)))
+            malloc_error_1(m);
     }
     else if (type == DQUOTE || type == QUOTE)
     {
         if (!(len = len_quote(data, data[0])))
-            return (-1);
-        token->data = get_data_quote(data, len, data[0]);
+            return (error(NO_ERRNO, "minish: missing closing quote\n"));
+        if (!(token->data = get_data_quote(data, len, data[0])))
+            return (malloc_error_1(m));
         token->type = WORD;
     }
     else
     {
         len = ft_strlen(data);
-        token->data = ft_strdup(data);
+        if (!(token->data = ft_strdup(data)))
+            return (malloc_error_1(m));
     }
-    if ( !(token) || !(lst = ft_lstnew(token)))
-        return (-1);
+    if (!(lst = ft_lstnew(token)))
+        return (malloc_error_1(m));
 	if (!(lexer->tokens))
 		lexer->tokens = lst;
     else

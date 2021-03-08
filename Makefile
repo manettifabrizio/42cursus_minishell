@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
+#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/05 14:02:10 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/08 17:37:40 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ FILES		=	minishell.c							\
 				execute/heredoc.c					\
 				execute/execute.c					\
 				execute/execute_bin.c				\
-				execute/pipe.c						\
 				execute/redirection.c				\
 				builtins/builtins.c					\
 				builtins/ft_echo.c					\

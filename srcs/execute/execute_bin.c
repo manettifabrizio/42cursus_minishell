@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/07 17:12:26 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:32:20 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		exit_status(pid_t pid)
 	return (1);
 }
 
-int     execute_bin(t_main *m, t_node *cmd, t_flux *flux)
+int     execute_bin(t_main *m, t_node *cmd)
 {
     char	*path;
     pid_t	pid;
@@ -84,7 +84,6 @@ int     execute_bin(t_main *m, t_node *cmd, t_flux *flux)
     	    return (0);
     	if (pid == 0)
     	{
-   			handle_piping(flux);
 			if ((execve(path, m->arr, m->env)) == -1)
 				return (0);
         	ft_free_array(m->arr);

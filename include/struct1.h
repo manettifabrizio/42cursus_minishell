@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct1.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:28:28 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/05 13:36:49 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:40:40 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum e_token_type{
 	GREATER,
     DGREATER,
 	LESSER,
+    DLESSER,
     WORD,
 } t_token_type;
 
@@ -53,22 +54,5 @@ typedef struct s_node {
     struct s_node   *left;
     struct s_node   *right;
 }   t_node;
-
-// typedef struct s_executor {
-//     char **env;
-//     char **directories;
-//     char *path;
-// } t_executor;
-
-typedef struct s_flux
-{
-    int stdin_pipe;
-    int stdout_pipe;
-    int pipe_read;
-    int pipe_write;
-    char *redirect_in;
-    char *redirect_out;
-    char *redirect_din;
-}   t_flux;
 
 #endif
