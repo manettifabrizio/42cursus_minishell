@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 15:03:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:13:21 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum		e_token_type{
 	GREATER,
 	DGREATER,
 	LESSER,
+	DLESSER,
 	WORD,
 }					t_token_type;
 
