@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 20:53:35 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:01:54 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 # include <sys/types.h>
-
+# include "libft/libft.h"
 # include "struct.h"
 # include "keys_and_errors.h"
 

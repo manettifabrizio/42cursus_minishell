@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 20:47:27 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:03:32 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void        execute_pipe(t_main *m, t_node *node_pipe)
     fd_in = fd[0];
     fd_out = fd[1];
     dup2(fd_out, 1);
-    execute_bin(m, node_pipe->left);
+    execute_builtin(m, node_pipe->left);
     job = node_pipe->right;
     while (job->type == NODE_PIPE)
     {
@@ -63,7 +63,7 @@ static void        execute_pipe(t_main *m, t_node *node_pipe)
         dup2(fd_in, 0);
         dup2(fd_out, 1);
         close(fd_in);
-        execute_bin(m, job->left);
+        execute_builtin(m, job->left);
         fd_in = fd[0];
         job = job->right;
     }

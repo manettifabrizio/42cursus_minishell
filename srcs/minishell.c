@@ -6,10 +6,11 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 20:56:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/08 21:00:53 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
 void	prompt(int exit_status)
 {
