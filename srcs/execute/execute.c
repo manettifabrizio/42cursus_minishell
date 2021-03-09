@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 21:04:32 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:46:56 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void        execute_command(t_main *m, t_node *command)
     if (!command)
         return;
     if (command->type == NODE_REDIRECT_IN || command->type == NODE_REDIRECT_OUT
-        || command->type == NODE_REDIRECT_OVER)
+        || command->type == NODE_REDIRECT_OVER || command->type == NODE_REDIRECT_HEREDOC)
     {
         handle_redirection(command);
         execute_builtin(m, command->left);
@@ -79,9 +79,7 @@ static void        execute_pipe(t_main *m, t_node *node_pipe)
 
 static void        execute_job(t_main *m, t_node *job)
 {
-    int tmp_out;
 
-    tmp_out = dup(0);
     if (!job)
         return;
     if (job->type == NODE_PIPE)
@@ -89,22 +87,30 @@ static void        execute_job(t_main *m, t_node *job)
     else
     {
         execute_command(m, job);
-        dup2(tmp_out, 1);
     }
 }
 
 static void        execute_command_line(t_main *m, t_node *cmd_line)
 {
+    int tmp_in;
+    int tmp_out;
+
+    tmp_in = dup(0);
+    tmp_out = dup(1);
     if (!cmd_line)
         return ;
     if (cmd_line->type == NODE_LINE)
     {
         execute_job(m, cmd_line->left);
+        dup2(tmp_in, 0);
+        dup2(tmp_out, 1);
         execute_command_line(m, cmd_line->right);
     }
     else
     {   
         execute_job(m, cmd_line);
+        dup2(tmp_in, 0);
+        dup2(tmp_out, 1);
     }
 }
 

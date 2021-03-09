@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 21:29:43 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:05:21 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int      len_quote(char *str, char quote)
         }
         i++;
     }
-    return (0);
+    return (i);
 }
 
 char        *get_data_word(char *str)
@@ -56,7 +56,7 @@ char        *get_data_word(char *str)
     i = 0;
     j = 0;
     if (!(new = malloc(sizeof(char) * ft_strlen(str) + 1)))
-        return (NULL);
+       return (NULL);
     while (str[i])
     {
         if (ft_strchr("<>;|", str[i]))
@@ -110,30 +110,31 @@ int         create_token(t_main *m, char *data, t_token_type type, t_lexer *lexe
 
 	lexer->nb_tokens = 0;
     if (!(token = malloc(sizeof(t_token))))
-        return (malloc_error_1(m));
+        malloc_error_1(m, lexer);
     token->type = type;
     if (type == WORD)
     {
         len = len_word(data);
         if (!(token->data = get_data_word(data)))
-            malloc_error_1(m);
+            malloc_error_1(m, lexer);
     }
     else if (type == DQUOTE || type == QUOTE)
     {
         if (!(len = len_quote(data, data[0])))
-            return (-3);
+            malloc_error_1(m, lexer);
         if (!(token->data = get_data_quote(data, len, data[0])))
-            return (malloc_error_1(m));
-        token->type = WORD;
+            malloc_error_1(m, lexer);
+        if (!ft_strchr(token->data, data[0]))
+            token->type = WORD;
     }
     else
     {
         len = ft_strlen(data);
         if (!(token->data = ft_strdup(data)))
-            return (malloc_error_1(m));
+            malloc_error_1(m, lexer);
     }
     if (!(lst = ft_lstnew(token)))
-        return (malloc_error_1(m));
+        malloc_error_1(m, lexer);
 	if (!(lexer->tokens))
 		lexer->tokens = lst;
     else

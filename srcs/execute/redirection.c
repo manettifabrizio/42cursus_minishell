@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:17:01 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 20:45:27 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:51:40 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void    handle_redirection(t_node *node_redirect)
             fdout = open(redirect->data, O_RDWR | O_CREAT | O_APPEND);
             dup2(fdout, 1);
             close(fdout);
+        }
+        else if (redirect->type == NODE_REDIRECT_HEREDOC)
+        {
+            fdin = open(".heredoc", O_RDONLY);
+            dup2(fdin, 0);
+            close(fdin);
         }
         redirect = redirect->right;
     }

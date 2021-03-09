@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 20:13:21 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:33:23 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef enum		e_node_type {
 	NODE_REDIRECT_IN,
 	NODE_REDIRECT_OUT,
 	NODE_REDIRECT_OVER,
+	NODE_REDIRECT_HEREDOC,
 	NODE_PIPE,
 	NODE_LINE
 }					t_node_type;
@@ -69,16 +70,6 @@ typedef struct		s_node {
 	struct s_node	*right;
 }					t_node;
 
-typedef struct		s_flux
-{
-	int				stdin_pipe;
-	int				stdout_pipe;
-	int				pipe_read;
-	int				pipe_write;
-	char			*redirect_in;
-	char			*redirect_out;
-	char			*redirect_din;
-}					t_flux;
 
 typedef	struct		s_main
 {

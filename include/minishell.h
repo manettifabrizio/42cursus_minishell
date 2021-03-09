@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 21:32:41 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:58:49 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				**history(char *s, char **a, t_uint i, t_uint posy);
 void				make_history(char *hist_path, char **h);
 
 // LEXER
-int         		build_lexer(t_main *m, char *s, t_lexer *lexer);
+t_lexer         	*build_lexer(t_main *m, char *s);
 int         		create_token(t_main *m, char *data, t_token_type type, t_lexer *lexer);
 
 // PARSE
@@ -121,11 +121,10 @@ int					word_left(char *s, t_cursor *pos);
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
 void				malloc_error(t_main *m, char *s, int errtype);
+void                malloc_error_1(t_main *m, t_lexer *lexer);
 int         		error_parsing(char *data);
 void				free_all(t_main *m);
-void				free_lexer(t_list *lst_tokens);
-int		            malloc_error_1(t_main *m);
-char		        *malloc_error_2(t_main *m);
+void				free_lexer(t_lexer *lexer);
 
 // UTILS
 t_list				*create_env_elem(char **a);

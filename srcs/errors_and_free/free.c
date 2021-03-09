@@ -3,31 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 18:27:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 19:52:12 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:36:02 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_lexer(t_list *lst_tokens)
+void	free_lexer(t_lexer *lexer)
 {
     t_list *lst;
     t_list *tmp;
     t_token *tok;
 
-    lst = lst_tokens;
+    lst = lexer->tokens;
     while (lst)
     {
         tok = lst->content;
-        free(tok->data);
+        if (tok->data)
+            free(tok->data);
         free(tok);
         tmp = lst;
         lst = lst->next;
         free(tmp);
     }
+    if (lexer)
+        free(lexer);
 }
 
 static void		env_del(void *l)

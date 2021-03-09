@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:46:05 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 20:09:47 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:26:09 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,13 @@ void		malloc_error(t_main *m, char *s, int errtype)
 	exit(status);
 }
 
-int		malloc_error_1(t_main *m)
+void		malloc_error_1(t_main *m, t_lexer *lexer)
 {
-	printf("minish: %s: %s\n", ERROR, strerror(errno));
-	m->exit_status = 1;
-	return (-1);
-}
+	int		status;
 
-char		*malloc_error_2(t_main *m)
-{
 	printf("minish: %s: %s\n", ERROR, strerror(errno));
-	m->exit_status = 1;
-	return (NULL);
+	status = 1;
+	free_all(m);
+	free_lexer(lexer);
+	exit(status);
 }

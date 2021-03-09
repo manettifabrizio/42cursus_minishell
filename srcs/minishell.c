@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 21:32:54 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:23:55 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int		main(int ac, char **av, char **env)
 	t_main		*m;
 	t_lexer		*lexer;
     t_node		*exec_tree;
-	int			ret;
 
 	ac = 1; av = NULL;
 	if (!(m = malloc(sizeof(t_main))))
@@ -96,21 +95,8 @@ int		main(int ac, char **av, char **env)
 		s = line_read(m);
 		
 		// LEXE && PARSE
-		if (!(lexer = malloc(sizeof(t_lexer))))
-        	malloc_error(m, NULL, NO_READING);
-		lexer->tokens = NULL;
-		lexer->nb_tokens = 0;
-		if ((ret = build_lexer(m, s, lexer)))
-		{
-			if (ret == -3)
-			{
-				// read again
-				printf("Missing quote");
-			}
-				
-			if (ret == -2)
-				printf("<< detected\n");
-		}
+		lexer = build_lexer(m, s);
+		print_lst_tokens(lexer);
 		if (m->arr)
 			free(m->arr);
 		if (lexer->nb_tokens > 0)
@@ -122,8 +108,7 @@ int		main(int ac, char **av, char **env)
         		ast_delete_node(exec_tree);
 			}
 		}
-		if (lexer->tokens)
-			free(lexer->tokens);
+		free_lexer(lexer);
 		printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);
