@@ -6,7 +6,7 @@
 #    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/08 20:58:11 by viroques         ###   ########.fr        #
+#    Updated: 2021/03/09 16:55:35 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FILES		=	minishell.c							\
 				read/ms_get_next_line.c				\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
+				lexe/split_separator.c 				\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
 				parse/lists/list_sort.c				\

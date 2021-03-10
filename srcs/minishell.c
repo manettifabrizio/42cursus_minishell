@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 14:23:55 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:25:21 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		main(int ac, char **av, char **env)
 		
 		// LEXE && PARSE
 		lexer = build_lexer(m, s);
-		print_lst_tokens(lexer);
+		// print_lst_tokens(lexer);
 		if (m->arr)
 			free(m->arr);
 		if (lexer->nb_tokens > 0)
@@ -109,7 +109,7 @@ int		main(int ac, char **av, char **env)
 			}
 		}
 		free_lexer(lexer);
-		printf("exit status = %d\n", m->exit_status);
+		// printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);
 	config_term(0, m->base_term);
