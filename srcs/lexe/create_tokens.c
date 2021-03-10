@@ -3,142 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/09 18:56:07 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:32:27 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int         len_word(char *str)
+int      create_tok(t_main *m, char *data, t_token_type type, t_lexer *lexer)
 {
-    int i;
+    t_list      *lst;
+    t_token     *token;
 
-    i = 0;
-    while (str[i])
-    {
-        if (ft_strchr("<>;|", str[i]))
-            break;
-        if (str[i] == '\\')
-            i++;
-        i++;
-    }
-    return (i);
-}
-
-static int      len_quote(char *str, char quote)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == quote && i > 0)
-        {
-            if (quote == '\'')
-                return (i + 1);
-            if (quote == '\"' && str[i - 1] != '\\')
-                return (i + 1);
-        }
-        i++;
-    }
-    return (i);
-}
-
-char        *get_data_word(char *str)
-{
-    int i;
-    int j;
-    char *new;
-
-    i = 0;
-    j = 0;
-    if (!(new = malloc(sizeof(char) * ft_strlen(str) + 1)))
-       return (NULL);
-    while (str[i])
-    {
-        if (ft_strchr("<>;|", str[i]))
-            break;
-        if (str[i] == '\\')
-            i++;
-        new[j] = str[i];
-        i++;
-        j++;
-    }
-    new[j] = 0;
-    return (new);
-}
-
-char        *get_data_quote(char *str, int len, char quote)
-{
-    char    *data;
-    int     i;
-    int     j;
-
-    if (!(data = malloc(sizeof(char) * len + 1)))
-        return (NULL);
-    i = 1;
-    j = 0;
-    while (str[i])
-    {
-        if (str[i] == quote)
-        {
-            if (quote == '\'')
-                break;
-            if (quote == '\"' && str[i - 1] != '\\')
-                break;
-        }
-        if (str[i] == '\\' && quote == '\"')
-            if (str[i + 1] == '\\' || str[i + 1] == '\''
-                || str[i + 1] == '\"')
-                i++;
-        data[j] = str[i];
-        j++;
-        i++;
-    }
-    data[j] = 0;
-    return (data);
-}
-
-int         create_token(t_main *m, char *data, t_token_type type, t_lexer *lexer)
-{
-    t_list  *lst;
-    t_token *token;
-    int     len;
-
-	lexer->nb_tokens = 0;
     if (!(token = malloc(sizeof(t_token))))
         malloc_error_1(m, lexer);
     token->type = type;
-    if (type == WORD)
-    {
-        len = len_word(data);
-        if (!(token->data = get_data_word(data)))
-            malloc_error_1(m, lexer);
-    }
-    else if (type == D_QUOTE || type == S_QUOTE)
-    {
-        if (!(len = len_quote(data, data[0])))
-            malloc_error_1(m, lexer);
-        if (!(token->data = get_data_quote(data, len, data[0])))
-            malloc_error_1(m, lexer);
-        if (!ft_strchr(token->data, data[0]))
-            token->type = WORD;
-    }
-    else
-    {
-        len = ft_strlen(data);
-        if (!(token->data = ft_strdup(data)))
-            malloc_error_1(m, lexer);
-    }
+    if (!(token->data = ft_strdup(data)))
+        malloc_error_1(m ,lexer);
     if (!(lst = ft_lstnew(token)))
         malloc_error_1(m, lexer);
-	if (!(lexer->tokens))
-		lexer->tokens = lst;
+    if (!(lexer->tokens))
+        lexer->tokens = lst;
     else
-		ft_lstadd_back(&(lexer->tokens), lst);
+        ft_lstadd_back(&(lexer->tokens), lst);
     lexer->nb_tokens++;
-    return (len);
+    return (1);
+}
+
+t_list        *generate_tok(char *data, t_token_type type)
+{
+    t_list      *lst;
+    t_token     *token;
+
+    token = malloc(sizeof(t_token));
+    token->type = type;
+    token->data = ft_strdup(data);
+    lst = ft_lstnew(token);
+    return (lst);
+}
+
+void        del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok)
+{
+    if ((*cur_tok)->next)
+        (*prev)->next = (*cur_tok)->next;
+    else
+        (*prev)->next = NULL;
+    free(t_access_tok(*cur_tok)->data);
+    ft_lstdelone(*cur_tok, &free);
+    (*cur_tok) = (*prev)->next;
+}
+
+char        *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type)
+{
+    char *data;
+    char *tmp;
+
+    data = malloc(sizeof(char));
+    *data = '\0';
+    tmp = data;
+    while (*cur_tok && t_access_tok(*cur_tok)->type != type)
+    {
+        (*prev)->next = (*cur_tok)->next;
+        tmp = data;
+        data = ft_strjoin(tmp, t_access_tok(*cur_tok)->data);
+        free(tmp);
+        free(t_access_tok(*cur_tok)->data);
+        ft_lstdelone(*cur_tok, &free);
+        *cur_tok = (*prev)->next;
+    }
+    return (data);
+}
+
+void        add_new_word(t_list **prev, t_list **cur_tok, t_token_type type)
+{
+    char    *data;
+    t_list  *new_word;
+    
+    data = get_data_inside_quote(prev, cur_tok, type);
+    new_word = generate_tok(data, WORD);
+    free(data);
+    (*prev)->next = new_word;
+    del_cur_tok_and_link_next(&new_word, cur_tok);
+    *prev = new_word;
 }

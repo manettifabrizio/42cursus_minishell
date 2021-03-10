@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 23:33:15 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:31:28 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ typedef struct		s_cursor
 
 typedef enum		e_token_type{
 	PIPE,
-	S_QUOTE,
-	D_QUOTE,
+	SQUOTE,
+	DQUOTE,
 	SEMICOLON,
 	GREATER,
 	DGREATER,
 	LESSER,
 	DLESSER,
 	WORD,
+	SPACE,
+	NEWLINE
 }					t_token_type;
 
 typedef enum		e_node_type {
