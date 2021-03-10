@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 14:31:28 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 18:47:35 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ typedef struct		s_cursor
 }					t_cursor;
 
 typedef enum		e_token_type{
+	SEMICOLON,
+	NEWLINE,
 	PIPE,
 	SQUOTE,
 	DQUOTE,
-	SEMICOLON,
 	GREATER,
 	DGREATER,
 	LESSER,
 	DLESSER,
 	WORD,
 	SPACE,
-	NEWLINE
 }					t_token_type;
 
 typedef enum		e_node_type {

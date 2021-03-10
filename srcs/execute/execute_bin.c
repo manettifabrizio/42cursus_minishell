@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/08 18:18:13 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 18:09:23 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int     execute_bin(t_main *m, t_node *cmd)
     
     if (!(path = search_path(cmd->data, m->pathdirs))
         || !( m->arr = create_cmd_table(cmd)))
-        return (-1);
+        return (0);
 	if (path)
 	{
     	if ((pid = fork()) < 0)

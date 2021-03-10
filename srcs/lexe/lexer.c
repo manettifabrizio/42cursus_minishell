@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 15:02:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:41:27 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,24 @@ int         handle_quote(t_list **prev, t_list **cur_tok, int type)
     return (0);
 }
 
-int         sorte_lexer(t_main *m, t_lexer *lexer)
+int         sorte_space_and_quote(t_lexer *lexer)
 {
-    t_list *cur_tok;
-    t_list *prev;
+    t_list  *cur_tok;
+    t_list  *prev;
     int     type;
-    (void)m;
-    
+
     cur_tok = lexer->tokens;
+    while (cur_tok && t_access_tok(cur_tok)->type == SPACE)
+    {
+        prev = cur_tok;
+        cur_tok = cur_tok->next;
+        free(t_access_tok(prev)->data);
+        ft_lstdelone(prev, &free);
+    }
+    if (cur_tok)
+        lexer->tokens = cur_tok;
+    else
+        return(-1);
     prev = cur_tok;
     while (cur_tok)
     {
@@ -99,32 +109,44 @@ int         sorte_lexer(t_main *m, t_lexer *lexer)
             del_cur_tok_and_link_next(&prev, &cur_tok);
         else if (type == DQUOTE || type == SQUOTE)
         {
-            if (handle_quote(&prev, &cur_tok, type))
+            if (!(check_closing_quote(cur_tok, type)))
                 return (type);
-        }  
-        else if (type == DLESSER)
+            del_cur_tok_and_link_next(&prev, &cur_tok);
+            add_new_word(&prev, &cur_tok, type);
+        }
+        else
+        {
+            prev = cur_tok;
+            cur_tok = cur_tok->next;
+        }
+    }
+    return (0);
+}
+int         sorte_heredoc_and_pipe(t_main *m, t_lexer *lexer)
+{
+    t_list *cur_tok;
+    t_list *prev;
+    int     type;
+    
+    cur_tok = lexer->tokens;
+    prev = cur_tok;
+    while (cur_tok)
+    {
+        type = t_access_tok(cur_tok)->type;
+        if (type == DLESSER)
         {
             prev = cur_tok;
             cur_tok = cur_tok->next;
             if (!cur_tok)
                 return (0);
-            while (t_access_tok(cur_tok)->type == SPACE)
-                del_cur_tok_and_link_next(&prev, &cur_tok);
             type = t_access_tok(cur_tok)->type;
-            if (type == DQUOTE || type == SQUOTE)
-            {
-                if(handle_quote(&prev, &cur_tok, type))
-                    return (type);
-                if (!heredoc(m, t_access_tok(prev)->data))
-                    return(-1);
-            }
-            else if (type == WORD)
+            if (type == WORD)
             {
                 if (!heredoc(m, t_access_tok(cur_tok)->data))
                     return (-1);
-                prev = cur_tok;
-                cur_tok = cur_tok->next;
             }
+            prev = cur_tok;
+            cur_tok = cur_tok->next;
         }
         else if (type == PIPE)
         {
@@ -137,6 +159,16 @@ int         sorte_lexer(t_main *m, t_lexer *lexer)
             cur_tok = cur_tok->next;
         }
     }
+    return (0);
+}
+int         sorte_lexer(t_main *m, t_lexer *lexer)
+{
+    int type;
+
+    if ((type = sorte_space_and_quote(lexer)))
+        return (type);
+    if ((type = sorte_heredoc_and_pipe(m, lexer)))
+        return(type);
     return (0);
 }
 
