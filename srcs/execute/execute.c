@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 17:55:21 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 21:05:01 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,23 @@ static void        execute_pipe(t_main *m, t_node *node_pipe)
     while (job->type == NODE_PIPE)
     {
         close(fd_out);
+        fd_in = fd[0];
         pipe(fd);
         fd_out = fd[1];
-        dup2(fd_out, STDIN_FILENO);
+        dup2(fd_in, STDIN_FILENO);
         dup2(fd_out, STDOUT_FILENO);
-        close(fd_in);
         execute_builtin(m, job->left);
+        close(fd_in);
         fd_in = fd[0];
         job = job->right;
     }
-    dup2(fd_out, STDIN_FILENO);
+    dup2(fd_in, STDIN_FILENO);
     close(fd_out);
     dup2(tmp_out, STDOUT_FILENO);
     execute_command(m, job);
-    dup2(tmp_out, STDOUT_FILENO);
-    dup2(tmp_out, STDIN_FILENO);
     close(fd_in);
+    dup2(tmp_out, STDOUT_FILENO);
+    dup2(tmp_in, STDIN_FILENO);
     return ;
 }
 
@@ -106,14 +107,14 @@ static void        execute_command_line(t_main *m, t_node *cmd_line)
     if (cmd_line->type == NODE_LINE)
     {
         execute_job(m, cmd_line->left);
-        dup2(tmp_out, STDIN_FILENO);
+        dup2(tmp_in, STDIN_FILENO);
         dup2(tmp_out, STDOUT_FILENO);
         execute_command_line(m, cmd_line->right);
     }
     else
     {   
         execute_job(m, cmd_line);
-        dup2(tmp_out, STDIN_FILENO);
+        dup2(tmp_in, STDIN_FILENO);
         dup2(tmp_out, STDOUT_FILENO);
     }
 }

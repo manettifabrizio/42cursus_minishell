@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 19:41:27 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 20:57:13 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int         sorte_space_and_quote(t_lexer *lexer)
     int     type;
 
     cur_tok = lexer->tokens;
-    while (cur_tok && t_access_tok(cur_tok)->type == SPACE)
+    while (cur_tok && (t_access_tok(cur_tok)->type == SPACE
+            || t_access_tok(cur_tok)->type == NEWLINE))
     {
         prev = cur_tok;
         cur_tok = cur_tok->next;
@@ -105,7 +106,7 @@ int         sorte_space_and_quote(t_lexer *lexer)
     while (cur_tok)
     {
         type = t_access_tok(cur_tok)->type;
-        if (type == SPACE)
+        if (type == SPACE || type == NEWLINE)
             del_cur_tok_and_link_next(&prev, &cur_tok);
         else if (type == DQUOTE || type == SQUOTE)
         {
@@ -145,19 +146,14 @@ int         sorte_heredoc_and_pipe(t_main *m, t_lexer *lexer)
                 if (!heredoc(m, t_access_tok(cur_tok)->data))
                     return (-1);
             }
-            prev = cur_tok;
-            cur_tok = cur_tok->next;
         }
         else if (type == PIPE)
         {
             if (!cur_tok->next)
                 return (PIPE);
         }
-        else
-        {
-            prev = cur_tok;
-            cur_tok = cur_tok->next;
-        }
+        prev = cur_tok;
+        cur_tok = cur_tok->next;
     }
     return (0);
 }
