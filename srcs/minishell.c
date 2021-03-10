@@ -6,16 +6,14 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 14:27:28 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:50:16 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	prompt(int exit_status)
+void prompt(int exit_status)
 {
-	if (signaln == SIGINT || signaln == SIGQUIT)
-		ft_putchar('\n');
 	ft_putstr("\e[0;32m\e[1mminish\e[0m");
 	if (exit_status == 0)
 		ft_putstr("\e[0;32m\e[1m $ \e[0m");
@@ -23,20 +21,11 @@ void	prompt(int exit_status)
 		ft_putstr("\e[0;31m\e[1m $ \e[0m");
 }
 
-// void	line_execute(t_main *m, char **env)
-// {
-// 	if ((m->arr)[1])
-// 		if (ft_strcmp((m->arr)[1], "<<") == 0)
-// 			{
-// 				heredoc(m, (m->arr)[2]);
-// 				redirect(); // <
-// 			}
-// }
-
-static int		init_shell(t_main *m, char **env)
+static int init_shell(t_main *m, char **env)
 {
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, ft_signal);
+	m->arr = NULL;
 	m->env = env;
 	m->ehead = malloc(sizeof(t_list));
 	if (!(m->ehead = env_parser(m->ehead, env)))
@@ -56,29 +45,30 @@ static int		init_shell(t_main *m, char **env)
 	return (1);
 }
 
-void	print_lst_tokens(t_lexer *lexer)
+void print_lst_tokens(t_lexer *lexer)
 {
-    t_list *toto;
+	t_list *toto;
 
-    toto = lexer->tokens;
-    printf("\n LEXER \n");
-    while (toto)
-    {
-        t_token *t = toto->content;
-        printf("%s     ---------- %u\n", t->data, t->type);
-        toto = toto->next;
-    }
-    printf("nb=%d\n", lexer->nb_tokens);
+	toto = lexer->tokens;
+	printf("\n LEXER \n");
+	while (toto)
+	{
+		t_token *t = toto->content;
+		printf("%s     ---------- %u\n", t->data, t->type);
+		toto = toto->next;
+	}
+	printf("nb=%d\n", lexer->nb_tokens);
 }
 
-int		main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	char		*s;
-	t_main		*m;
-	t_lexer		*lexer;
-    t_node		*exec_tree;
+	char *s;
+	t_main *m;
+	t_lexer *lexer;
+	t_node *exec_tree;
 
-	ac = 1; av = NULL;
+	ac = 1;
+	av = NULL;
 	if (!(m = malloc(sizeof(t_main))))
 		malloc_error(m, NULL, NO_READING);
 	if (!(init_shell(m, env)))
@@ -87,30 +77,31 @@ int		main(int ac, char **av, char **env)
 		malloc_error(m, NULL, NO_READING);
 	while (1)
 	{
-		config_term(1, m->base_term);
-		
+		set_term_noncano();
+
 		// READ
 		prompt(m->exit_status);
-		signaln = 0;
 		s = line_read(m);
-		
+
 		// LEXE && PARSE
-		lexer = build_lexer(m, s);
-		if (m->arr)
-			free(m->arr);
-		if (lexer->nb_tokens > 0)
+		if ((lexer = build_lexer(m, s)))
 		{
-			if (parse(lexer, &exec_tree))
+			if (m->arr)
+				ft_free_array(m->arr);
+			if (lexer->nb_tokens > 0)
 			{
-				//execute
-				execute_ast_tree(m, exec_tree);
-        		ast_delete_node(exec_tree);
+				if (parse(lexer, &exec_tree))
+				{
+					//execute
+					execute_ast_tree(m, exec_tree);
+					ast_delete_node(exec_tree);
+				}
 			}
+			free_lexer(lexer);
+			printf("exit status = %d\n", m->exit_status);
 		}
-		free_lexer(lexer);
-		// printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);
-	config_term(0, m->base_term);
+	set_term_cano(m->base_term);
 	return (0);
 }

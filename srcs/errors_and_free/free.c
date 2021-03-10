@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 18:27:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 11:36:02 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 23:00:03 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void			free_all(t_main *m)
 	free(m->pos);
 	ft_free_array(m->hist);
 	free(m->hist_path);
-	ft_free_array(m->arr);
+	if (m->arr)
+		ft_free_array(m->arr);
 	ft_free_array(m->pathdirs);
 	free(m);
 }

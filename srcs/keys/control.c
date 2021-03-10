@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:07:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:10:21 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ int		control_c(t_main *m, char *s)
 	return (1);
 }
 
-int		control_d(t_main *m)
+void	control_d(t_main *m)
 {
-	config_term(0, m->base_term);
+	int	status;
+
+	status = m->exit_status;
+	set_term_cano(m->base_term);
 	make_history(m->hist_path, m->hist);
+	free_all(m);
 	ft_putstr("exit\n");
-	exit(EXIT_SUCCESS);
-	return (1);
+	exit(status);
 }

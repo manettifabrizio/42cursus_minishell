@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 13:25:48 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:32:27 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void        add_new_word(t_list **prev, t_list **cur_tok, t_token_type type)
 {
     char    *data;
     t_list  *new_word;
-
+    
     data = get_data_inside_quote(prev, cur_tok, type);
     new_word = generate_tok(data, WORD);
     free(data);

@@ -6,7 +6,7 @@
 #    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/09 16:55:35 by viroques         ###   ########.fr        #
+#    Updated: 2021/03/10 14:38:57 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ FILES		=	minishell.c							\
 				read/read.c							\
 				read/check_keys.c					\
 				read/str_print_and_handle.c			\
-				read/ms_get_next_line.c				\
+				read/get_next_separator.c			\
+				read/heredoc/heredoc.c				\
+				read/heredoc/check_key_heredoc.c	\
+				read/multilines/multilines.c		\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
 				lexe/split_separator.c 				\
@@ -24,8 +27,8 @@ FILES		=	minishell.c							\
 				parse/lists/t_access.c				\
 				parse/lists/list_sort.c				\
 				parse/lists/print_list.c			\
-				parse/split/ms_split_exp.c			\
-				parse/split/ms_split_var.c			\
+				parse/split/split_exp.c				\
+				parse/split/split_var.c				\
 				parse/build/args.c					\
 				parse/build/builtin.c				\
 				parse/build/command.c				\
@@ -43,7 +46,6 @@ FILES		=	minishell.c							\
 				history/make_history.c				\
 				execute/path.c						\
 				execute/signals_term.c				\
-				execute/heredoc.c					\
 				execute/execute.c					\
 				execute/execute_bin.c				\
 				execute/redirection.c				\
@@ -63,7 +65,7 @@ FILES		=	minishell.c							\
 
 HFILES		=	minishell.h							\
 				struct.h							\
-				keys_and_errors.h					
+				macros.h					
 
 LIB			=	libft.a
 

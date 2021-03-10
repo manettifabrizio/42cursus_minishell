@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 14:24:55 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:51:37 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int    is_an_operator(t_main *m, char c, char *next, t_lexer *lexer, int *i)
         return (create_tok(m, "\n", NEWLINE, lexer));
     if (c == '\\')
     {
-        if (next && (*next == D_QUOTE || *next == S_QUOTE))
+        if (next && (*next == '\"' || *next == '\''))
         {
             *i += 1;
             return (create_tok(m, next, WORD, lexer));
         }
     }
-    if (c == D_QUOTE)
+    if (c == '\"')
         return (create_tok(m, "\"", DQUOTE, lexer));
-    if (c == S_QUOTE)
+    if (c == '\'')
         return (create_tok(m, "\'", SQUOTE, lexer));
     if (c == ' ')
         return (create_tok(m, " ", SPACE, lexer));
@@ -110,17 +110,18 @@ int         sorte_lexer(t_main *m, t_lexer *lexer)
                 return (0);
             while (t_access_tok(cur_tok)->type == SPACE)
                 del_cur_tok_and_link_next(&prev, &cur_tok);
-            
             type = t_access_tok(cur_tok)->type;
-            if (type == DQUOTE || type == S_QUOTE)
+            if (type == DQUOTE || type == SQUOTE)
             {
                 if(handle_quote(&prev, &cur_tok, type))
                     return (type);
-                heredoc(m, t_access_tok(prev)->data);
+                if (!heredoc(m, t_access_tok(prev)->data))
+                    return(-1);
             }
             else if (type == WORD)
             {
-                heredoc(m, t_access_tok(cur_tok)->data);
+                if (!heredoc(m, t_access_tok(cur_tok)->data))
+                    return (-1);
                 prev = cur_tok;
                 cur_tok = cur_tok->next;
             }
@@ -143,7 +144,8 @@ t_lexer     *build_lexer(t_main *m, char *s)
 {
     int     i;
     t_lexer *lexer;
-    
+    int     type;
+
     i = 0;
     if (!(lexer = malloc(sizeof(t_lexer))))
         malloc_error(m, NULL, NO_READING);
@@ -157,6 +159,16 @@ t_lexer     *build_lexer(t_main *m, char *s)
             create_tok(m, m->arr[i], WORD, lexer);
         i++;
     }
-    sorte_lexer(m ,lexer);
+    if ((type = sorte_lexer(m ,lexer)) > 0)
+    {
+        ft_free_array(m->arr);
+		s = multilines(m, s, type);
+		free_lexer(lexer);
+		lexer = NULL;
+		// printf("hists = |%s|\n", s);
+		build_lexer(m, s);
+    }
+    if (type == -1)
+        return (NULL);
     return (lexer);
 }

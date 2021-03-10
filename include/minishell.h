@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 13:15:13 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:30:55 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,32 @@
 # include <sys/errno.h>
 # include <sys/types.h>
 # include "struct.h"
-# include "keys_and_errors.h"
-
-
-int signaln;
+# include "macros.h"
 
 typedef struct dirent	t_dir;
+
+// INIT
+void				set_term_noncano();
+void				set_term_cano(struct termios *base_term);
 
 // READ
 char				*line_read(t_main *m);
 int					check_key(t_main *m, char **s, char *buf);
+int					arrows(t_main *m, char **s, char c);
+int					home_end(char *s, char c, t_cursor *pos);
+int					word_move(char *s, t_cursor *pos);
 char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor pos);
 char				*inword_erase(char *s, t_uint len);
-int					ms_get_next_line(int fd, char **line);
+int					heredoc(t_main *m, char *keywrd);
+int					check_key_heredoc(t_main *m, char **s, char *buf);
+char				*multilines(t_main *m, char *s, t_token_type type);
+
 
 // HISTORY
 char				**init_history();
 char				**history(char *s, char **a, t_uint i, t_uint posy);
 void				make_history(char *hist_path, char **h);
+int					get_next_separator(int fd, char **line);
 
 // LEXER
 t_lexer         	*build_lexer(t_main *m, char *s);
@@ -70,9 +78,7 @@ int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
 
 //EXECUTE
 void				ft_signal(int num);
-void				config_term(int n, struct termios *base_term);
-int					heredoc(t_main *m, char *keywrd);
-void                execute_simple_pipe(t_main *m, t_node *node_pipe);
+void				execute_simple_pipe(t_main *m, t_node *node_pipe);
 int					execute_bin(t_main *m, t_node *cmd);
 void        		handle_redirection(t_node *node_redirect);
 char        		*search_path(char *cmd_name, char **directories);
@@ -104,8 +110,8 @@ void        		ast_set_type(t_node *node, int type);
 void        		ast_attach_branch(t_node *root, t_node *left, t_node *right);
 
 // SPLIT
-char				**ms_split_exp(char const *s, char c);
-char				**ms_split_var(char *s);
+char				**split_exp(char const *s, char c);
+char				**split_var(char *s);
 
 // KEYS
 int					arrow_up(char **s, char **h, t_cursor *pos);
@@ -113,7 +119,7 @@ int					arrow_down(char **s, char **h, t_cursor *pos);
 int					arrow_right(t_cursor *pos);
 int					arrow_left(char *s, t_cursor *pos);
 int					control_c(t_main *m, char *s);
-int					control_d(t_main *m);
+void				control_d(t_main *m);
 int					backspace(char *s, t_cursor pos);
 int					delete(char *s, char *buf, t_cursor *pos);
 int					home(char *s, t_cursor *pos);

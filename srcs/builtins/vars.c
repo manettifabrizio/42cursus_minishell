@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 12:11:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:15:49 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 	char 	**a;
 	
 	x = -1;
-	a = ms_split_var(s);
+	a = split_var(s);
 	if (a[0])
 		while (a[++x])
 			if (a[x][0] == '$' || a[x][0] == '~')
