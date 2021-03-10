@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 14:23:55 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:07:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	prompt(int exit_status)
 {
-	if (signaln == SIGINT || signaln == SIGQUIT)
-		ft_putchar('\n');
 	ft_putstr("\e[0;32m\e[1mminish\e[0m");
 	if (exit_status == 0)
 		ft_putstr("\e[0;32m\e[1m $ \e[0m");
@@ -23,20 +21,11 @@ void	prompt(int exit_status)
 		ft_putstr("\e[0;31m\e[1m $ \e[0m");
 }
 
-// void	line_execute(t_main *m, char **env)
-// {
-// 	if ((m->arr)[1])
-// 		if (ft_strcmp((m->arr)[1], "<<") == 0)
-// 			{
-// 				heredoc(m, (m->arr)[2]);
-// 				redirect(); // <
-// 			}
-// }
-
 static int		init_shell(t_main *m, char **env)
 {
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, ft_signal);
+	m->arr = NULL;
 	m->env = env;
 	m->ehead = malloc(sizeof(t_list));
 	if (!(m->ehead = env_parser(m->ehead, env)))
@@ -87,31 +76,32 @@ int		main(int ac, char **av, char **env)
 		malloc_error(m, NULL, NO_READING);
 	while (1)
 	{
-		config_term(1, m->base_term);
+		set_term_noncano();
 		
 		// READ
 		prompt(m->exit_status);
-		signaln = 0;
 		s = line_read(m);
 		
 		// LEXE && PARSE
-		lexer = build_lexer(m, s);
-		print_lst_tokens(lexer);
-		if (m->arr)
-			free(m->arr);
-		if (lexer->nb_tokens > 0)
+		if ((lexer = build_lexer(m, s)))
 		{
-			if (parse(lexer, &exec_tree))
+			// print_lst_tokens(lexer);
+			if (m->arr)
+				ft_free_array(m->arr);
+			if (lexer->nb_tokens > 0)
 			{
-				//execute
-				execute_ast_tree(m, exec_tree);
-        		ast_delete_node(exec_tree);
+				if (parse(lexer, &exec_tree))
+				{
+					//execute
+					execute_ast_tree(m, exec_tree);
+					ast_delete_node(exec_tree);
+				}
 			}
+			free_lexer(lexer);
 		}
-		free_lexer(lexer);
 		printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);
-	config_term(0, m->base_term);
+	set_term_cano(m->base_term);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_split_var.c                                     :+:      :+:    :+:   */
+/*   split_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 12:29:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 17:26:00 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/10 01:16:29 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/10 01:16:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int		is_not_var(char *s, char **a, int x)
 	return (x);
 }
 
-char		**ms_split_var(char *s)
+char		**split_var(char *s)
 {
 	int		x;
 	int		y;

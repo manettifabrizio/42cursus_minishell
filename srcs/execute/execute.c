@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/09 14:46:56 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:28:10 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void        execute_command(t_main *m, t_node *command)
     {
         handle_redirection(command);
         execute_builtin(m, command->left);
+		if (command->type == NODE_REDIRECT_HEREDOC)
+			remove(".heredoc");
     }
     else
         execute_builtin(m, command);
@@ -47,12 +49,12 @@ static void        execute_pipe(t_main *m, t_node *node_pipe)
     int     fd_in;
     int     fd_out;
 
-    tmp_in = dup(0);
-    tmp_out = dup(1);
+    tmp_in = dup(STDIN_FILENO);
+    tmp_out = dup(STDOUT_FILENO);
     pipe(fd);
     fd_in = fd[0];
     fd_out = fd[1];
-    dup2(fd_out, 1);
+    dup2(fd_out, STDOUT_FILENO);
     execute_builtin(m, node_pipe->left);
     job = node_pipe->right;
     while (job->type == NODE_PIPE)
@@ -60,19 +62,19 @@ static void        execute_pipe(t_main *m, t_node *node_pipe)
         close(fd_out);
         pipe(fd);
         fd_out = fd[1];
-        dup2(fd_in, 0);
-        dup2(fd_out, 1);
+        dup2(fd_out, STDIN_FILENO);
+        dup2(fd_out, STDOUT_FILENO);
         close(fd_in);
         execute_builtin(m, job->left);
         fd_in = fd[0];
         job = job->right;
     }
-    dup2(fd_in, 0);
+    dup2(fd_out, STDIN_FILENO);
     close(fd_out);
-    dup2(tmp_out, 1);
+    dup2(tmp_out, STDOUT_FILENO);
     execute_command(m, job);
-    dup2(tmp_out, 1);
-    dup2(tmp_in, 0);
+    dup2(tmp_out, STDOUT_FILENO);
+    dup2(tmp_out, STDIN_FILENO);
     close(fd_in);
     return ;
 }
@@ -95,22 +97,22 @@ static void        execute_command_line(t_main *m, t_node *cmd_line)
     int tmp_in;
     int tmp_out;
 
-    tmp_in = dup(0);
-    tmp_out = dup(1);
+    tmp_in = dup(STDIN_FILENO);
+    tmp_out = dup(STDOUT_FILENO);
     if (!cmd_line)
         return ;
     if (cmd_line->type == NODE_LINE)
     {
         execute_job(m, cmd_line->left);
-        dup2(tmp_in, 0);
-        dup2(tmp_out, 1);
+        dup2(tmp_out, STDIN_FILENO);
+        dup2(tmp_out, STDOUT_FILENO);
         execute_command_line(m, cmd_line->right);
     }
     else
     {   
         execute_job(m, cmd_line);
-        dup2(tmp_in, 0);
-        dup2(tmp_out, 1);
+        dup2(tmp_out, STDIN_FILENO);
+        dup2(tmp_out, STDOUT_FILENO);
     }
 }
 

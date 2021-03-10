@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_get_next_line.c                                 :+:      :+:    :+:   */
+/*   get_next_separator.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/18 17:41:53 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 17:01:13 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/10 01:20:24 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/10 01:20:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int		fucking_space(char **line, char **tmp, int bd)
 	return (1);
 }
 
-int				ms_get_next_line(int fd, char **line)
+int				get_next_separator(int fd, char **line)
 {
 	int				bd;
 	char			*buf;
@@ -94,7 +94,7 @@ int				ms_get_next_line(int fd, char **line)
 		tmp = ft_strjoin(tmp2, buf);
 		free(tmp2);
 		if (ft_strchr(buf, 31))
-			break ;
+			break;
 	}
 	if (bd < 0)
 		return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/09 15:06:01 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:41:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ t_list      *check_lexer(t_lexer *lexer)
                 return (NULL);
             }
             if (t_access_tok(lst->next)->type == WORD
-            || t_access_tok(lst->next)->type == QUOTE
-            || t_access_tok(lst->next)->type == DQUOTE)
+            || t_access_tok(lst->next)->type == S_QUOTE
+            || t_access_tok(lst->next)->type == D_QUOTE)
                 return (lst);
         }
         if (t_access_tok(lst)->type == PIPE)
@@ -60,6 +60,34 @@ t_list      *check_lexer(t_lexer *lexer)
         lst = lst->next;
     }
     return (lst);
+}
+
+static int		here_or_multi(t_main *m, t_lexer *lexer, char *s)
+{
+	t_list	*l;
+	t_token	*tmp;
+
+	if ((l = check_lexer(lexer)))
+	{
+		tmp = t_access_tok(l);
+		if (tmp->type == DLESSER)
+		{
+			if (!(heredoc(m, t_access_tok(l->next)->data)))
+				return (0);
+		}
+		else if (tmp->type == PIPE || tmp->type == D_QUOTE || 
+			tmp->type == S_QUOTE)
+		{
+			// printf("data=%s type= %i\n", tmp->data, tmp->type);
+			ft_free_array(m->arr);
+			s = multilines(m, s, tmp->type);
+			free_lexer(lexer);
+			lexer = NULL;
+			printf("hists = |%s|\n", s);
+			build_lexer(m, s);
+		}
+	}
+	return (1);
 }
 
 t_lexer     *build_lexer(t_main *m, char *s)
@@ -75,7 +103,12 @@ t_lexer     *build_lexer(t_main *m, char *s)
         malloc_error(m, NULL, NO_READING);
     lexer->tokens = NULL;
     lexer->nb_tokens = 0;
-    m->arr = ft_split(s, ' ');
+	if (!(ft_strchr(s, '\"')) && !(ft_strchr(s, '\'')))
+    	m->arr = ft_split(s, ' ');
+	else
+		return (NULL);
+	// 	lexe_multi();
+	// printf("**************************\n");
     while (m->arr[i])
     {
         j = 0;
@@ -83,9 +116,9 @@ t_lexer     *build_lexer(t_main *m, char *s)
         {
             if ((ret = is_an_operator(m, m->arr[i][j], m->arr[i] + j + 1, lexer)));
             else if (m->arr[i][j] == '\"')
-                ret = create_token(m, m->arr[i] + j, DQUOTE, lexer);
+                ret = create_token(m, m->arr[i] + j, D_QUOTE, lexer);
             else if (m->arr[i][j] == '\'')
-                ret = create_token(m, m->arr[i] + j, QUOTE, lexer);
+                ret = create_token(m, m->arr[i] + j, S_QUOTE, lexer);
             else
                 ret = create_token(m, m->arr[i] + j, WORD, lexer);
             if (ret < 0)
@@ -94,29 +127,7 @@ t_lexer     *build_lexer(t_main *m, char *s)
         }
         i++;
     }
-    t_list *toto;
-    if ((toto = check_lexer(lexer)) != NULL)
-    {
-        if (t_access_tok(toto)->type == DLESSER)
-            heredoc(m, t_access_tok(toto->next)->data);
-        else if (t_access_tok(toto)->type == PIPE)
-        {
-            printf("data=%s type= %i\n", t_access_tok(toto)->data, t_access_tok(toto)->type);
-            // ft_free_array(m->arr);
-            // free_lexer(lexer);
-            // lexer = NULL;
-            // call multiligne
-            // call build lexer again with new line from multiligne
-        }
-        else if (t_access_tok(toto)->type == DQUOTE || t_access_tok(toto)->type == S_QUOTE)
-        {
-            printf("data=%s type= %i\n", t_access_tok(toto)->data, t_access_tok(toto)->type);
-            // ft_free_array(m->arr);
-            // free_lexer(lexer);
-            // lexer = NULL;
-            // call multiligne , dont stop until found a closing quote
-            // call build lexer again with new line from multiligne
-        }
-    }
+	if (!(here_or_multi(m, lexer, s)))
+		return (NULL);
     return (lexer);
 }

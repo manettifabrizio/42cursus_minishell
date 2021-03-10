@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:05:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 16:37:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:20:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char		**read_history(int fd, char **h)
 	char	*s;
 	// PROBLEMA CON "echo "$?" (non lo registra al ./ successivo)
 	s = NULL;
-	while ((ret = ms_get_next_line(fd, &s)))
+	while ((ret = get_next_separator(fd, &s)))
 	{
 		if (ft_isprint(s[0]))
 			if (!(h = history(ft_strdup(s), h, 0, 0)))

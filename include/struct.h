@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 14:33:23 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 23:33:15 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct		s_cursor
 
 typedef enum		e_token_type{
 	PIPE,
-	QUOTE,
-	DQUOTE,
+	S_QUOTE,
+	D_QUOTE,
 	SEMICOLON,
 	GREATER,
 	DGREATER,
@@ -70,7 +70,6 @@ typedef struct		s_node {
 	struct s_node	*right;
 }					t_node;
 
-
 typedef	struct		s_main
 {
 	char			**env;
@@ -80,11 +79,8 @@ typedef	struct		s_main
 	char			**hist;
 	char			*hist_path;
 	int				exit_status;
-	// commands
 	char			**arr;
-	// path variable
 	char			**pathdirs;
-	//multilines
 	t_uint			multilns;
 	struct termios	*base_term;
 }					t_main;

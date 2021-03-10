@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/09 15:05:21 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 18:56:07 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int         create_token(t_main *m, char *data, t_token_type type, t_lexer *lexe
         if (!(token->data = get_data_word(data)))
             malloc_error_1(m, lexer);
     }
-    else if (type == DQUOTE || type == QUOTE)
+    else if (type == D_QUOTE || type == S_QUOTE)
     {
         if (!(len = len_quote(data, data[0])))
             malloc_error_1(m, lexer);

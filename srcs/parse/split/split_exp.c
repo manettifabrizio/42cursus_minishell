@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/10 12:27:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 19:29:36 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/10 01:15:31 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/10 01:15:44 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int		free_split(char **t, int x)
 }
 
 // da migliorare
-char			**ms_split_exp(char const *s, char c)
+char			**split_exp(char const *s, char c)
 {
 	int		x;
 	int		i;
