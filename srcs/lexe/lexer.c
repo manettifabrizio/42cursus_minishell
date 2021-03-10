@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 14:51:37 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 15:02:23 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int         sorte_lexer(t_main *m, t_lexer *lexer)
             cur_tok = cur_tok->next;
         }
     }
-    return(0);
+    return (0);
 }
 
 t_lexer     *build_lexer(t_main *m, char *s)
