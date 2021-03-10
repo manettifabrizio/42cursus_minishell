@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:25:57 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 13:16:08 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:07:33 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,24 @@ static int		check_multi(char *s, char *c)
 	int		i;
 
 	i = 0;
-	printf("s = %s\n", s);
 	while (s[i] && s[i] != c[0])
 		i++;
 	if (s[i] == c[0])
 	{
-		i++;
 		if (ft_strlen(c) == 2)
 		{
+			i++;
 			if (s[i] == c[1])
-			{	
-				while (s[i])
-					if (ft_isprint(s[i]))
+			{
+				while (s[++i])
+					if (s[i] > 32 && s[i] < 127)
 						return (1);
 			}
 		}
 		else
-		{	
-			while (s[i])
-				if (ft_isprint(s[i]))
+		{
+			while (s[++i])
+				if (s[i] > 32 && s[i] < 127)
 					return (1);
 		}
 		return (0);
@@ -59,6 +58,7 @@ char			*multi_pipe_and(t_main *m, char *s, char *c)
 
 	i = 0;
 	set_term_noncano();
+	printf("MULTI_PIPE\n");
 	shist = ft_strdup(s);
 	while (!(check_multi(s, c)))
 	{
@@ -75,8 +75,11 @@ char			*multi_pipe_and(t_main *m, char *s, char *c)
 		}
 		if (buf[0] == CTRL_C)
 			break;
-		shist = ft_strjoin_nl(shist, "\n");
+		printf("s = %s\n", s);
+		printf("shistb = %s\n", shist);
+		shist = ft_strjoin_nl(shist, " ");
 		shist = ft_strjoin_nl(shist, s);
+		printf("shista = %s\n", shist);
 		m->pos->x = 0;
 		m->pos->y = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 01:28:10 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:55:21 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static void        execute_command(t_main *m, t_node *command)
 {
     if (!command)
         return;
-    if (command->type == NODE_REDIRECT_IN || command->type == NODE_REDIRECT_OUT
-        || command->type == NODE_REDIRECT_OVER || command->type == NODE_REDIRECT_HEREDOC)
+    if (command->type == NODE_REDIRECT_IN || 
+		command->type == NODE_REDIRECT_OUT ||
+		command->type == NODE_REDIRECT_OVER || 
+		command->type == NODE_REDIRECT_HEREDOC)
     {
         handle_redirection(command);
         execute_builtin(m, command->left);

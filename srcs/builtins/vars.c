@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:15:49 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:27:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char		*vars_replacer(char *s, t_list **head)
 	if (ft_strcmp(s, "$") == 0)
 		tmp = ft_strdup("$");
 	else if (!(tmp = ft_strdup(get_env(head, s + 1))))
-		tmp = ft_strdup("\0");
+		tmp = ft_strdup("");
 	free(s);
 	return (tmp);
 }

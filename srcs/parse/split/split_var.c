@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 01:16:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:16:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:26:13 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ static int		count_wrd(char *s)
 	int		x;
 	int 	wrd;
 
+	x = 0;
 	wrd = 0;
-	if (s[0] && s[0] != '$') // First word
-			wrd++;
-	x = -1;
-	while (s[++x])
+	while (s[x])
 		if (s[x] == '$')
 		{
 			wrd++;
 			x++;
-			while (s[x] && (ft_isalpha(s[x]) || s[x] == '?')) // Var characters
+			while (s[x] && (ft_isalpha(s[x]) || s[x] == '?'))
 				x++;
-			if (s[x])
-				wrd++;
-			else
-				break;
+		}
+		else
+		{
+			wrd++;
+			while (s[x] && s[x] != '$')
+				x++;
 		}
 	// printf ("wrd = %d\n", wrd);
 	return (wrd);

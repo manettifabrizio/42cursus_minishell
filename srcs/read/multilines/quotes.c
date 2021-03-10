@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 13:15:52 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:39:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		check_multi(char *s, char c, int x)
 	i = 0;
 	if (x == 0)
 		return (0);
-	printf("s = %s\n", s);
+	// printf("s = %s\n", s);
 	while (s[i] && s[i] != c)
 		i++;
 	if (s[i] == c)

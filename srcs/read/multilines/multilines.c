@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 12:09:55 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 12:28:40 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:05:35 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 
 char	*multilines(t_main *m, char *s, t_token_type type)
 {
+	// printf("type = %d\n", type);
 	if (type == PIPE)
 		return (multi_pipe_and(m, s, "|"));
-	// if (type == S_QUOTE)
-	// 	return (multilines_quote(m, s, '\''));
-	// if (type == D_QUOTE)
-	// 	return (multilines_quote(m, s, '\"'));
+	if (type == SQUOTE)
+		return (multi_quote(m, s, '\''));
+	if (type == DQUOTE)
+		return (multi_quote(m, s, '\"'));
 	return (NULL);
 }

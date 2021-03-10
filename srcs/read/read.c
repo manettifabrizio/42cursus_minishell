@@ -6,11 +6,23 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:07:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 19:26:18 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char		*str_is_space(char *s)
+{
+	int		i;
+
+	i = -1;
+	while (s[++i])
+		if (!(ft_isspace(s[i])))
+			return (s);
+	free(s);
+	return (ft_strdup(""));
+}
 
 static char		*reading(t_main *m, char *s, char *buf)
 {
@@ -39,7 +51,7 @@ char	*line_read(t_main *m)
 	}
 	m->pos->x = 0;
 	m->pos->y = 0;
-	// Set a[0] = s
+	s = str_is_space(s);
 	if (!(m->hist = history(ft_strdup(s), m->hist, 1, m->pos->y)))
 		malloc_error(m, s, READING);
 	set_term_cano(m->base_term);
