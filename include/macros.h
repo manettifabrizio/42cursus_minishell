@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys_and_errors.h                                  :+:      :+:    :+:   */
+/*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:16:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 16:47:22 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:05:58 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_AND_ERRORS_H
-# define KEYS_AND_ERRORS_H
+#ifndef MACROS_H
+# define MACROS_H
 
 # define CURSOR_LEFT		"\e[D"
 # define CURSOR_RIGHT		"\e[C"
 # define CLEAR_LINE			"\e[0K"
 
 # define SEPARATOR			31
-# define D_QUOTE			34
-# define S_QUOTE			39
 
 # define CTRL_C				3
 # define CTRL_D				4
@@ -40,5 +38,7 @@
 # define NO_ERRNO			1
 # define READING			0
 # define NO_READING			1
+# define BREAK				0
+# define NO_BREAK			1
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 12:44:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/04 18:57:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:04:07 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 void	ft_signal(int num)
 {
-	signaln = num;
+	(void)num;
 }
 
-void	config_term(int n, struct termios *base_term)
+void	set_term_noncano()
 {
 	struct termios new;
 	
 	// Set non-canonical input
-	if (n == 1)
-	{
-		tcgetattr(STDIN_FILENO, &new);
-		// Disable canonic mode, signals and echo for "^C"
-		new.c_lflag &= ~(ICANON|ISIG|ECHO);	
-  		tcsetattr(STDIN_FILENO, TCSADRAIN, &new); 
-	}
-	// Set back strandard canoncal input
-	else if (n == 0)
-		tcsetattr(STDIN_FILENO, TCSADRAIN, base_term);
+	tcgetattr(STDIN_FILENO, &new);
+	// Disable canonic mode, signals and echo for "^C"
+	new.c_lflag &= ~(ICANON|ISIG|ECHO);	
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &new);
+}
+
+void	set_term_cano(struct termios *base_term)
+{
+	tcsetattr(STDIN_FILENO, TCSADRAIN, base_term);
 }
 
 // c_lflag

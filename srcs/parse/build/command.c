@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:26:57 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/09 14:31:41 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:15:17 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static  t_node      *build_command_4(t_list **token)
     if (!(result = malloc(sizeof(t_node))))
         return (NULL);
     ast_set_data(result, filename);
-    ast_set_type(result, NODE_REDIRECT_OVER);
+    ast_set_type(result, NODE_REDIRECT_HEREDOC);
     ast_attach_branch(result, builtin, build_filename(token));
     return (result);
 }
