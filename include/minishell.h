@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:20:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:41:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char				*inword_erase(char *s, t_uint len);
 int					heredoc(t_main *m, char *keywrd);
 int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
+char				*multi_pipe_and(t_main *m, char *s, char *c);
+char				*multi_quote(t_main *m, char *s, char *c);
 
 
 // HISTORY

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 00:41:08 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:50:21 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static int		here_or_multi(t_main *m, t_lexer *lexer, char *s)
 			s = multilines(m, s, tmp->type);
 			free_lexer(lexer);
 			lexer = NULL;
-			printf("hists = |%s|\n", s);
 			build_lexer(m, s);
 		}
 	}

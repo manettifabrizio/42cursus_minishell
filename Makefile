@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/10 01:21:18 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/10 12:31:31 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ FILES		=	minishell.c							\
 				read/heredoc/heredoc.c				\
 				read/heredoc/check_key_heredoc.c	\
 				read/multilines/multilines.c		\
+				read/multilines/pipe_and.c			\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
 				parse/env_path_parser.c				\
