@@ -84,7 +84,6 @@ int main(int ac, char **av, char **env)
 		// READ
 		prompt(m->exit_status);
 		s = line_read(m);
-
 		// LEXE && PARSE
 		if ((lexer = build_lexer(m, s)))
 		{
