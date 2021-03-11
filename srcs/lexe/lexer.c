@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 20:57:13 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/11 20:20:38 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ t_lexer     *build_lexer(t_main *m, char *s)
 		free_lexer(lexer);
 		lexer = NULL;
 		// printf("hists = |%s|\n", s);
-		build_lexer(m, s);
+		return (build_lexer(m, s));
     }
     if (type == -1)
         return (NULL);

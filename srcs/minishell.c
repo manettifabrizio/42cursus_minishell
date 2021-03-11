@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 20:54:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/10 21:39:10 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int main(int ac, char **av, char **env)
 		// READ
 		prompt(m->exit_status);
 		s = line_read(m);
-
 		// LEXE && PARSE
 		if ((lexer = build_lexer(m, s)))
 		{
