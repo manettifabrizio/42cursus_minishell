@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/07 17:10:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:29:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char		**other_lines(char *s, char **a)
 	size_t	len;
 	char	**tmp;
 
-	len = ft_arrlen_c(a);
+	len = ft_arrlen_s(a);
 	tmp = NULL;
 	if (a[0][0]) // Avoiding "\0" line
 	{
@@ -62,7 +62,7 @@ static char		**add_history(char *s, char **a)
 	size_t	len;
 	char 	**tmp;
 	
-	len = ft_arrlen_c(a);
+	len = ft_arrlen_s(a);
 	if (!(a[0]))
 		tmp = first_line(s, 1);
 	else
@@ -71,9 +71,9 @@ static char		**add_history(char *s, char **a)
 	return (tmp);
 }
 
-char			**history(char *s, char **a, t_uint i, t_uint posy)
+char			**history(char *s, char **a, t_uint i, t_uint py)
 {
-	if (posy == 0)
+	if (py == 0)
 	{
 		if (i == 0) //scale array by one
 			a = add_history(s, a);

@@ -6,13 +6,13 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/08 17:58:01 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/11 11:47:16 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
-FILES	=	ft_arrlen_c.c		\
+FILES	=	ft_arrlen_s.c		\
 			ft_atof.c			\
 			ft_atoi.c			\
 			ft_bzero.c			\

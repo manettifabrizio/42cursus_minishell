@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 20:54:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/11 21:10:21 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ static int init_shell(t_main *m, char **env)
 		return (0);
 	if (!(m->home = ft_strdup(get_env(m->ehead, "HOME"))))
 		return (0);
-	if (!(m->pos = malloc(sizeof(t_cursor))))
+	if (!(m->p = malloc(sizeof(t_cursor))))
 		return (0);
-	m->pos->x = 0;
-	m->pos->y = 0;
+	m->p->lpos = 0;
+	m->p->hnum = 0;
+	m->p->lnum = 0;
+	m->p->spos = 0;
 	m->hist_path = ft_strjoin(get_env(m->ehead, "PWD"), "/.minish_history");
 	m->pathdirs = path_parser(m->ehead);
 	if (!(m->base_term = malloc(sizeof(struct termios))))
@@ -86,6 +88,7 @@ int main(int ac, char **av, char **env)
 		// LEXE && PARSE
 		if ((lexer = build_lexer(m, s)))
 		{
+			print_lst_tokens(lexer);
 			if (m->arr)
 				ft_free_array(m->arr);
 			if (lexer->nb_tokens > 0)

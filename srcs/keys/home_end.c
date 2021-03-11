@@ -6,28 +6,34 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 20:12:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/03 20:31:55 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/11 18:01:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		home(char *s, t_cursor *pos)
+int		home(char *s, t_cursor *p)
 {
 	int		i;
 
-	i = ft_strlen(s) - pos->x;
+	if (count_lines(s) == 1)
+		i = ft_strlen(s) - p->lpos;
+	else
+		i = ft_strlen(s) - p->spos;
 	while (i--)
-		arrow_left(s, pos);
+		arrow_left(s, p);
 	return (1);
 }
 
-int		end(t_cursor *pos)
+int		end(char *s, t_cursor *p)
 {
 	int		i;
 
-	i = pos->x;
+	if (count_lines(s) == 1)
+		i = p->lpos;
+	else
+		i = p->spos;
 	while (i--)
-		arrow_right(pos);
+		arrow_right(s, p);
 	return (1);
 }

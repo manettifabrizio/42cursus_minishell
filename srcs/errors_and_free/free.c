@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 18:27:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 23:00:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:29:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			free_all(t_main *m)
 {
 	free(m->home);
 	ft_lstclear(m->ehead, env_del);
-	free(m->pos);
+	free(m->p);
 	ft_free_array(m->hist);
 	free(m->hist_path);
 	if (m->arr)
