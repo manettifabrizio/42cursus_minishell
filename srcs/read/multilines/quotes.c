@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 19:39:42 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/11 20:58:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char		*reading(t_main *m, char *s, char *buf)
 {
 	read(STDOUT_FILENO, buf, 1);
 	if (!(check_key(m, &s, buf)))
-		s = str_print_and_handle(m, s, buf, *(m->pos));
+		s = str_print_and_handle(m, s, buf, *(m->p));
 	return (s);
 }
 
@@ -51,12 +51,12 @@ char			*multi_quote(t_main *m, char *s, char c)
 	shist = ft_strdup(s);
 	while (!(check_multi(s, c, i)))
 	{
-		ft_putstr("> ");
+		ft_putstr("\e[0;32m> \e[0m");
 		(s)[0] = '\0';
 		ft_bzero(buf, 2);
 		while (buf[0] != '\n')
 		{
-			if (!(m->hist = history(ft_strdup(s), m->hist, i++, m->pos->y)))
+			if (!(m->hist = history(ft_strdup(s), m->hist, i++, m->p->hnum)))
 				malloc_error(m, s, READING);
 			s = reading(m, s, buf);
 			if (buf[0] == CTRL_C)
@@ -66,10 +66,10 @@ char			*multi_quote(t_main *m, char *s, char c)
 			break;
 		shist = ft_strjoin_nl(shist, "\n");
 		shist = ft_strjoin_nl(shist, s);
-		m->pos->x = 0;
-		m->pos->y = 0;
+		m->p->lpos = 0;
+		m->p->hnum = 0;
 	}
-	if (!(m->hist = history(ft_strdup(shist), m->hist, 1, m->pos->y)))
+	if (!(m->hist = history(ft_strdup(shist), m->hist, 1, m->p->hnum)))
 		malloc_error(m, s, READING);
 	free(s);
 	set_term_cano(m->base_term);

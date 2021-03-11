@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:23:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 18:21:54 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/10 21:50:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list		**env_parser(t_list **head, char **env)
 {
-	int		x;
+	int		x; //segfault se c'è un  problema
 	char	**a;
 	t_list	*tmp;
 

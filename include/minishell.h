@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 20:51:22 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/11 19:44:14 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void				set_term_cano(struct termios *base_term);
 char				*line_read(t_main *m);
 int					check_key(t_main *m, char **s, char *buf);
 int					arrows(t_main *m, char **s, char c);
-int					home_end(char *s, char c, t_cursor *pos);
-int					word_move(char *s, t_cursor *pos);
-char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor pos);
+int					home_end(char *s, char c, t_cursor *p);
+int					word_move(char *s, t_cursor *p);
+char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor p);
 char				*inword_erase(char *s, t_uint len);
 int					heredoc(t_main *m, char *keywrd);
 int					check_key_heredoc(t_main *m, char **s, char *buf);
@@ -51,7 +51,7 @@ char				*multi_quote(t_main *m, char *s, char c);
 
 // HISTORY
 char				**init_history();
-char				**history(char *s, char **a, t_uint i, t_uint posy);
+char				**history(char *s, char **a, t_uint i, t_uint py);
 void				make_history(char *hist_path, char **h);
 int					get_next_separator(int fd, char **line);
 
@@ -117,18 +117,18 @@ char				**split_exp(char const *s, char c);
 char				**split_var(char *s);
 
 // KEYS
-int					arrow_up(char **s, char **h, t_cursor *pos);
-int					arrow_down(char **s, char **h, t_cursor *pos);
-int					arrow_right(t_cursor *pos);
-int					arrow_left(char *s, t_cursor *pos);
+int					arrow_up(char **s, char **h, t_cursor *p);
+int					arrow_down(char **s, char **h, t_cursor *p);
+int					arrow_right(char *s, t_cursor *p);
+int					arrow_left(char *s, t_cursor *p);
 int					control_c(t_main *m, char *s);
 void				control_d(t_main *m);
-int					backspace(char *s, t_cursor pos);
-int					delete(char *s, char *buf, t_cursor *pos);
-int					home(char *s, t_cursor *pos);
-int					end(t_cursor *pos);
-int					word_right(char *s, t_cursor *pos);
-int					word_left(char *s, t_cursor *pos);
+int					backspace(char *s, t_cursor *p);
+int					delete(char *s, char *buf, t_cursor *p);
+int					home(char *s, t_cursor *p);
+int					end(char *s, t_cursor *p);
+int					word_right(char *s, t_cursor *p);
+int					word_left(char *s, t_cursor *p);
 
 // ERRORS and FREE
 int					error(int errtype, char *message);
@@ -141,5 +141,6 @@ void				free_lexer(t_lexer *lexer);
 
 // UTILS
 t_list				*create_env_elem(char **a);
+t_uint				count_lines(char *s);
 
 #endif

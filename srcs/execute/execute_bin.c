@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 18:09:23 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/11 21:05:22 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char        **create_cmd_table(t_node *root)
 
     nbcmd = 0;
     node = root;
-    while(node)
+    while (node)
     {
         nbcmd++;
         node = node->left;
@@ -32,6 +32,7 @@ char        **create_cmd_table(t_node *root)
     while (node)
     {
         args[nbcmd] = ft_strdup(node->data);
+		printf("node->data = %s\n", node->data);
         node = node->left;
         nbcmd++;
     }

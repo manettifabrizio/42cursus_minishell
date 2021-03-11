@@ -46,7 +46,7 @@ void			free_all(t_main *m)
 {
 	free(m->home);
 	ft_lstclear(m->ehead, env_del);
-	free(m->pos);
+	free(m->p);
 	ft_free_array(m->hist);
 	free(m->hist_path);
 	if (m->arr)

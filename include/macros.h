@@ -6,16 +6,18 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:16:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:05:58 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:24:22 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
+# define CURSOR_UP			"\e[A"
+# define CURSOR_DOWN		"\e[B"
 # define CURSOR_LEFT		"\e[D"
 # define CURSOR_RIGHT		"\e[C"
-# define CLEAR_LINE			"\e[0K"
+# define CLEAR_LINES		"\e[0J"
 
 # define SEPARATOR			31
 

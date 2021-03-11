@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 22:40:32 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 00:46:43 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/11 19:44:57 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_key_heredoc(t_main *m, char **s, char *buf)
 	if (buf[0] == CTRL_C || buf[0] == CTRL_D || buf[0] == CTRL_Z)
 		return (control_heredoc(m, *s, buf[0]));
 	if (buf[0] == BACKSPACE)
-		return (backspace(*s, *(m->pos)));
+		return (backspace(*s, m->p));
 	if (buf[0] == ESCAPE)
 	{
 		read(STDOUT_FILENO, buf, 1);
@@ -40,11 +40,11 @@ int		check_key_heredoc(t_main *m, char **s, char *buf)
 				buf[0] == ARR_RIGHT || buf[0] == ARR_LEFT)
 				return (arrows(m, s, buf[0]));
 			if (buf[0] == DELETE)
-				return (delete(*s, buf, m->pos));
+				return (delete(*s, buf, m->p));
 			if (buf[0] == HOME || buf[0] == END)
-				return (home_end(*s, buf[0], m->pos));
+				return (home_end(*s, buf[0], m->p));
 			if (buf[0] == '1')
-				return (word_move(*s, m->pos));
+				return (word_move(*s, m->p));
 		}
 	}
 	return (0);
