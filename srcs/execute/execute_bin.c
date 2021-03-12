@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/11 21:05:22 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:01:28 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char        **create_cmd_table(t_node *root)
     while (node)
     {
         args[nbcmd] = ft_strdup(node->data);
-		printf("node->data = %s\n", node->data);
         node = node->left;
         nbcmd++;
     }

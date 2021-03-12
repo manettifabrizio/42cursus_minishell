@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/10 14:32:27 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:49:55 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void        del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok)
     (*cur_tok) = (*prev)->next;
 }
 
-char        *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type)
+char        *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m)
 {
     char *data;
     char *tmp;
@@ -73,15 +73,20 @@ char        *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type
         ft_lstdelone(*cur_tok, &free);
         *cur_tok = (*prev)->next;
     }
+    if (type == SQUOTE)
+        return (data);
+    tmp = data;
+    data = check_vars(m, data, m->ehead, m->exit_status);
+    free(tmp);
     return (data);
 }
 
-void        add_new_word(t_list **prev, t_list **cur_tok, t_token_type type)
+void        add_new_word(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m)
 {
     char    *data;
     t_list  *new_word;
     
-    data = get_data_inside_quote(prev, cur_tok, type);
+    data = get_data_inside_quote(prev, cur_tok, type, m);
     new_word = generate_tok(data, WORD);
     free(data);
     (*prev)->next = new_word;

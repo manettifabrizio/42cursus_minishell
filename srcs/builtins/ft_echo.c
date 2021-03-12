@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 12:11:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:49:36 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				ft_echo(t_main *m, char **a, t_list **head)
 {
 	int x;
-
+	(void)head;
 	x = 0;
 	if (!(a[1]))
 		ft_putchar('\n');
@@ -25,7 +25,7 @@ int				ft_echo(t_main *m, char **a, t_list **head)
 			x = 1;
 		while (a[++x])
 		{
-			ft_putstr(check_vars(m, a[x], head, m->exit_status));
+			ft_putstr(a[x]);
 			if (a[x + 1])
 				ft_putchar(' ');
 		}

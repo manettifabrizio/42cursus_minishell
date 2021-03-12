@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/11 21:09:49 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:11:34 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int       parse(t_lexer *lexer, t_node **exec_tree)
          printf("minish: Syntax error near: %s\n", t_access_tok(tokens)->data);
          return (0);
      }
-    printf("PARSING\n");
-    print_preorder(*exec_tree);
+    // printf("PARSING\n");
+    // print_preorder(*exec_tree);
     return (1);
 } 

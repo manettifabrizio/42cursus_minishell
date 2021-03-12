@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/11 21:13:50 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 09:40:10 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,8 @@ int         check_closing_quote(t_list *tokens, t_token_type type)
     }
     return (0);
 }
-int         handle_quote(t_list **prev, t_list **cur_tok, int type)
-{
-    if (!(check_closing_quote(*cur_tok, type)))
-        return (type);
-    del_cur_tok_and_link_next(prev, cur_tok);
-    add_new_word(prev, cur_tok, type);
-    return (0);
-}
 
-int         sorte_space_and_quote(t_lexer *lexer)
+int         sorte_space_and_quote(t_lexer *lexer, t_main *m)
 {
     t_list  *cur_tok;
     t_list  *prev;
@@ -113,7 +105,7 @@ int         sorte_space_and_quote(t_lexer *lexer)
             if (!(check_closing_quote(cur_tok, type)))
                 return (type);
             del_cur_tok_and_link_next(&prev, &cur_tok);
-            add_new_word(&prev, &cur_tok, type);
+            add_new_word(&prev, &cur_tok, type, m);
         }
         else
         {
@@ -161,7 +153,7 @@ int         sorte_lexer(t_main *m, t_lexer *lexer)
 {
     int type;
 
-    if ((type = sorte_space_and_quote(lexer)))
+    if ((type = sorte_space_and_quote(lexer, m)))
         return (type);
     if ((type = sorte_heredoc_and_pipe(m, lexer)))
         return(type);
@@ -193,7 +185,7 @@ t_lexer     *build_lexer(t_main *m, char *s)
 		s = multilines(m, s, type);
 		free_lexer(lexer);
 		lexer = NULL;
-		printf("\nhists = |%s|\n", s);
+		// printf("hists = |%s|\n", s);
 		return (build_lexer(m, s));
     }
     if (type == -1)

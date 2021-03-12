@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/11 19:44:14 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:01:20 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int                 create_tok(t_main *m, char *data, t_token_type type, t_lexer
 char	            **ft_split_charset(const char *s, char *charset);
 t_list              *generate_tok(char *data, t_token_type type);
 void                del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok);
-char                *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type);
-void                add_new_word(t_list **prev, t_list **cur_tok, t_token_type type);
+char                *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
+void                add_new_word(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
 void                print_lst_tokens(t_lexer *lexer);
 // PARSE
 t_list				**env_parser(t_list **head, char **env);
