@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/12 09:40:10 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:45:18 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int         sorte_space_and_quote(t_lexer *lexer, t_main *m)
     t_list  *cur_tok;
     t_list  *prev;
     int     type;
+    char    *tmp;
 
     cur_tok = lexer->tokens;
     while (cur_tok && (t_access_tok(cur_tok)->type == SPACE
@@ -100,6 +101,15 @@ int         sorte_space_and_quote(t_lexer *lexer, t_main *m)
         type = t_access_tok(cur_tok)->type;
         if (type == SPACE || type == NEWLINE)
             del_cur_tok_and_link_next(&prev, &cur_tok);
+        else if (type == WORD)
+        {
+            tmp = t_access_tok(cur_tok)->data;
+            t_access_tok(cur_tok)->data = check_vars(m, tmp, m->ehead, m->exit_status);
+            printf("%sdata=s\n", t_access_tok(cur_tok)->data);
+            free(tmp);
+            prev = cur_tok;
+            cur_tok = cur_tok->next;
+        }
         else if (type == DQUOTE || type == SQUOTE)
         {
             if (!(check_closing_quote(cur_tok, type)))
