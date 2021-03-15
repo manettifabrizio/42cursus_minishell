@@ -6,24 +6,24 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/12 09:49:55 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/15 20:00:17 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int      create_tok(t_main *m, char *data, t_token_type type, t_lexer *lexer)
+int      create_tok(char *data, t_token_type type, t_lexer *lexer)
 {
     t_list      *lst;
     t_token     *token;
 
     if (!(token = malloc(sizeof(t_token))))
-        malloc_error_1(m, lexer);
+        return (-1);
     token->type = type;
     if (!(token->data = ft_strdup(data)))
-        malloc_error_1(m ,lexer);
-    if (!(lst = ft_lstnew(token)))
-        malloc_error_1(m, lexer);
+        return (-1);
+    if(!(lst = ft_lstnew(token)))
+        return (-1);
     if (!(lexer->tokens))
         lexer->tokens = lst;
     else
@@ -32,15 +32,18 @@ int      create_tok(t_main *m, char *data, t_token_type type, t_lexer *lexer)
     return (1);
 }
 
-t_list        *generate_tok(char *data, t_token_type type)
+static t_list        *generate_tok(char *data, t_token_type type, t_main *m)
 {
     t_list      *lst;
     t_token     *token;
 
-    token = malloc(sizeof(t_token));
+    if (!(token = malloc(sizeof(t_token))))
+        malloc_error(m, NULL, NO_READING);
     token->type = type;
-    token->data = ft_strdup(data);
-    lst = ft_lstnew(token);
+    if (!(token->data = ft_strdup(data)))
+        malloc_error(m, NULL, NO_READING);
+    if (!(lst = ft_lstnew(token)))
+        malloc_error(m, NULL, NO_READING);
     return (lst);
 }
 
@@ -60,14 +63,16 @@ char        *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type
     char *data;
     char *tmp;
 
-    data = malloc(sizeof(char));
+    if (!(data = malloc(sizeof(char))))
+        malloc_error(m, NULL, NO_READING);
     *data = '\0';
     tmp = data;
     while (*cur_tok && t_access_tok(*cur_tok)->type != type)
     {
         (*prev)->next = (*cur_tok)->next;
         tmp = data;
-        data = ft_strjoin(tmp, t_access_tok(*cur_tok)->data);
+        if (!(data = ft_strjoin(tmp, t_access_tok(*cur_tok)->data)))
+            malloc_error(m, NULL, NO_READING);
         free(tmp);
         free(t_access_tok(*cur_tok)->data);
         ft_lstdelone(*cur_tok, &free);
@@ -87,7 +92,7 @@ void        add_new_word(t_list **prev, t_list **cur_tok, t_token_type type, t_m
     t_list  *new_word;
     
     data = get_data_inside_quote(prev, cur_tok, type, m);
-    new_word = generate_tok(data, WORD);
+    new_word = generate_tok(data, WORD, m);
     free(data);
     (*prev)->next = new_word;
     del_cur_tok_and_link_next(&new_word, cur_tok);

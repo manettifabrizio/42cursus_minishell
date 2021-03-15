@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
+#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/03/15 20:56:47 by fmanetti         ###   ########.fr        #
+=======
+#    Updated: 2021/03/15 19:39:04 by viroques         ###   ########.fr        #
+>>>>>>> main
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +26,8 @@ FILES		=	minishell.c							\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
 				lexe/split_separator.c 				\
+				lexe/sort.c 						\
+				lexe/sort_utils.c 					\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
 				parse/lists/list_sort.c				\
