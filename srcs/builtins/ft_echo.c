@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/12 09:49:36 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:27:13 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				ft_echo(t_main *m, char **a, t_list **head)
+int				ft_echo(t_main *m, char **a)
 {
 	int x;
-	(void)head;
 	x = 0;
 	if (!(a[1]))
 		ft_putchar('\n');

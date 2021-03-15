@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:30:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 19:27:09 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:27:13 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				ft_cd(t_main *m, char *s)
 	char	buf[1024];
 
 	if (s)
-		path = check_vars(m, s, m->ehead, m->exit_status);
+		path = s;
 	if (!(s) || ft_strcmp(path, "") == 0 || ft_strcmp(path, "-") == 0)
 		if (!(path = home_or_back(m, s, path)))
 			return (1);

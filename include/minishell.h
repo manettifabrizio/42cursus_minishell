@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/15 19:51:59 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void				set_term_cano(struct termios *base_term);
 
 // READ
 char				*line_read(t_main *m);
+int					reading(t_main *m, char **s, char *buf);
 int					check_key(t_main *m, char **s, char *buf);
 int					arrows(t_main *m, char **s, char c);
 int					home_end(char *s, char c, t_cursor *p);
 int					word_move(char *s, t_cursor *p);
-char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor p);
-char				*inword_erase(char *s, t_uint len);
+char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor *p);
 int					heredoc(t_main *m, char *keywrd);
 int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
@@ -51,7 +51,8 @@ char				*multi_quote(t_main *m, char *s, char c);
 
 // HISTORY
 char				**init_history();
-char				**history(char *s, char **a, t_uint i, t_uint py);
+char				**history(char *s, char **a, t_uint hnum);
+char				**add_history(char *s, char **a);
 void				make_history(char *hist_path, char **h);
 int					get_next_separator(int fd, char **line);
 
@@ -95,7 +96,7 @@ char                **create_cmd_table(t_node *root);
 
 // BUILTINS
 int					builtins(t_main *m, char *cmd_name);
-int					ft_echo(t_main *m, char **a, t_list **head);
+int					ft_echo(t_main *m, char **a);
 int					ft_cd(t_main *m, char *s);
 int					ft_pwd(t_main *m, t_list **head);
 int					ft_export(t_main *m, char **a, t_list **head);
@@ -119,6 +120,7 @@ void        		ast_attach_branch(t_node *root, t_node *left, t_node *right);
 // SPLIT
 char				**split_exp(char const *s, char c);
 char				**split_var(char *s);
+char				**split_keep(char *s, char c);
 
 // KEYS
 int					arrow_up(char **s, char **h, t_cursor *p);

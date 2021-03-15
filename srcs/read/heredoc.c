@@ -6,29 +6,31 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/11 20:58:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:51:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		ending(t_main *m, int fd, char *s, int ret)
+static int		ending(t_main *m, int fd, char *s, t_uint type)
 {
 	set_term_cano(m->base_term);
 	close(fd);
 	free(s);
-	if (ret == BREAK)
+	if (type == BREAK)
 		remove(".heredoc");
-	return (ret);
+	return (1);
 }
 
 static int		reading_heredoc(t_main *m, char **s, char *keywrd, int fd)
 {
-	char	buf[2];
+	char	buf[3];
 	
+	ft_bzero(buf, 3);
+	buf[1] = 'h';
 	read(STDOUT_FILENO, buf, 1);
-	if (!(check_key_heredoc(m, s, buf)))
-		*s = str_print_and_handle(m, *s, buf, *(m->p));
+	if (!(check_key(m, s, buf)))
+		*s = str_print_and_handle(m, *s, buf, m->p);
 	if (buf[0] == CTRL_C || buf[0] == CTRL_D)
 		return (-1);
 	if (buf[0] == '\n')

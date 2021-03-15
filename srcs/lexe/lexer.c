@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/15 19:37:45 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ t_lexer     *build_lexer(t_main *m, char *s)
     if ((type = sort_lexer(m ,lexer)) > 0)
     {
         ft_free_array(m->arr);
-		s = multilines(m, s, type);
+		if (!(s = multilines(m, s, type)))
+			return (NULL);
 		free_lexer(lexer);
 		lexer = NULL;
 		// printf("hists = |%s|\n", s);
