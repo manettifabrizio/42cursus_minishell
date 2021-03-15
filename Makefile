@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/11 19:26:53 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/15 20:56:47 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,8 @@ FILES		=	minishell.c							\
 				read/check_keys.c					\
 				read/str_print_and_handle.c			\
 				read/get_next_separator.c			\
-				read/heredoc/heredoc.c				\
-				read/heredoc/check_key_heredoc.c	\
-				read/multilines/multilines.c		\
-				read/multilines/pipe_and.c			\
-				read/multilines/quotes.c			\
+				read/heredoc.c						\
+				read/multilines.c					\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
 				lexe/split_separator.c 				\
@@ -31,6 +28,7 @@ FILES		=	minishell.c							\
 				parse/lists/print_list.c			\
 				parse/split/split_exp.c				\
 				parse/split/split_var.c				\
+				parse/split/split_keep.c			\
 				parse/build/args.c					\
 				parse/build/builtin.c				\
 				parse/build/command.c				\

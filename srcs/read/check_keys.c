@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/11 19:44:00 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:41:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,20 @@ int		home_end(char *s, char c, t_cursor *p)
 	return (0);
 }
 
-static int		control(t_main *m, char *s, char c)
+static int		control(t_main *m, char *s, char *buf)
 {
-	if (c == CTRL_C)
+	if (buf[0] == CTRL_C)
 		return (control_c(m, s));
-	if (c == CTRL_D && s[0] == '\0')
-		control_d(m);
+	if (buf[0] == CTRL_D && s[0] == '\0')
+	{
+		if (ft_strlen(buf) == 2)
+		{
+			m->exit_status = 0;
+			return (1);
+		}
+		else
+			control_d(m);
+	}
 	return (0);
 }
 
@@ -63,8 +71,9 @@ int		arrows(t_main *m, char **s, char c)
 
 int		check_key(t_main *m, char **s, char *buf)
 {
-	if (buf[0] == CTRL_C || buf[0] == CTRL_D || buf[0] == CTRL_Z)
-		return (control(m, *s, buf[0]));
+	m->p->arr = split_keep(*s, '\n');
+	if (buf[0] == CTRL_C || buf[0] == CTRL_D)
+		return (control(m, *s, buf));
 	if (buf[0] == BACKSPACE)
 		return (backspace(*s, m->p));
 	if (buf[0] == ESCAPE)

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 18:24:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:27:13 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				builtins(t_main *m, char *cmd_name)
 {
 	if (ft_strcmp(cmd_name, "echo") == 0)
-		return (ft_echo(m, m->arr, m->ehead));
+		return (ft_echo(m, m->arr));
 	else if (ft_strcmp(cmd_name, "cd") == 0)
 		return (ft_cd(m, (m->arr)[1]));
 	else if (ft_strcmp(cmd_name, "pwd") == 0)

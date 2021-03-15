@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:05:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:20:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:03:06 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@ static char		**read_history(int fd, char **h)
 {
 	int		ret;
 	char	*s;
-	// PROBLEMA CON "echo "$?" (non lo registra al ./ successivo)
+
 	s = NULL;
 	while ((ret = get_next_separator(fd, &s)))
-	{
 		if (ft_isprint(s[0]))
-			if (!(h = history(ft_strdup(s), h, 0, 0)))
+			if (!(h = add_history(ft_strdup(s), h)))
 				break;
-	}
 	if (ret == 0)
-		h = history(ft_strdup(s), h, 0, 0);
+		h = add_history(ft_strdup(s), h);
 	else if (h)
 	{
 		printf("minish: \033[0;31merror:\033[0m failed reading history file\n");

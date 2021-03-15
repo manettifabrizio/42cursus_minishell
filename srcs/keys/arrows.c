@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   up_down.c                                          :+:      :+:    :+:   */
+/*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:35:38 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/11 19:24:11 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/15 23:20:57 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		arrow_up(char **s, char **h, t_cursor *p)
 
 	i = -1;
 	while (h[++i]);
-	if (p->hnum == (t_uint)i)
+	// printf("hnum = %d\n, i = %d\n", p->hnum, i);
+	if ((p->hnum + 1) == (t_uint)i)
 		return (1);
 	if (p->hnum < (t_uint)(i - 1))
 		(p->hnum)++;
@@ -30,7 +31,7 @@ int		arrow_up(char **s, char **h, t_cursor *p)
 	p->lnum = count_lines(h[p->hnum]) - 1;
 	if (p->hnum > 1)
 		ft_free_array(p->arr);
-	p->arr = ft_split(h[p->hnum], '\n');
+	p->arr = split_keep(h[p->hnum], '\n'); // Problema con il fatto che se ci sono più \n di fila split ne considera 1
 	free(*s);
 	(*s) = ft_strdup(h[p->hnum]);
 	return (1);
@@ -52,7 +53,7 @@ int		arrow_down(char **s, char **h, t_cursor *p)
 	p->lnum = count_lines(h[p->hnum]) - 1;
 	if (p->hnum > 1)
 		ft_free_array(p->arr);
-	p->arr = ft_split(h[p->hnum], '\n');
+	p->arr = split_keep(h[p->hnum], '\n');
 	free(*s);
 	(*s) = ft_strdup(h[p->hnum]);
 	return (1);
@@ -62,7 +63,13 @@ int		arrow_left(char *s, t_cursor *p)
 {
 	t_uint		len;
 
+	// ft_print_array(p->arr, "a");
+	// printf("s = %s\n", s);
+	// printf("lnum = %d\n", p->lnum);
+	// printf("p->lpos = %d lines = %d\n", p->lpos, count_lines(s));
 	len = (count_lines(s) == 1) ? ft_strlen(s) : ft_strlen(p->arr[p->lnum]);
+	// printf("p->lpos = %d\n lines = %d", p->lpos, count_lines(s));
+	// printf("len = %d\n", len);
 	if (p->lpos < len)
 	{
 		(p->lpos)++;
@@ -77,8 +84,10 @@ int		arrow_left(char *s, t_cursor *p)
 		(p->lnum)--;
 		p->lpos = ft_strlen(p->arr[p->lnum]);
 		if (p->lnum == 0)
-			p->lpos += 9;
+			p->lpos += (p->multi == 0) ? 9 : 2;
+		// printf("multi = %d lpos = %d\n", p->multi, p->lpos);
 		end(p->arr[p->lnum], p);
+		p->lpos = 0;
 	}
 	return (1);
 }
@@ -87,6 +96,7 @@ int		arrow_right(char *s, t_cursor *p)
 {
 	t_uint	nln;
 
+	// ft_print_array(p->arr, "a");
 	nln = count_lines(s) - 1;
 	if (p->lpos > 0)
 	{

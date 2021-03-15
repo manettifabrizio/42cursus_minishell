@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:29:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 21:24:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:23:54 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int				ft_exit(t_main *m, char **a)
 		status = m->exit_status;
 	else
 	{
-		status = ft_atoi(check_vars(m, ft_strdup(a[1]), m->ehead,
-			m->exit_status));
+		status = ft_atoi(a[1]);
 		i = -1;
 		while (a[1][++i])
 			if (ft_isdigit(a[1][i]) == 0 && a[1][i] != '-')

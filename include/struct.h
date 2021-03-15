@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/11 19:07:39 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/14 11:29:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ typedef	struct		s_env
 
 typedef struct		s_cursor
 {
-	t_uint			lpos; // Cursor position in line
-	t_uint			spos; // Cursor position in whole string
-	t_uint			hnum; // Line position in history array 
-	t_uint			lnum; // Line position in multilines
-	char			**arr;
+	t_uint			multi;	// Value that indicates if we are in multilines mode
+	t_uint			lpos;	// Cursor position in line
+	t_uint			spos;	// Cursor position in whole string
+	t_uint			hnum;	// Line position in history array 
+	t_uint			lnum;	// Line position in multilines
+	char			**arr;	// Array used in multilines
 }					t_cursor;
 
 typedef enum		e_token_type{

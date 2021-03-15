@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/12 09:14:11 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/14 23:44:03 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int init_shell(t_main *m, char **env)
 	m->p->hnum = 0;
 	m->p->lnum = 0;
 	m->p->spos = 0;
+	m->p->multi = 0;
 	m->hist_path = ft_strjoin(get_env(m->ehead, "PWD"), "/.minish_history");
 	m->pathdirs = path_parser(m->ehead);
 	if (!(m->base_term = malloc(sizeof(struct termios))))
@@ -99,8 +100,8 @@ int main(int ac, char **av, char **env)
 				}
 			}
 			free_lexer(lexer);
-			// printf("exit status = %d\n", m->exit_status);
 		}
+		printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);
 	set_term_cano(m->base_term);

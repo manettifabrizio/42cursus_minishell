@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/11 20:33:46 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/12 11:43:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void        execute_builtin(t_main *m, t_node *builtin)
 {
     if (!(m->arr = create_cmd_table(builtin)))
 		malloc_error(m, NULL, NO_READING);
-	ft_print_array(m->arr, "cmd_table");
+	// ft_print_array(m->arr, "cmd_table");
     if (!(builtins(m, builtin->data)))
         if (!(execute_bin(m, builtin)))
 		{

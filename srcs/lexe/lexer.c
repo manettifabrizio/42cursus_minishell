@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/12 10:45:18 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/14 23:35:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int         sorte_space_and_quote(t_lexer *lexer, t_main *m)
         {
             tmp = t_access_tok(cur_tok)->data;
             t_access_tok(cur_tok)->data = check_vars(m, tmp, m->ehead, m->exit_status);
-            printf("%sdata=s\n", t_access_tok(cur_tok)->data);
+            // printf("%sdata=s\n", t_access_tok(cur_tok)->data);
             free(tmp);
             prev = cur_tok;
             cur_tok = cur_tok->next;
@@ -192,7 +192,8 @@ t_lexer     *build_lexer(t_main *m, char *s)
     if ((type = sorte_lexer(m ,lexer)) > 0)
     {
         ft_free_array(m->arr);
-		s = multilines(m, s, type);
+		if (!(s = multilines(m, s, type)))
+			return (NULL);
 		free_lexer(lexer);
 		lexer = NULL;
 		// printf("hists = |%s|\n", s);
