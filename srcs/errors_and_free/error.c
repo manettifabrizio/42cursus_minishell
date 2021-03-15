@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:46:05 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/09 11:26:09 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/15 18:13:04 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		malloc_error(t_main *m, char *s, int errtype)
 	exit(status);
 }
 
-void		malloc_error_1(t_main *m, t_lexer *lexer)
+void		malloc_error_lexer(t_main *m, t_lexer *lexer)
 {
 	int		status;
 

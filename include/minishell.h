@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/12 10:01:20 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:51:59 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,17 @@ int					get_next_separator(int fd, char **line);
 
 // LEXER
 t_lexer         	*build_lexer(t_main *m, char *s);
-int                 create_tok(t_main *m, char *data, t_token_type type, t_lexer *lexer);
+int                 create_tok(char *data, t_token_type type, t_lexer *lexer);
 char	            **ft_split_charset(const char *s, char *charset);
-t_list              *generate_tok(char *data, t_token_type type);
 void                del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok);
 char                *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
-void                add_new_word(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
+void                 add_new_word(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
 void                print_lst_tokens(t_lexer *lexer);
+int                 sort_lexer(t_main *m, t_lexer *lexer);
+int                 check_closing_quote(t_list *tokens, t_token_type type);
+int                 check_pre_space(t_lexer *lexer);
+void                word_interpolation(t_main *m, t_list **cur_tok, t_list **prev);
+
 // PARSE
 t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
@@ -134,7 +138,7 @@ int					word_left(char *s, t_cursor *p);
 int					error(int errtype, char *message);
 int					status_error(t_main *m, int errtype, int status, char *message);
 void				malloc_error(t_main *m, char *s, int errtype);
-void                malloc_error_1(t_main *m, t_lexer *lexer);
+void                malloc_error_lexer(t_main *m, t_lexer *lexer);
 int         		error_parsing(char *data);
 void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
