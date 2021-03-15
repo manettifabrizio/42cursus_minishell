@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/12 11:43:48 by fmanetti         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/15 17:01:44 by viroques         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +16,6 @@ static void        execute_builtin(t_main *m, t_node *builtin)
 {
     if (!(m->arr = create_cmd_table(builtin)))
 		malloc_error(m, NULL, NO_READING);
-<<<<<<< HEAD
-	// ft_print_array(m->arr, "cmd_table");
-=======
->>>>>>> main
     if (!(builtins(m, builtin->data)))
         if (!(execute_bin(m, builtin)))
 		{

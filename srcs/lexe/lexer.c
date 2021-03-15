@@ -6,11 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/14 23:35:52 by fmanetti         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/15 19:37:45 by viroques         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +41,7 @@ static int         is_an_operator(char c, char *next, t_lexer *lexer, int *i)
         return (create_tok(";", SEMICOLON, lexer));
     if (c == '>')
     {
-<<<<<<< HEAD
-        type = t_access_tok(cur_tok)->type;
-        if (type == SPACE || type == NEWLINE)
-            del_cur_tok_and_link_next(&prev, &cur_tok);
-        else if (type == WORD)
-        {
-            tmp = t_access_tok(cur_tok)->data;
-            t_access_tok(cur_tok)->data = check_vars(m, tmp, m->ehead, m->exit_status);
-            // printf("%sdata=s\n", t_access_tok(cur_tok)->data);
-            free(tmp);
-            prev = cur_tok;
-            cur_tok = cur_tok->next;
-        }
-        else if (type == DQUOTE || type == SQUOTE)
-        {
-            if (!(check_closing_quote(cur_tok, type)))
-                return (type);
-            del_cur_tok_and_link_next(&prev, &cur_tok);
-            add_new_word(&prev, &cur_tok, type, m);
-        }
-        else
-=======
         if (next && *next == '>')
->>>>>>> main
         {
             *i += 1;
             return (create_tok(">>", DGREATER, lexer));
