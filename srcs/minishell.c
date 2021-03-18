@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:56:33 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		set_term_noncano();
-
+		
 		// READ
 		prompt(m->exit_status);
 		s = line_read(m);

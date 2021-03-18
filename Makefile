@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/18 13:29:23 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ FILES		=	minishell.c							\
 				keys/control.c						\
 				keys/delete.c						\
 				keys/home_end.c						\
-				keys/word_move.c					\
+				keys/move_word_or_column.c			\
 				history/init_history.c				\
 				history/history.c					\
 				history/make_history.c				\
@@ -79,7 +79,7 @@ OBJ			=	$(SOURCE:%.c=%.o)
 
 CC			= 	clang
 
-CFLAGS		= 	-I include/ -Wall -Wextra -Werror
+CFLAGS		=   -I include/ -Wall -Wextra -Werror
 FSANITIZE	= 	-g3 -O0 -fsanitize=address
 
 RED			=	\033[0;31m

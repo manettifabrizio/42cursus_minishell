@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:59:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_lexer     *build_lexer(t_main *m, char *s)
             malloc_error_lexer(m, lexer);
         i++;
     }
-    if ((type = sort_lexer(m ,lexer)) > 0)
+    if ((type = sort_lexer(m, lexer)) > 0)
     {
         ft_free_array(m->arr);
 		if (!(s = multilines(m, s, type)))
@@ -103,5 +103,7 @@ t_lexer     *build_lexer(t_main *m, char *s)
     }
     if (type == -1)
         return (NULL);
+	if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
+		malloc_error(m, s, READING);
     return (lexer);
 }

@@ -6,15 +6,18 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 12:44:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:04:07 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:52:19 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_signal(int num)
+void	ft_signal(int signalnum)
 {
-	(void)num;
+	if (signalnum == SIGINT)
+		ft_putstr("\b\b  \b\b");
+	if (signalnum == SIGQUIT)
+		ft_putstr("Quit: 3\n");
 }
 
 void	set_term_noncano()

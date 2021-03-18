@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/16 00:58:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:45:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <string.h>
 # include <termios.h>
 # include <math.h>
-// # include <curses.h>
-// # include <term.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
@@ -45,8 +43,7 @@ char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor *p);
 int					heredoc(t_main *m, char *keywrd);
 int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
-char				*multi_pipe_and(t_main *m, char *s, char *c);
-char				*multi_quote(t_main *m, char *s, char c);
+int					check_multi(char *s, t_token_type type, int x);
 
 
 // HISTORY
@@ -135,6 +132,8 @@ int					home(char *s, t_cursor *p);
 int					end(char *s, t_cursor *p);
 int					word_right(char *s, t_cursor *p);
 int					word_left(char *s, t_cursor *p);
+int					column_up(char *s, t_cursor *p);
+int					column_down(char *s, t_cursor *p);
 
 // ERRORS and FREE
 int					error(int errtype, char *message);
@@ -148,5 +147,6 @@ void				free_lexer(t_lexer *lexer);
 // UTILS
 t_list				*create_env_elem(char **a);
 t_uint				count_lines(char *s);
+void				changing_line(t_cursor *p);
 
 #endif

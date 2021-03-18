@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 01:16:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/15 21:08:33 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:28:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int		count_word(char *s, char c)
 
 	x = 0;
 	wrd = 0;
+	if (s[0] == c)
+		wrd++;
 	while (s[x])
 		if (s[x] == c)
 		{
@@ -33,6 +35,7 @@ static int		count_word(char *s, char c)
 			while (s[x] && s[x] != c)
 				x++;
 		}
+	// printf("wrd = %d\n", wrd);
 	return (wrd);
 }
 

@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/15 21:41:47 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:19:28 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		word_move(char *s, t_cursor *p)
+int		move_word_or_column(char *s, t_cursor *p)
 {
 	char	buf[3];
 	
@@ -26,6 +26,10 @@ int		word_move(char *s, t_cursor *p)
 			return (word_right(s, p));
 		if (buf[0] == ARR_LEFT)
 			return (word_left(s, p));
+		if (buf[0] == ARR_UP)
+			return (column_up(s, p));
+		if (buf[0] == ARR_DOWN)
+			return (column_down(s, p));
 	}
 	return (0);
 }
@@ -43,16 +47,22 @@ static int		control(t_main *m, char *s, char *buf)
 {
 	if (buf[0] == CTRL_C)
 		return (control_c(m, s));
-	if (buf[0] == CTRL_D && s[0] == '\0')
+	if (buf[0] == CTRL_D)
 	{
-		if (ft_strlen(buf) == 2)
+		if (s[0] == '\0')
 		{
-			m->exit_status = 0;
-			return (1);
+			if (ft_strlen(buf) == 2)
+			{
+				m->exit_status = 0;
+				return (1);
+			}
+			else
+				control_d(m);
 		}
-		else
-			control_d(m);
+		return (1);
 	}
+	if (buf[0] == CTRL_Z)
+		return (1);
 	return (0);
 }
 
@@ -72,14 +82,12 @@ int		arrows(t_main *m, char **s, char c)
 int		check_key(t_main *m, char **s, char *buf)
 {
 	m->p->arr = split_keep(*s, '\n');
-	if (buf[0] == CTRL_C || buf[0] == CTRL_D)
+	if (buf[0] == CTRL_C || buf[0] == CTRL_D || buf[0] == CTRL_Z)
 		return (control(m, *s, buf));
-	if (buf[0] == BACKSPACE)
-		return (backspace(*s, m->p));
 	if (buf[0] == ESCAPE)
 	{
 		read(STDOUT_FILENO, buf, 1);
-		if (buf[0] == '[')
+		if (buf[0] == '[' || buf[0] == 'O')
 		{
 			read(STDOUT_FILENO, buf, 1);
 			if (buf[0] == ARR_UP || buf[0] == ARR_DOWN ||
@@ -90,7 +98,7 @@ int		check_key(t_main *m, char **s, char *buf)
 			if (buf[0] == HOME || buf[0] == END)
 				return (home_end(*s, buf[0], m->p));
 			if (buf[0] == '1')
-				return (word_move(*s, m->p));
+				return (move_word_or_column(*s, m->p));
 		}
 	}
 	return (0);

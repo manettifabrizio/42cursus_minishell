@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/16 00:49:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:09:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,16 @@
 
 int		reading(t_main *m, char **s, char *buf)
 {
-	if (!(m->hist = history(ft_strdup(*s), m->hist, m->p->hnum)))
-			malloc_error(m, *s, READING);
 	read(STDOUT_FILENO, buf, 1);
 	if (!(check_key(m, s, buf)))
 	{
 		buf[1] = 0;
 		*s = str_print_and_handle(m, *s, buf, m->p);
 	}
-	if (buf[0] == CTRL_C || buf[0] == CTRL_D)
+	if (buf[0] == CTRL_C)
 		return (-1);
 	if (buf[0] == '\n')
 		return (0);
-	// printf("s = [%s]\n", *s);
 	return (1);
 }
 
@@ -48,15 +45,14 @@ char	*line_read(t_main *m)
 	char	buf[2];
 	
 	s = ft_strdup("");
-	// s[0] = 31;
 	ft_bzero(buf, 2);
-	while (reading(m, &s, buf) > 0);
+	m->hist = add_history(s, m->hist);
+	while (reading(m, &s, buf) > 0)
+		if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
+			malloc_error(m, s, READING);
 	m->p->lpos = 0;
 	m->p->hnum = 0;
 	s = str_is_space(s);
-	if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
-		malloc_error(m, s, READING);
 	set_term_cano(m->base_term);
-	printf("s = [%s]\n", s);
 	return (s);
 }

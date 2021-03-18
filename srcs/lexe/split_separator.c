@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/09 19:12:20 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:19:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**ft_count_string(const char *s, char *charset)
 {
 	int		string;
 	int		i;
-	char	**tab;
+	char	**tb;
 
 	i = 0;
 	string = 0;
@@ -42,12 +42,12 @@ char	**ft_count_string(const char *s, char *charset)
             string++;
         i++;
     }
-	if (!(tab = (char**)malloc(sizeof(char*) * (string + 1))))
+	if (!(tb = (char**)malloc(sizeof(char*) * (string + 1))))
 		return (NULL);
-	return (tab);
+	return (tb);
 }
 
-void	ft_count_letter(const char *s, char *charset, char **tab)
+void	ft_count_letter(const char *s, char *charset, char **tb)
 {
 	int		i;
 	int		string;
@@ -61,10 +61,10 @@ void	ft_count_letter(const char *s, char *charset, char **tab)
 		letter++;
         if (is_sep(charset, s[i]) || is_sep(charset, s[i + 1]))
         {
-            if(!(tab[string] = malloc(sizeof(char) * (letter + 1))))
+            if(!(tb[string] = malloc(sizeof(char) * (letter + 1))))
             {
-                while(tab[string])
-                    free(tab[string--]);
+                while(tb[string])
+                    free(tb[string--]);
             }
             letter = 0;
             string++;
@@ -73,7 +73,7 @@ void	ft_count_letter(const char *s, char *charset, char **tab)
 	}
 }
 
-void	ft_fill_tab(char const *s, char *charset, char **tab)
+void	ft_fill_tab(char const *s, char *charset, char **tb)
 {
 	int		i;
 	int		string;
@@ -84,26 +84,26 @@ void	ft_fill_tab(char const *s, char *charset, char **tab)
 	letter = 0;
 	while (s[i])
 	{
-        tab[string][letter] = s[i];
+        tb[string][letter] = s[i];
         letter++;
         if (is_sep(charset, s[i]) || is_sep(charset, s[i + 1]))
         {
-            tab[string][letter] = 0;
+            tb[string][letter] = 0;
             string++;
             letter = 0;
         }
 		i++;
 	}
-    tab[string] = NULL;
+    tb[string] = NULL;
 }
 
 char	**ft_split_charset(const char *s, char *charset)
 {
-	char	**tab;
+	char	**tb;
 
-	if (!(tab = ft_count_string(s, charset)))
+	if (!(tb = ft_count_string(s, charset)))
 		return (NULL);
-	ft_count_letter(s, charset, tab);
-	ft_fill_tab(s, charset, tab);
-	return (tab);
+	ft_count_letter(s, charset, tb);
+	ft_fill_tab(s, charset, tb);
+	return (tb);
 }
