@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 11:45:08 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:20:46 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,19 @@ t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
 char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
-
 int         		parse(t_lexer *lexer, t_node **exec_tree);
-t_node      		*build_line(t_list **token);
+t_node      		*build_line(t_list **token, int par);
+t_node				*build_line_job(t_list **token);
 t_node      		*build_job(t_list **token);
 t_node      		*build_command(t_list **token);
+t_node				*build_command_builtin(t_list **token);
 t_node      		*build_filename(t_list **token);
 t_node      		*build_builtin(t_list **token);
 t_node      		*build_args(t_list **token);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
+int                 check_par(t_token_type tok_type, char** bufferptr, t_list **token);
+t_node              *check_closing_par(int par, t_list **token, t_node *node);
+t_node              *create_node(int type, char *data);
 
 //EXECUTE
 void				ft_signal(int num);
@@ -113,6 +117,7 @@ void        		ast_delete_node(t_node *node);
 void        		ast_set_data(t_node *node, char *data);
 void        		ast_set_type(t_node *node, int type);
 void        		ast_attach_branch(t_node *root, t_node *left, t_node *right);
+void                ast_attach_right(t_node *root, t_node *right);
 
 // SPLIT
 char				**split_exp(char const *s, char c);

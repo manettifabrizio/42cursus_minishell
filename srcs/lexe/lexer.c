@@ -3,82 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 13:59:34 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:21:46 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int         is_quote_or_space(char c, char *next, t_lexer *lexer, int *i)
+static int			is_quote_or_space(char c, char *next, t_lexer *lexer, int *i)
 {
-    if (c == '\n')
-        return (create_tok("\n", NEWLINE, lexer));
-    if (c == '\\')
-    {
-        if (next && (*next == '\"' || *next == '\''))
-        {
-            *i += 1;
-            return (create_tok(next, WORD, lexer));
-        }
-    }
-    if (c == '\"')
-        return (create_tok("\"", DQUOTE, lexer));
-    if (c == '\'')
-        return (create_tok("\'", SQUOTE, lexer));
-    if (c == ' ')
-        return (create_tok(" ", SPACE, lexer));
-    return (0);
+	if (c == '\n')
+		return (create_tok("\n", NEWLINE, lexer));
+	if (c == '\\')
+	{
+		if (next && (*next == '\"' || *next == '\''))
+		{
+			*i += 1;
+			return (create_tok(next, WORD, lexer));
+		}
+	}
+	if (c == '\"')
+		return (create_tok("\"", DQUOTE, lexer));
+	if (c == '\'')
+		return (create_tok("\'", SQUOTE, lexer));
+	if (c == ' ')
+		return (create_tok(" ", SPACE, lexer));
+	return (0);
 }
 
-static int         is_an_operator(char c, char *next, t_lexer *lexer, int *i)
+static int			is_an_operator(char c, char *next, t_lexer *lexer, int *i)
 {
-    if (c == '|')
-        return (create_tok("|", PIPE, lexer));
-    if (c == ';')
-        return (create_tok(";", SEMICOLON, lexer));
-    if (c == '>')
-    {
-        if (next && *next == '>')
-        {
-            *i += 1;
-            return (create_tok(">>", DGREATER, lexer));
-        }
-        return (create_tok(">", GREATER, lexer));
-    }
-    if (c == '<')
-    {
-        if (next && *next == '<')
-        {
-            *i += 1;
-            return (create_tok("<<", DLESSER, lexer));
-        }
-        return (create_tok("<", LESSER, lexer));
-    }
-    return (is_quote_or_space(c, next, lexer, i));
+	if (c == '|')
+	{
+		if (next && *next == '|')
+		{
+			*i += 1;
+			return (create_tok("||", DPIPE, lexer));
+		}
+		return (create_tok("|", PIPE, lexer));
+	}
+	if (c == '&' && next && *next == '&')
+	{
+		*i += 1;
+		return (create_tok("&&", DAMPERSTAND, lexer));
+	}
+	if (c == '(')
+		return (create_tok("(", OPEN_PAR, lexer));
+	if (c == ')')
+		return (create_tok(")", CLOSE_PAR, lexer));
+	if (c == ';')
+		return (create_tok(";", SEMICOLON, lexer));
+	if (c == '>')
+	{
+		if (next && *next == '>')
+		{
+			*i += 1;
+			return (create_tok(">>", DGREATER, lexer));
+		}
+		return (create_tok(">", GREATER, lexer));
+	}
+	if (c == '<')
+	{
+		if (next && *next == '<')
+		{
+			*i += 1;
+			return (create_tok("<<", DLESSER, lexer));
+		}
+		return (create_tok("<", LESSER, lexer));
+	}
+	return (is_quote_or_space(c, next, lexer, i));
 }
 
-static t_lexer     *init_lexer(t_main *m, char *s)
+static t_lexer		*init_lexer(t_main *m, char *s)
 {
-    t_lexer *lexer;
+	t_lexer *lexer;
 
-     if (!(lexer = malloc(sizeof(t_lexer))))
-        malloc_error(m, NULL, NO_READING);
-    lexer->tokens = NULL;
-    lexer->nb_tokens = 0;
-    if (!(m->arr = ft_split_charset(s, " <>|;\'\"\n")))
-        malloc_error_lexer(m, lexer);
-    return (lexer);
+	 if (!(lexer = malloc(sizeof(t_lexer))))
+		malloc_error(m, NULL, NO_READING);
+	lexer->tokens = NULL;
+	lexer->nb_tokens = 0;
+	if (!(m->arr = ft_split_charset(s, CHARSET)))
+		malloc_error_lexer(m, lexer);
+	return (lexer);
 }
 
-t_lexer     *build_lexer(t_main *m, char *s)
+t_lexer				*build_lexer(t_main *m, char *s)
 {
-    int     i;
-    t_lexer *lexer;
-    int     type;
-    int     ret;
+	int     i;
+	t_lexer *lexer;
+	int     type;
+	int     ret;
 
     lexer = init_lexer(m, s);
     i = 0;

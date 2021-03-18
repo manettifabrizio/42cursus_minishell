@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/14 11:29:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 14:55:31 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ typedef enum		e_token_type{
 	DLESSER,
 	WORD,
 	SPACE,
+	DAMPERSTAND,
+	DPIPE,
+	OPEN_PAR,
+	CLOSE_PAR,
+	CHAR_NULL,
 }					t_token_type;
 
 typedef enum		e_node_type {
@@ -56,7 +61,9 @@ typedef enum		e_node_type {
 	NODE_REDIRECT_OVER,
 	NODE_REDIRECT_HEREDOC,
 	NODE_PIPE,
-	NODE_LINE
+	NODE_LINE,
+	NODE_LOGIC_PIPE,
+	NODE_LOGIC_AMPERSTAND,
 }					t_node_type;
 
 typedef struct		s_token {
@@ -89,6 +96,7 @@ typedef	struct		s_main
 	char			**pathdirs;
 	t_uint			multilns;
 	struct termios	*base_term;
+	int				node_prev;
 }					t_main;
 
 #endif

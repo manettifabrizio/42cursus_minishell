@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 14:56:33 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:20:54 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int main(int ac, char **av, char **env)
 			}
 			free_lexer(lexer);
 		}
-		printf("exit status = %d\n", m->exit_status);
+		// printf("exit status = %d\n", m->exit_status);
 	}
 	make_history(m->hist_path, m->hist);
 	set_term_cano(m->base_term);

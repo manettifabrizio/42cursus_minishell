@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   split_separator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 10:19:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:21:24 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int     is_sep(char *charset, char c)
+int		is_sep(char *charset, char c)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    while (charset[i])
-    {
-        if (charset[i] == c)
-            return (1);
-        i++;
-    }
-    if (charset[i] == c)
-        return (1);
-    return (0);
+	i = 0;
+	while (charset[i])
+	{
+		if (charset[i] == c)
+			return (1);
+		i++;
+	}
+	if (charset[i] == c)
+		return (1);
+	return (0);
 }
 
 char	**ft_count_string(const char *s, char *charset)
