@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/16 00:49:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:52:35 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ char	*line_read(t_main *m)
 	if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
 		malloc_error(m, s, READING);
 	set_term_cano(m->base_term);
-	printf("s = [%s]\n", s);
+	// printf("s = [%s]\n", s);
 	return (s);
 }

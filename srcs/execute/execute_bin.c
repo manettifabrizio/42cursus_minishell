@@ -6,40 +6,40 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/12 10:01:28 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:53:42 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char        **create_cmd_table(t_node *root)
+char			**create_cmd_table(t_node *root)
 {
-    t_node  *node;
-    char    **args;
-    int     nbcmd;
+	t_node	*node;
+	char	**args;
+	int		nbcmd;
 
-    nbcmd = 0;
-    node = root;
-    while (node)
-    {
-        nbcmd++;
-        node = node->left;
-    }
-    if (!(args = malloc(sizeof(char *) * (nbcmd + 1))))
+	nbcmd = 0;
+	node = root;
+	while (node)
+	{
+		nbcmd++;
+		node = node->left;
+	}
+	if (!(args = malloc(sizeof(char *) * (nbcmd + 1))))
 		return (NULL);
-    node = root;
-    nbcmd = 0;
-    while (node)
-    {
-        args[nbcmd] = ft_strdup(node->data);
-        node = node->left;
-        nbcmd++;
-    }
-    args[nbcmd] = NULL;
-    return (args);
+	node = root;
+	nbcmd = 0;
+	while (node)
+	{
+		args[nbcmd] = ft_strdup(node->data);
+		node = node->left;
+		nbcmd++;
+	}
+	args[nbcmd] = NULL;
+	return (args);
 }
 
-int		exit_signals(int signal)
+int				exit_signals(int signal)
 {
 	if (signal == SIGINT)
 		return (130);
@@ -50,7 +50,7 @@ int		exit_signals(int signal)
 	return (0);
 }
 
-int		exit_status(pid_t pid)
+int				exit_status(pid_t pid)
 {
 	int		ret;
 	int		status;
@@ -69,29 +69,29 @@ int		exit_status(pid_t pid)
 	return (1);
 }
 
-int     execute_bin(t_main *m, t_node *cmd)
+int				execute_bin(t_main *m, t_node *cmd)
 {
-    char	*path;
-    pid_t	pid;
-    
-    if (!(path = search_path(cmd->data, m->pathdirs))
-        || !( m->arr = create_cmd_table(cmd)))
-        return (0);
+	char	*path;
+	pid_t	pid;
+
+	if (!(path = search_path(cmd->data, m->pathdirs))
+		|| !(m->arr = create_cmd_table(cmd)))
+		return (0);
 	if (path)
 	{
-    	if ((pid = fork()) < 0)
-    	    return (0);
-    	if (pid == 0)
-    	{
+		if ((pid = fork()) < 0)
+			return (0);
+		if (pid == 0)
+		{
 			if ((execve(path, m->arr, m->env)) == -1)
 				return (0);
-        	ft_free_array(m->arr);
-            free(path);
+			ft_free_array(m->arr);
+			free(path);
 			return (1);
-    	}
+		}
 		else
 			m->exit_status = exit_status(pid);
 		return (1);
 	}
-    return (0);
+	return (0);
 }
