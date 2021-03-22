@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 17:20:46 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/21 21:31:53 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
 int					check_multi(char *s, t_token_type type, int x);
 
+// WILDCARD
+char				*star_to_str(char *s, char *path, t_list **head);
+t_list				*star(char *s, int *i, t_list **head);
 
 // HISTORY
 char				**init_history();
@@ -109,6 +112,7 @@ char				*check_vars(t_main *m, char *s, t_list **head, int exit_status);
 // LISTS
 t_token     		*t_access_tok(t_list *lst);
 t_env	     		*t_access_env(t_list *lst);
+t_files				*t_access_files(t_list *lst);
 t_list				*list_sort(t_list **head);
 void				print_list(t_list **head);
 
@@ -150,7 +154,6 @@ void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
 
 // UTILS
-t_list				*create_env_elem(char **a);
 t_uint				count_lines(char *s);
 void				changing_line(t_cursor *p);
 
