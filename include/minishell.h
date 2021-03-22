@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/21 21:31:53 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:56:00 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int					check_multi(char *s, t_token_type type, int x);
 // WILDCARD
 char				*star_to_str(char *s, char *path, t_list **head);
 t_list				*star(char *s, int *i, t_list **head);
+int					starcmp(char *s, char *s1);
 
 // HISTORY
 char				**init_history();
@@ -74,6 +75,7 @@ t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
 char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
+t_list				*create_env_elem(char **a);
 int         		parse(t_lexer *lexer, t_node **exec_tree);
 t_node      		*build_line(t_list **token, int par);
 t_node				*build_line_job(t_list **token);

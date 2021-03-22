@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/21 20:33:56 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:54:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef	struct		s_env
 {
 	char			*name;
 	char			*value;
+	struct s_env	*next;
 }					t_env;
 
 typedef struct		s_cursor
