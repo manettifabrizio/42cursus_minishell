@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 19:16:25 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 15:13:54 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:26:22 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,14 @@ void		word_interpolation(t_main *m, t_list **cur_tok, t_list **prev)
 	free(tmp);
 	*prev = *cur_tok;
 	*cur_tok = (*cur_tok)->next;
+}
+
+char		*join_and_free(char *s1, char *s2)
+{
+	char	*data;
+
+	data = ft_strjoin(s1, s2);
+	free(s2);
+	free(s1);
+	return (data);
 }

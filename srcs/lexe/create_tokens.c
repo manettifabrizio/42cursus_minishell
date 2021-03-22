@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 15:09:18 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:29:57 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ static t_list		*generate_tok(char *data, t_token_type type, t_main *m)
 	if (!(token = malloc(sizeof(t_token))))
 		malloc_error(m, NULL, NO_READING);
 	token->type = type;
-	if (!(token->data = ft_strdup(data)))
-		malloc_error(m, NULL, NO_READING);
+	if (data)
+	{
+		if (!(token->data = ft_strdup(data)))
+			malloc_error(m, NULL, NO_READING);
+	}
+	else
+		data = NULL;
 	if (!(lst = ft_lstnew(token)))
 		malloc_error(m, NULL, NO_READING);
 	return (lst);
@@ -58,16 +63,17 @@ void				del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok)
 	(*cur_tok) = (*prev)->next;
 }
 
-char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
-										t_token_type type, t_main *m)
+char				*get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m)
 {
-	char *data;
-	char *tmp;
+	char	*tmp;
+	char	*data;
 
 	if (!(data = malloc(sizeof(char))))
 		malloc_error(m, NULL, NO_READING);
 	*data = '\0';
-	tmp = data;
+	if (!(check_closing_quote(*cur_tok, type)))
+		return (NULL);
+	del_cur_tok_and_link_next(prev, cur_tok);
 	while (*cur_tok && t_access_tok(*cur_tok)->type != type)
 	{
 		(*prev)->next = (*cur_tok)->next;
@@ -79,24 +85,72 @@ char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
 		ft_lstdelone(*cur_tok, &free);
 		*cur_tok = (*prev)->next;
 	}
-	if (type == SQUOTE)
-		return (data);
-	tmp = data;
-	data = check_vars(m, data, m->ehead, m->exit_status);
-	free(tmp);
+	del_cur_tok_and_link_next(prev, cur_tok);
 	return (data);
 }
 
-void				add_new_word(t_list **prev, t_list **cur_tok,
-							t_token_type type, t_main *m)
+char				*get_data_word(t_list **prev, t_list **cur_tok, t_main *m)
+{
+	char	*data;
+	char	*tmp;
+
+	if (!(data = malloc(sizeof(char))))
+		malloc_error(m, NULL, NO_READING);
+	*data = '\0';
+	(*prev)->next = (*cur_tok)->next;
+	tmp = data;
+	if (!(data = ft_strjoin(tmp, t_access_tok(*cur_tok)->data)))
+		malloc_error(m, NULL, NO_READING);
+	free(tmp);
+	free(t_access_tok(*cur_tok)->data);
+	ft_lstdelone(*cur_tok, &free);
+	*cur_tok = (*prev)->next;
+	return (data);
+}
+
+char				*get_data(t_list **prev, t_list **cur_tok, t_main *m)
+{
+	char 			*data;
+	t_token_type	type;
+	char			*tmp;
+	
+	if (!(data = malloc(sizeof(char))))
+		malloc_error(m, NULL, NO_READING);
+	*data = '\0';
+	while (*cur_tok && (t_access_tok(*cur_tok)->type == DQUOTE
+			|| t_access_tok(*cur_tok)->type == SQUOTE
+			|| t_access_tok(*cur_tok)->type == WORD))
+	{
+		type = t_access_tok(*cur_tok)->type;
+		if (type == WORD)
+			data = join_and_free(data, get_data_word(prev, cur_tok, m));
+		else
+			data = join_and_free(data, get_data_inside_quote(prev, cur_tok, type, m));
+		if (type != SQUOTE)
+		{
+			tmp = data;
+			data = check_vars(m, tmp, m->ehead, m->exit_status);
+			free(tmp);
+		}
+	}
+	return (data);
+}
+
+int 				add_new_word(t_list **prev, t_list **cur_tok, t_main *m)
 {
 	char	*data;
 	t_list	*new_word;
 
-	data = get_data_inside_quote(prev, cur_tok, type, m);
+	data = get_data(prev, cur_tok, m);
+	if (!data)
+		return (1);
 	new_word = generate_tok(data, WORD, m);
 	free(data);
 	(*prev)->next = new_word;
-	del_cur_tok_and_link_next(&new_word, cur_tok);
+	if (*cur_tok)
+		new_word->next = *cur_tok;
+	else
+		new_word->next = NULL;
 	*prev = new_word;
+	return (0);
 }

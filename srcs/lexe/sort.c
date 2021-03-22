@@ -54,14 +54,10 @@ int			while_sorting(t_main *m, t_list **cur_tok, t_list **prev)
 		type = t_access_tok(*cur_tok)->type;
 		if (type == SPACE || type == NEWLINE)
 			del_cur_tok_and_link_next(prev, cur_tok);
-		else if (type == WORD)
-			word_interpolation(m, cur_tok, prev);
-		else if (type == DQUOTE || type == SQUOTE)
+		else if (type == DQUOTE || type == SQUOTE || type == WORD)
 		{
-			if (!(check_closing_quote(*cur_tok, type)))
-				return (type);
-			del_cur_tok_and_link_next(prev, cur_tok);
-			add_new_word(prev, cur_tok, type, m);
+			if (add_new_word(prev, cur_tok, m))
+				return (t_access_tok(*cur_tok)->type);
 		}
 		else
 		{

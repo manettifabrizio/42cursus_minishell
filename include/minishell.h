@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 17:20:46 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:25:06 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ t_lexer         	*build_lexer(t_main *m, char *s);
 int                 create_tok(char *data, t_token_type type, t_lexer *lexer);
 char	            **ft_split_charset(const char *s, char *charset);
 void                del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok);
-char                *get_data_inside_quote(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
-void                 add_new_word(t_list **prev, t_list **cur_tok, t_token_type type, t_main *m);
+char                *get_data(t_list **prev, t_list **cur_tok, t_main *m);
+int	            	add_new_word(t_list **prev, t_list **cur_tok, t_main *m);
 void                print_lst_tokens(t_lexer *lexer);
 int                 sort_lexer(t_main *m, t_lexer *lexer);
 int                 check_closing_quote(t_list *tokens, t_token_type type);
 int                 check_pre_space(t_lexer *lexer);
 void                word_interpolation(t_main *m, t_list **cur_tok, t_list **prev);
-
+char				*join_and_free(char *s1, char *s2);
 // PARSE
 t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
