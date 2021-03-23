@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 17:20:54 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:07:40 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,8 @@ int main(int ac, char **av, char **env)
 				ft_free_array(m->arr);
 			if (lexer->nb_tokens > 0)
 			{
-				if (parse(lexer, &exec_tree))
+				if (parse(lexer, &exec_tree, s, m))
 				{
-					//execute
 					execute_ast_tree(m, exec_tree);
 					ast_delete_node(exec_tree);
 				}

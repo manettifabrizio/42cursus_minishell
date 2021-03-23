@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int			sort_heredoc_and_pipe(t_main *m, t_lexer *lexer)
+int			sort_heredoc(t_main *m, t_lexer *lexer)
 {
 	t_list		*cur_tok;
 	t_list		*prev;
@@ -33,12 +33,7 @@ int			sort_heredoc_and_pipe(t_main *m, t_lexer *lexer)
 			if (type == WORD)
 				if (!heredoc(m, t_access_tok(cur_tok)->data))
 					return (-1);
-		}
-		else if (type == PIPE || type == DPIPE || type == DAMPERSTAND)
-		{
-			if (!cur_tok->next)
-				return (type);
-		}
+	}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
@@ -143,7 +138,7 @@ int			sort_lexer(t_main *m, t_lexer *lexer)
 	sort_backslash_quote(lexer);
 	if ((type = sort_space_and_quote(lexer, m)))
 		return (type);
-	if ((type = sort_heredoc_and_pipe(m, lexer)))
+	if ((type = sort_heredoc(m, lexer)))
 		return (type);
 	if (lexer->tokens->next)
 	{

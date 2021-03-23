@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:23:55 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 12:03:05 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:21:40 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_node	*build_job_pipe(t_list **token)
 		ast_delete_node(command);
 		return (NULL);
 	}
-	if ((job = build_job(token)) == NULL)
+	if (!(job = build_job(token)))
 	{
 		ast_delete_node(command);
 		return (NULL);
