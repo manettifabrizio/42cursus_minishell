@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:12:43 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 17:19:37 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:54:38 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 char		*absolute_path(char *cmd_name)
 {
 	int		fd;
-
+	// If is a directory it forks
 	if (cmd_name[0] == '/' || cmd_name[0] == '.')
 	{
 		if ((fd = open(cmd_name, O_RDONLY)) == -1)
-			return (NULL);
+			return (NULL); 
 		close(fd);
 		return (cmd_name);
 	}

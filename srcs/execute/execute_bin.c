@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 17:21:00 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/22 20:16:44 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				execute_bin(t_main *m, t_node *cmd)
 		if (pid == 0)
 		{
 			if ((execve(path, m->arr, m->env)) == -1)
-				return (0);
+				return (0); //error (Is a DIrectory)
 			ft_free_array(m->arr);
 			free(path);
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:19:51 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/22 16:52:26 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/23 00:01:11 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int		beginning_and_end(char *s, char *filename)
 	{
 		i = len;
 		len = ft_strlen(filename) - 1;
-		printf("i = %d len = %d\n", i, len);
+		// printf("i = %d len = %d\n", i, len);
 		while (i > 0 && s[i] != '*')
 		{
-			printf("s[%d] = %c file[%d] = %c\n", i, s[i], len, filename[len]);
+			// printf("s[%d] = %c file[%d] = %c\n", i, s[i], len, filename[len]);
 			if (s[i] != filename[len])
 				return (0);
 			i--;
@@ -53,15 +53,15 @@ int		starcmp(char *s, char *filename)
 	x = 0;
 	c = 0;
 	a = ft_split(s, '*');
-	printf("----------------------\n");
-	printf("filename = %s\n", filename);
-	ft_print_array(a, "a");
+	// printf("----------------------\n");
+	// printf("filename = %s\n", filename);
+	// ft_print_array(a, "a");
 	while (filename[i] && a[x])
 	{
 		if (filename[i] == a[x][0])
 		{
 			c = 0;
-			printf("filename + i = %s a[%d] = %s\n", filename + i, x, a[x]);
+			// printf("filename + i = %s a[%d] = %s\n", filename + i, x, a[x]);
 			if (ft_strncmp(filename + i, a[x], ft_strlen(a[x])) == 0)
 			{
 				c = 1;
@@ -71,7 +71,7 @@ int		starcmp(char *s, char *filename)
 		}
 		i++;
 	}
-	printf("s[%d] = %c a[%d] = %s\n", i, s[i], x, a[x]);
+	// printf("s[%d] = %c a[%d] = %s\n", i, s[i], x, a[x]);
 	if (filename[i] == 0 && a[x])
 		return (0);
 	if (!(beginning_and_end(s, filename)))
