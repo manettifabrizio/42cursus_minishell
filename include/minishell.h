@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/22 16:56:00 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:42:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char				*multilines(t_main *m, char *s, t_token_type type);
 int					check_multi(char *s, t_token_type type, int x);
 
 // WILDCARD
-char				*star_to_str(char *s, char *path, t_list **head);
+char				*wildcard(t_main *m, char *s);
+void				star_to_str(char *s, char *path, t_list **head, int n);
 t_list				*star(char *s, int *i, t_list **head);
 int					starcmp(char *s, char *s1);
 

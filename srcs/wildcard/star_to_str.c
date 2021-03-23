@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 00:04:47 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:57:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,22 @@ t_list	**files_parser(char *path, t_list **head)
 	{
 		// printf("name = %s\n num = %llu\n", dir->d_name, dir->d_ino);
 		l = create_files_elem(dir->d_name);
-		if (ft_strcmp(".", dir->d_name) == 0) // soluzione temporanea
+		if (!(*head))
 			*head = l;
 		ft_lstadd_back(head, l);
 	}
+	// print_list_files(head);
 	return (head);
 }
 
-char	*star_to_str(char *s, char *path, t_list **head)
+t_list		*find_matches(char *s, char *path, t_list **head)
 {
-	int		i;
 	t_list	*l;
 	t_list	*hmatch;
 	char	*filename;
 
-	i = 0;
-	// s = delete_multiple_stars()
 	head = files_parser(path, head);
 	l = *head;
-	hmatch = NULL;
 	while (l)
 	{
 		filename = t_access_files(l)->name;
@@ -85,8 +82,43 @@ char	*star_to_str(char *s, char *path, t_list **head)
 			add_elem_to_list(&hmatch, filename);
 		l = l->next;
 	}
-	*head = hmatch;
-	// printf("\n**************************\n");
-	print_list_files(head);
-	return (s);
+	return (hmatch);
+}
+
+void	add_to_head(char *path, t_list **head, t_list *hmatch)
+{
+	t_list	*l;
+	char	*filename;
+
+	l = *head;
+	while (l)
+	{
+		filename = t_access_files(l)->name;
+		if (ft_strcmp(filename, path) == 0)
+		{
+			ft_lstdelone(l, free);
+			l = hmatch;
+			while (l)
+			{
+				ft_lstadd_back(head, l);
+				l = l->next;
+			}
+			break;
+		}
+	}
+}
+
+void	star_to_str(char *s, char *path, t_list **head, int n)
+{
+	int		i;
+	t_list	*hmatch;
+
+	i = 0;
+	if (n == 0)
+		return ;
+	hmatch = find_matches(s, path, head);
+	add_to_head(path, head, hmatch); // add to head
+	if (n == -1)
+		n = ft_lstsize(head);
+	return (star_to_str(s, ft_strjoin(path, t_access_files(lmatch)->name), head, n - 1));
 }

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:19:51 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 00:01:11 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:15:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		starcmp(char *s, char *filename)
 	c = 0;
 	a = ft_split(s, '*');
 	// printf("----------------------\n");
-	// printf("filename = %s\n", filename);
+	// printf("s = %s filename = %s\n", s, filename);
 	// ft_print_array(a, "a");
 	while (filename[i] && a[x])
 	{
