@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:17:01 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 14:25:54 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:40:45 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		redirect_in(t_node *redirect)
 {
 	int		fdout;
 
-	fdout = open(redirect->data, O_RDWR | O_CREAT);
+	fdout = open(redirect->data, O_RDWR | O_CREAT | O_TRUNC, 0640);
 	dup2(fdout, STDOUT_FILENO);
 	close(fdout);
 }
@@ -34,7 +34,7 @@ static void		redirect_over(t_node *redirect)
 {
 	int fdout;
 
-	fdout = open(redirect->data, O_RDWR | O_CREAT | O_APPEND);
+	fdout = open(redirect->data, O_RDWR | O_CREAT | O_APPEND, 0640);
 	dup2(fdout, STDOUT_FILENO);
 	close(fdout);
 }
