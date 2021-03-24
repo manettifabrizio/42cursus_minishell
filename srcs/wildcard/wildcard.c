@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 16:55:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/24 00:02:16 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,31 @@ char		*list_to_str(t_main *m, t_list	**head)
 	return (s);
 }
 
+char		r_create_list(char **a, char *path)
+{
+	int		i;
+	t_list	*head;
+	t_list	*l;
+
+	i = -1;
+	head = NULL;
+	while (a[++i])
+	{
+		star_to_str(a[i], path, &head);
+		l = head;
+		while (l)
+		{
+			path = ft_strjoin_nl(path, t_access_files(l)->name);
+			star_to_str(a[i + 1], path, head);
+			l = head;
+			while (l)
+			{
+				path = ft_strjoin_nl(path, t_access_files(l)->name));
+				star_to_str(a[i + 1], path, head);
+			}
+		}
+}
+
 char		*wildcard(t_main *m, char *s)
 {
 	int		i;
@@ -68,7 +93,8 @@ char		*wildcard(t_main *m, char *s)
 	head = NULL;
 	while (a[++i])
 	{
-		star_to_str(a[i], path, &head, -1);
+		
+
 	}
 	return (list_to_str(m, &head));
 }

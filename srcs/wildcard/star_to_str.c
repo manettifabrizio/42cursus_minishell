@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 16:57:47 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/23 23:56:11 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,16 @@ void	add_to_head(char *path, t_list **head, t_list *hmatch)
 	}
 }
 
-void	star_to_str(char *s, char *path, t_list **head, int n)
+void	star_to_str(char *s, char *path, t_list **head)
 {
 	int		i;
 	t_list	*hmatch;
 
 	i = 0;
-	if (n == 0)
-		return ;
 	hmatch = find_matches(s, path, head);
-	add_to_head(path, head, hmatch); // add to head
-	if (n == -1)
-		n = ft_lstsize(head);
-	return (star_to_str(s, ft_strjoin(path, t_access_files(lmatch)->name), head, n - 1));
+	// add_to_head(path, head, hmatch); // add to head
+	*head = hmatch;
+
+	// path = ft_strjoin_nl(path, t_access_files(l)->name);
+	return (star_to_str(s, path, head));
 }
