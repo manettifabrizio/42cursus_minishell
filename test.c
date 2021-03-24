@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:55:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 15:11:04 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:11:28 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int		main(int ac, char **av)
 
 	(void)ac;
 	head = NULL;
-	wildcard(m, av[1]);
+	wildcard(m, ft_strdup(av[1]));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 23:56:11 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:02:50 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,21 @@ void		add_elem_to_list(t_list **hmatch, char *s)
 {
 	t_list	*lmatch;
 
+	// printf("filename = %s\n", s);
 	lmatch = create_files_elem(s);
 	if (!(*hmatch))
 		*hmatch = lmatch;
 	ft_lstadd_back(hmatch, lmatch);
 }
 
-t_list	**files_parser(char *path, t_list **head)
+void		files_parser(char *path, t_list **head)
 {
 	DIR				*dir_stream;
 	struct dirent	*dir;
 	t_list			*l;
 
 	if (!(dir_stream = opendir(path)))
-		return (NULL);
+		return ;
 	while ((dir = readdir(dir_stream)) > 0)
 	{
 		// printf("name = %s\n num = %llu\n", dir->d_name, dir->d_ino);
@@ -64,7 +65,6 @@ t_list	**files_parser(char *path, t_list **head)
 		ft_lstadd_back(head, l);
 	}
 	// print_list_files(head);
-	return (head);
 }
 
 t_list		*find_matches(char *s, char *path, t_list **head)
@@ -73,51 +73,33 @@ t_list		*find_matches(char *s, char *path, t_list **head)
 	t_list	*hmatch;
 	char	*filename;
 
-	head = files_parser(path, head);
 	l = *head;
+	hmatch = NULL;
 	while (l)
 	{
 		filename = t_access_files(l)->name;
-		if (starcmp(s, filename))
+		// printf("filename = %s\n", filename);
+		if (starcmp(s, filename) && filename[0] != '.')
 			add_elem_to_list(&hmatch, filename);
 		l = l->next;
 	}
+	free(s);
+	// print_list_files(&hmatch);
 	return (hmatch);
 }
 
-void	add_to_head(char *path, t_list **head, t_list *hmatch)
-{
-	t_list	*l;
-	char	*filename;
-
-	l = *head;
-	while (l)
-	{
-		filename = t_access_files(l)->name;
-		if (ft_strcmp(filename, path) == 0)
-		{
-			ft_lstdelone(l, free);
-			l = hmatch;
-			while (l)
-			{
-				ft_lstadd_back(head, l);
-				l = l->next;
-			}
-			break;
-		}
-	}
-}
-
-void	star_to_str(char *s, char *path, t_list **head)
+t_list		*star_to_str(char *s, char *path, t_list **head)
 {
 	int		i;
-	t_list	*hmatch;
 
-	i = 0;
-	hmatch = find_matches(s, path, head);
-	// add_to_head(path, head, hmatch); // add to head
-	*head = hmatch;
-
+	*head = NULL;
+	files_parser(path, head);
+	// printf("path = %s\nstr = %s\n", path, s);
+	// if (ft_strcmp(s, "*") == 0)
+	// {
+	// 	free(s);
+	// 	return (*head);
+	// }
+	return (find_matches(s, path, head));
 	// path = ft_strjoin_nl(path, t_access_files(l)->name);
-	return (star_to_str(s, path, head));
 }

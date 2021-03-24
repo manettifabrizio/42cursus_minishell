@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 23:56:21 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:41:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					check_multi(char *s, t_token_type type, int x);
 
 // WILDCARD
 char				*wildcard(t_main *m, char *s);
-void				star_to_str(char *s, char *path, t_list **head);
+t_list				*star_to_str(char *s, char *path, t_list **head);
 t_list				*star(char *s, int *i, t_list **head);
 int					starcmp(char *s, char *s1);
 
@@ -158,6 +158,7 @@ void				free_lexer(t_lexer *lexer);
 
 // UTILS
 t_uint				count_lines(char *s);
+char				*frankenstr(char *s, char *buf, char *s1);
 void				changing_line(t_cursor *p);
 
 #endif
