@@ -6,7 +6,7 @@
 #    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/18 17:20:42 by viroques         ###   ########.fr        #
+#    Updated: 2021/03/24 15:16:56 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ FILES		=	minishell.c							\
 				lexe/split_separator.c 				\
 				lexe/sort.c 						\
 				lexe/sort_utils.c 					\
+				lexe/check_tokens.c 				\
+				lexe/add_word.c 					\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
 				parse/lists/list_sort.c				\
@@ -40,6 +42,7 @@ FILES		=	minishell.c							\
 				parse/build/line.c					\
 				parse/build/line_2.c 				\
 				parse/parser.c						\
+				parse/check_parse_utils.c 			\
 				keys/arrows.c						\
 				keys/control.c						\
 				keys/delete.c						\
@@ -51,6 +54,7 @@ FILES		=	minishell.c							\
 				execute/path.c						\
 				execute/signals_term.c				\
 				execute/execute.c					\
+				execute/execute_pipe_utils.c 		\
 				execute/execute_bin.c				\
 				execute/redirection.c				\
 				builtins/builtins.c					\
@@ -63,6 +67,7 @@ FILES		=	minishell.c							\
 				builtins/ft_exit.c					\
 				builtins/vars.c						\
 				ast_tree/ast_tree.c					\
+				ast_tree/create_node.c 				\
 				errors_and_free/error.c				\
 				errors_and_free/free.c				\
 				utils.c

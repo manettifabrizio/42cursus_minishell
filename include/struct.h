@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 16:18:57 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:33:04 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef enum		e_token_type{
 	OPEN_PAR,
 	CLOSE_PAR,
 	CHAR_NULL,
-	MULTI_PIPE
 }					t_token_type;
 
 typedef enum		e_node_type {
@@ -83,6 +82,14 @@ typedef struct		s_node {
 	struct s_node	*left;
 	struct s_node	*right;
 }					t_node;
+
+typedef struct		s_std{
+	int fd_in;
+	int	fd_out;
+	int fd[2];
+	int	tmp_in;
+	int	tmp_out;
+}				t_std;
 
 typedef	struct		s_main
 {

@@ -6,81 +6,17 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/23 16:39:55 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:03:18 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int			is_quote_or_space(char c, char *next, t_lexer *lexer, int *i)
-{
-	if (c == '\n')
-		return (create_tok("\n", NEWLINE, lexer));
-	if (c == '\\')
-	{
-		if (next && (*next == '\"' || *next == '\''))
-		{
-			*i += 1;
-			return (create_tok(next, WORD, lexer));
-		}
-	}
-	if (c == '\"')
-		return (create_tok("\"", DQUOTE, lexer));
-	if (c == '\'')
-		return (create_tok("\'", SQUOTE, lexer));
-	if (c == ' ')
-		return (create_tok(" ", SPACE, lexer));
-	return (0);
-}
-
-static int			is_an_operator(char c, char *next, t_lexer *lexer, int *i)
-{
-	if (c == '|')
-	{
-		if (next && *next == '|')
-		{
-			*i += 1;
-			return (create_tok("||", DPIPE, lexer));
-		}
-		return (create_tok("|", PIPE, lexer));
-	}
-	if (c == '&' && next && *next == '&')
-	{
-		*i += 1;
-		return (create_tok("&&", DAMPERSTAND, lexer));
-	}
-	if (c == '(')
-		return (create_tok("(", OPEN_PAR, lexer));
-	if (c == ')')
-		return (create_tok(")", CLOSE_PAR, lexer));
-	if (c == ';')
-		return (create_tok(";", SEMICOLON, lexer));
-	if (c == '>')
-	{
-		if (next && *next == '>')
-		{
-			*i += 1;
-			return (create_tok(">>", DGREATER, lexer));
-		}
-		return (create_tok(">", GREATER, lexer));
-	}
-	if (c == '<')
-	{
-		if (next && *next == '<')
-		{
-			*i += 1;
-			return (create_tok("<<", DLESSER, lexer));
-		}
-		return (create_tok("<", LESSER, lexer));
-	}
-	return (is_quote_or_space(c, next, lexer, i));
-}
-
 static t_lexer		*init_lexer(t_main *m, char *s)
 {
 	t_lexer *lexer;
 
-	 if (!(lexer = malloc(sizeof(t_lexer))))
+	if (!(lexer = malloc(sizeof(t_lexer))))
 		malloc_error(m, NULL, NO_READING);
 	lexer->tokens = NULL;
 	lexer->nb_tokens = 0;
@@ -89,39 +25,46 @@ static t_lexer		*init_lexer(t_main *m, char *s)
 	return (lexer);
 }
 
+void				while_create_token(t_main *m, t_lexer *lexer)
+{
+	int		i;
+	int		ret;
+
+	ret = 0;
+	i = 0;
+	while (m->arr[i])
+	{
+		if ((ret = is_an_operator(m->arr[i][0], m->arr[i + 1], lexer, &i)))
+			(void)ret;
+		else
+			ret = create_tok(m->arr[i], WORD, lexer);
+		if (ret == -1)
+			malloc_error_lexer(m, lexer);
+		i++;
+	}
+}
+
 t_lexer				*build_lexer(t_main *m, char *s)
 {
-	int     i;
-	t_lexer *lexer;
-	int     type;
-	int     ret;
+	t_lexer		*lexer;
+	int			type;
 
-    lexer = init_lexer(m, s);
-    i = 0;
-    while (m->arr[i])
-    {
-        if ((ret = is_an_operator(m->arr[i][0], m->arr[i + 1], lexer, &i)));
-        else
-            ret = create_tok(m->arr[i], WORD, lexer);
-        if (ret == -1)
-            malloc_error_lexer(m, lexer);
-        i++;
-    }
+	lexer = init_lexer(m, s);
+	while_create_token(m, lexer);
 	if (!lexer->tokens)
 		return (NULL);
-    if ((type = sort_lexer(m, lexer)) > 0)
-    {
-        ft_free_array(m->arr);
+	if ((type = sort_lexer(m, lexer)) > 0)
+	{
+		ft_free_array(m->arr);
 		if (!(s = multilines(m, s, type)))
 			return (NULL);
 		free_lexer(lexer);
 		lexer = NULL;
-		// printf("hists = |%s|\n", s);
 		return (build_lexer(m, s));
-    }
-    if (type == -1)
-        return (NULL);
+	}
+	if (type == -1)
+		return (NULL);
 	if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
 		malloc_error(m, s, READING);
-    return (lexer);
+	return (lexer);
 }

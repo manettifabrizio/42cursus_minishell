@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                            :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/15 19:08:44 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/15 19:37:15 by viroques         ###   ########.fr       */
+/*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
+/*   Updated: 2021/03/24 15:27:44 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			sort_heredoc(t_main *m, t_lexer *lexer)
+int					sort_heredoc(t_main *m, t_lexer *lexer)
 {
 	t_list		*cur_tok;
 	t_list		*prev;
@@ -33,14 +33,14 @@ int			sort_heredoc(t_main *m, t_lexer *lexer)
 			if (type == WORD)
 				if (!heredoc(m, t_access_tok(cur_tok)->data))
 					return (-1);
-	}
+		}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
 	return (0);
 }
 
-int			while_sorting(t_main *m, t_list **cur_tok, t_list **prev)
+int					while_sorting(t_main *m, t_list **cur_tok, t_list **prev)
 {
 	int type;
 
@@ -63,7 +63,7 @@ int			while_sorting(t_main *m, t_list **cur_tok, t_list **prev)
 	return (0);
 }
 
-int			sort_space_and_quote(t_lexer *lexer, t_main *m)
+int					sort_space_and_quote(t_lexer *lexer, t_main *m)
 {
 	t_list	*cur_tok;
 	t_list	*prev;
@@ -78,7 +78,7 @@ int			sort_space_and_quote(t_lexer *lexer, t_main *m)
 	return (0);
 }
 
-static int	replace_backslash_and_link_next(t_list **cur_tok, int len)
+static int			replace_backslash_and_link_next(t_list **cur_tok, int len)
 {
 	t_list *quote;
 
@@ -99,7 +99,7 @@ static int	replace_backslash_and_link_next(t_list **cur_tok, int len)
 	return (1);
 }
 
-static void	sort_backslash_quote(t_lexer *lexer)
+static void			sort_backslash_quote_and_wildcard(t_lexer *lexer)
 {
 	t_list	*cur_tok;
 	t_list	*prev;
@@ -114,17 +114,20 @@ static void	sort_backslash_quote(t_lexer *lexer)
 			len = ft_strlen(t_access_tok(cur_tok)->data);
 			if (t_access_tok(cur_tok)->data[len - 1] == '\\')
 			{
-				if (cur_tok->next && t_access_tok(cur_tok->next)->type == DQUOTE)
+				if (cur_tok->next &&
+					t_access_tok(cur_tok->next)->type == DQUOTE)
 					if (!replace_backslash_and_link_next(&cur_tok, len))
 						return ;
 			}
+			if (ft_strrchr(t_access_tok(cur_tok)->data, '*'))
+				printf("toto %s\n", t_access_tok(cur_tok)->data);
 		}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
 }
 
-int			sort_lexer(t_main *m, t_lexer *lexer)
+int					sort_lexer(t_main *m, t_lexer *lexer)
 {
 	int		type;
 	t_list	*head;
@@ -135,7 +138,7 @@ int			sort_lexer(t_main *m, t_lexer *lexer)
 	token->data = NULL;
 	head = ft_lstnew(token);
 	ft_lstadd_front(&(lexer->tokens), head);
-	sort_backslash_quote(lexer);
+	sort_backslash_quote_and_wildcard(lexer);
 	if ((type = sort_space_and_quote(lexer, m)))
 		return (type);
 	if ((type = sort_heredoc(m, lexer)))

@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 17:21:00 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:00:30 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ int				exit_status(pid_t pid)
 
 	ret = waitpid(pid, &status, 0);
 	if (ret < 0)
-		printf("Failed to wait for process %d (errno = %d)\n", (int)pid, errno); //error
-	else if (ret != pid) // devono essere uguali
-		printf("Got ret of process %d (status 0x%.4X) when expecting PID %d\n", ret, status, (int)pid);
-	else if (WIFEXITED(status)) // ritorna vero se il child è uscito normalmente
+		printf("Failed to wait for process %d (errno = %d)\n", (int)pid, errno);
+	else if (ret != pid)
+		printf("Got ret of process %d (status 0x%.4X) when expecting PID %d\n"
+				, ret, status, (int)pid);
+	else if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 		return (exit_signals(WTERMSIG(status)));
 	else
-		return (-1); //error
+		return (-1);
 	return (1);
 }
 

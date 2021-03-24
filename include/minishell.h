@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/23 14:22:57 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:18:52 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_lexer         	*build_lexer(t_main *m, char *s);
 int                 create_tok(char *data, t_token_type type, t_lexer *lexer);
 char	            **ft_split_charset(const char *s, char *charset);
 void                del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok);
-char                *get_data(t_list **prev, t_list **cur_tok, t_main *m);
 int	            	add_new_word(t_list **prev, t_list **cur_tok, t_main *m);
 void                print_lst_tokens(t_lexer *lexer);
 int                 sort_lexer(t_main *m, t_lexer *lexer);
@@ -66,6 +65,13 @@ int                 check_closing_quote(t_list *tokens, t_token_type type);
 int                 check_pre_space(t_lexer *lexer);
 void                word_interpolation(t_main *m, t_list **cur_tok, t_list **prev);
 char				*join_and_free(char *s1, char *s2);
+int					is_quote_or_space(char c, char *next,
+					t_lexer *lexer, int *i);
+int					is_redirection(char c, char *next, t_lexer *lexer, int *i);
+int					is_an_operator(char c, char *next, t_lexer *lexer, int *i);
+t_list				*generate_tok(char *data, t_token_type type, t_main *m);
+int					create_tok(char *data, t_token_type type, t_lexer *lexer);
+
 // PARSE
 t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
@@ -94,6 +100,11 @@ char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
 void     			execute_ast_tree(t_main *m, t_node *exec_tree);
 char                **create_cmd_table(t_node *root);
+void				init_std(t_std *std);
+void				execute_inter_pipe(t_std *std, t_main *m, t_node *job, int logic_type);
+void				execute_command(t_main *m, t_node *command, int logic_type);
+void				execute_builtin(t_main *m, t_node *builtin, int logic_type);
+void				execute_command_line(t_main *m, t_node *cmd_line, int type);
 
 // BUILTINS
 int					builtins(t_main *m, char *cmd_name);
