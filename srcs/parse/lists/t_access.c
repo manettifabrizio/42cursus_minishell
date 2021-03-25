@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:37:21 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 12:37:45 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/21 20:52:40 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 t_token		*t_access_tok(t_list *lst)
 {
-    if (!lst)
-        return (NULL);
-    return ((t_token*)lst->content);
+	if (!lst)
+		return (NULL);
+	return ((t_token*)lst->content);
 }
 
 t_env		*t_access_env(t_list *lst)
 {
-    if (!lst)
-        return (NULL);
-    return ((t_env*)lst->content);
+	if (!lst)
+		return (NULL);
+	return ((t_env*)lst->content);
+}
+
+t_files		*t_access_files(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	return ((t_files*)lst->content);
 }

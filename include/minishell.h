@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/24 15:40:07 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:26:45 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
 int					check_multi(char *s, t_token_type type, int x);
 
+// WILDCARD
+char				*wildcard(t_main *m, char *s);
+t_list				*star_to_str(char *s, char *path, t_list **head);
+int					starcmp(char *s, char *s1);
+t_list				*create_files_elem(char *s);
+void				add_elem_to_list(t_list **hmatch, char *s);
+char				*list_to_str(t_main *m, t_list **head);
+t_list				*list_sort_files(t_list **head);
+void				print_list_files(t_list *head);
 
 // HISTORY
 char				**init_history();
@@ -77,6 +86,7 @@ t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
 char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
+t_list				*create_env_elem(char **a);
 int       			parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m);
 t_node      		*build_line(t_list **token, int par);
 t_node				*build_line_job(t_list **token);
@@ -120,7 +130,8 @@ char				*check_vars(t_main *m, char *s, t_list **head, int exit_status);
 // LISTS
 t_token     		*t_access_tok(t_list *lst);
 t_env	     		*t_access_env(t_list *lst);
-t_list				*list_sort(t_list **head);
+t_files				*t_access_files(t_list *lst);
+t_list				*list_sort_env(t_list **head);
 void				print_list(t_list **head);
 
 // AST TREE
@@ -161,7 +172,6 @@ void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
 
 // UTILS
-t_list				*create_env_elem(char **a);
 t_uint				count_lines(char *s);
 void				changing_line(t_cursor *p);
 

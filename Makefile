@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
+#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/24 15:16:56 by viroques         ###   ########.fr        #
+#    Updated: 2021/03/25 16:26:57 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ FILES		=	minishell.c							\
 				lexe/add_word.c 					\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
-				parse/lists/list_sort.c				\
+				parse/lists/list_sort_env.c			\
 				parse/lists/print_list.c			\
 				parse/split/split_exp.c				\
 				parse/split/split_var.c				\
@@ -36,11 +36,11 @@ FILES		=	minishell.c							\
 				parse/build/args.c					\
 				parse/build/builtin.c				\
 				parse/build/command.c				\
-				parse/build/command_2.c 			\
+				parse/build/command2.c 				\
 				parse/build/filename.c				\
 				parse/build/job.c					\
 				parse/build/line.c					\
-				parse/build/line_2.c 				\
+				parse/build/line2.c 				\
 				parse/parser.c						\
 				parse/check_parse_utils.c 			\
 				keys/arrows.c						\

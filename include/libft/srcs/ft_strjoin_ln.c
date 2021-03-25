@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_list.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_ln.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 17:12:30 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/21 19:41:03 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/24 22:44:28 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/24 22:47:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	print_list(t_list **head)
+char 	*ft_strjoin_ln(char *s, char *s1)
 {
-	t_list	*tmp;
+	char 	*tmp;
 
-	tmp = *head;
-	while (tmp != NULL)
-	{
-		if (t_access_env(tmp)->value)
-			printf("%s=%s\n", t_access_env(tmp)->name, t_access_env(tmp)->value);
-		else
-			printf("%s\n", t_access_env(tmp)->name);
-		tmp = tmp->next;
-	}
+	tmp = ft_strdup(s1);
+	free(s1);
+	s1 = ft_strjoin(s, tmp);
+	free(tmp);
+	return (s1);
 }

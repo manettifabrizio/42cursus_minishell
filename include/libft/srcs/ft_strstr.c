@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_list.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 17:12:30 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/21 19:41:03 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/22 10:24:28 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/22 10:33:00 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	print_list(t_list **head)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	t_list	*tmp;
+	int				z;
+	unsigned int	x;
+	unsigned int	y;
 
-	tmp = *head;
-	while (tmp != NULL)
+	x = 0;
+	z = 0;
+	while (haystack[x])
 	{
-		if (t_access_env(tmp)->value)
-			printf("%s=%s\n", t_access_env(tmp)->name, t_access_env(tmp)->value);
-		else
-			printf("%s\n", t_access_env(tmp)->name);
-		tmp = tmp->next;
+		y = 0;
+		while (haystack[x + y] == needle[y])
+		{
+			if (needle[y + 1] == '\0')
+				return ((char*)haystack + x);
+			y++;
+			z++;
+		}
+		x++;
 	}
+	if (ft_strlen(needle) == 0)
+		return ((char*)haystack);
+	else
+		return (NULL);
 }

@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/15 20:55:11 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/24 22:49:06 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ FILES	=	ft_arrlen_s.c		\
 			ft_strdup.c			\
 			ft_strjoin.c		\
 			ft_strjoin_nl.c		\
+			ft_strjoin_ln.c		\
 			ft_strlcat.c		\
 			ft_strlcpy.c		\
 			ft_strlen.c			\
@@ -60,6 +61,7 @@ FILES	=	ft_arrlen_s.c		\
 			ft_strncpy.c		\
 			ft_strnstr.c		\
 			ft_strrchr.c		\
+			ft_strstr.c			\
 			ft_strtrim.c		\
 			ft_substr.c			\
 			ft_swap.c			\

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_list.c                                       :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 17:12:30 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/21 19:41:03 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/22 09:55:29 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/25 00:34:06 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_list(t_list **head)
+int		main(int ac, char **av)
 {
-	t_list	*tmp;
+	t_list	*head;
+	t_main	*m;
 
-	tmp = *head;
-	while (tmp != NULL)
-	{
-		if (t_access_env(tmp)->value)
-			printf("%s=%s\n", t_access_env(tmp)->name, t_access_env(tmp)->value);
-		else
-			printf("%s\n", t_access_env(tmp)->name);
-		tmp = tmp->next;
-	}
+	(void)ac;
+	head = NULL;
+	m = NULL;
+	printf("%s\n", wildcard(m, ft_strdup(av[1])));
+	return (0);
 }
