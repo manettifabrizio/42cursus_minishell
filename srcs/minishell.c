@@ -88,8 +88,6 @@ int main(int ac, char **av, char **env)
 		// LEXE && PARSE
 		if ((lexer = build_lexer(m, s)))
 		{
-			if (m->arr)
-				ft_free_array(m->arr);
 			if (lexer->nb_tokens > 0)
 			{
 				if (parse(lexer, &exec_tree, s, m))
