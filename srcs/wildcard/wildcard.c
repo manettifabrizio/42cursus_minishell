@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 16:32:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:55:31 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,26 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 	// printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 }
 
-char		*wildcard(t_main *m, char *s)
+t_list		*str_to_token_lst(char *str)
+{
+	t_list	*head;
+	int		i;
+	char	**tab;
+
+	head = NULL;
+	i = 0;
+	if (!(tab = ft_split(str, ' ')))
+		return (NULL);
+	while (tab[i])
+	{
+		if (!create_tok_lst(tab[i], WORD, &head))
+			return (NULL);
+		i++;
+	}
+	return (head);
+}
+
+t_list 			*wildcard(t_main *m, char *s)
 {
 	char		*path;
 	t_list		*head;
@@ -116,5 +135,5 @@ char		*wildcard(t_main *m, char *s)
 	// printf("***********************************************\n");
 	// print_list_files(head);
 	final = list_sort_files(&final);
-	return (list_to_str(m, &final));
+	return (str_to_token_lst(list_to_str(m, &final)));
 }

@@ -6,13 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:31:54 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 13:53:57 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:26:13 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_node		*build_arg_1(t_list **token)
+static t_node		*build_arg_word(t_list **token)
 {
 	t_node	*args_list;
 	t_node	*result;
@@ -27,7 +27,7 @@ static t_node		*build_arg_1(t_list **token)
 	return (result);
 }
 
-static t_node		*build_arg_2(void)
+static t_node		*build_arg_null(void)
 {
 	return (NULL);
 }
@@ -39,10 +39,10 @@ t_node				*build_args(t_list **token)
 
 	save = *token;
 	if ((*token = save)
-		&& (node = build_arg_1(token)))
+		&& (node = build_arg_word(token)))
 		return (node);
 	if ((*token = save)
-		&& (node = build_arg_2()))
+		&& (node = build_arg_null()))
 		return (node);
 	return (NULL);
 }

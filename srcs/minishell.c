@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 16:42:51 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 18:42:34 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int init_shell(t_main *m, char **env)
 	return (1);
 }
 
-void print_lst_tokens(t_lexer *lexer)
+void		print_lst_tokens(t_lexer *lexer)
 {
 	t_list *toto;
 

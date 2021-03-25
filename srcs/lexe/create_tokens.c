@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 15:22:39 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:36:39 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@ int					create_tok(char *data, t_token_type type, t_lexer *lexer)
 	else
 		ft_lstadd_back(&(lexer->tokens), lst);
 	lexer->nb_tokens++;
+	return (1);
+}
+
+int					create_tok_lst(char *data, t_token_type type, t_list **head)
+{
+	t_list		*lst;
+	t_token		*token;
+
+	if (!(token = malloc(sizeof(t_token))))
+		return (-1);
+	token->type = type;
+	if (!(token->data = ft_strdup(data)))
+		return (-1);
+	if (!(lst = ft_lstnew(token)))
+		return (-1);
+	if (!*head)
+		*head = lst;
+	else
+		ft_lstadd_back(head, lst);
 	return (1);
 }
 

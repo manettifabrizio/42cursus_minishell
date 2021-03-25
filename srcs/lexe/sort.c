@@ -6,17 +6,18 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 15:27:44 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:55:33 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int					sort_heredoc(t_main *m, t_lexer *lexer)
+int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 {
 	t_list		*cur_tok;
 	t_list		*prev;
 	int			type;
+	t_list		*wild;
 
 	cur_tok = lexer->tokens->next;
 	prev = cur_tok->next;
@@ -34,6 +35,17 @@ int					sort_heredoc(t_main *m, t_lexer *lexer)
 				if (!heredoc(m, t_access_tok(cur_tok)->data))
 					return (-1);
 		}
+		if (type == WORD && ft_strrchr(t_access_tok(cur_tok)->data, '*'))
+			{
+				wild = wildcard(m ,t_access_tok(cur_tok)->data);
+				prev->next = wild;
+				wild = ft_lstlast(wild);
+				if (cur_tok->next)
+					wild->next = cur_tok->next;
+				else
+					wild->next = NULL;
+				cur_tok = wild;
+			}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
@@ -99,12 +111,26 @@ static int			replace_backslash_and_link_next(t_list **cur_tok, int len)
 	return (1);
 }
 
-static void			sort_backslash_quote_and_wildcard(t_lexer *lexer)
+void		print_lst(t_list *lst)
+{
+	t_list *toto;
+
+	toto = lst;
+	printf("\n LEXER \n");
+	while (toto)
+	{
+		t_token *t = toto->content;
+		printf("%s     ---------- %u\n", t->data, t->type);
+		toto = toto->next;
+	}
+}
+
+static void			sort_backslash_quote(t_lexer *lexer)
 {
 	t_list	*cur_tok;
 	t_list	*prev;
 	int		len;
-
+	
 	cur_tok = lexer->tokens->next;
 	prev = lexer->tokens;
 	while (cur_tok)
@@ -119,8 +145,6 @@ static void			sort_backslash_quote_and_wildcard(t_lexer *lexer)
 					if (!replace_backslash_and_link_next(&cur_tok, len))
 						return ;
 			}
-			if (ft_strrchr(t_access_tok(cur_tok)->data, '*'))
-				printf("toto %s\n", t_access_tok(cur_tok)->data);
 		}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
@@ -138,10 +162,10 @@ int					sort_lexer(t_main *m, t_lexer *lexer)
 	token->data = NULL;
 	head = ft_lstnew(token);
 	ft_lstadd_front(&(lexer->tokens), head);
-	sort_backslash_quote_and_wildcard(lexer);
+	sort_backslash_quote(lexer);
 	if ((type = sort_space_and_quote(lexer, m)))
 		return (type);
-	if ((type = sort_heredoc(m, lexer)))
+	if ((type = sort_heredoc_and_wildcard(m, lexer)))
 		return (type);
 	if (lexer->tokens->next)
 	{

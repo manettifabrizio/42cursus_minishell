@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 16:26:45 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 19:35:31 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*multilines(t_main *m, char *s, t_token_type type);
 int					check_multi(char *s, t_token_type type, int x);
 
 // WILDCARD
-char				*wildcard(t_main *m, char *s);
+t_list 				*wildcard(t_main *m, char *s);
 t_list				*star_to_str(char *s, char *path, t_list **head);
 int					starcmp(char *s, char *s1);
 t_list				*create_files_elem(char *s);
@@ -80,6 +80,7 @@ int					is_redirection(char c, char *next, t_lexer *lexer, int *i);
 int					is_an_operator(char c, char *next, t_lexer *lexer, int *i);
 t_list				*generate_tok(char *data, t_token_type type, t_main *m);
 int					create_tok(char *data, t_token_type type, t_lexer *lexer);
+int					create_tok_lst(char *data, t_token_type type, t_list **head);
 
 // PARSE
 t_list				**env_parser(t_list **head, char **env);
