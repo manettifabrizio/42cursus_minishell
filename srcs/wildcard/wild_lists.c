@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 23:03:10 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 09:41:24 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:38:00 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void		add_elem_to_list(t_list **hmatch, char *s)
 
 	// printf("fname = %s\n", s);
 	lmatch = create_files_elem(s);
-	// if (!(*hmatch))
-	// 	*hmatch = lmatch;
 	// printf("hmatch = %p\n", *hmatch);
 	ft_lstadd_back(hmatch, lmatch);
 }
@@ -58,7 +56,7 @@ char		*list_to_str(t_main *m, t_list **head)
 
 	len = 0;
 	l = *head;
-	// print_list_files(head);
+	// print_list_files(*head);
 	while (l)
 	{
 		len += ft_strlen(t_access_files(l)->name) + 1;
@@ -76,7 +74,13 @@ char		*list_to_str(t_main *m, t_list **head)
 		s[i++] = ' ';
 		l = l->next;
 	}
-	s[i - 1] = 0;
+	if (i > 0)
+		s[i - 1] = 0;
+	else
+	{
+		free(s);
+		return ("");
+	}
 	// printf("%s\n", s);
 	return (s);
 }

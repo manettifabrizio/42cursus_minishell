@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 10:05:36 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:15:33 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 	t_list	*hmatch;
 	t_list	*lmatch;
 
-	// printf("************************************************\n");
 	// printf("\n\n************************************************\n");
 	// printf("s = [%s]\npath = [%s]\n", s, path);
 	hmatch = star_to_str(cut_str(s, 0), path, head);
@@ -99,15 +98,21 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 
 char		*wildcard(t_main *m, char *s)
 {
-	char	*path;
-	t_list	*head;
-	t_list	*final;
+	char		*path;
+	t_list		*head;
+	t_list		*final;
+	t_uint		start;
 
-	path = ft_strdup("./");
+	if (ft_strncmp(s, "./", 2) == 0)
+		path = ft_strdup("./");
+	else if (ft_strncmp(s, "/", 1) == 0)
+		path = ft_strdup("/");
+	else
+		path = ft_strdup("");
 	final = NULL;
-	// star_to_str(s, path, &head);
+	start = ft_strlen(path);
 	// printf("***********************************************\n");
-	r_create_list(m, s, path, &head, &final);
+	r_create_list(m, s + start, path, &head, &final);
 	// printf("***********************************************\n");
 	// print_list_files(head);
 	final = list_sort_files(&final);

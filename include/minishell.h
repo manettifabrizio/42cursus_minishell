@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 00:53:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:51:49 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_node				*build_line_job(t_list **token);
 t_node      		*build_job(t_list **token);
 t_node      		*build_command(t_list **token);
 t_node				*build_command_builtin(t_list **token);
-t_node      		*build_fname(t_list **token);
+t_node      		*build_filename(t_list **token);
 t_node      		*build_builtin(t_list **token);
 t_node      		*build_args(t_list **token);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
@@ -120,7 +120,7 @@ char				*check_vars(t_main *m, char *s, t_list **head, int exit_status);
 t_token     		*t_access_tok(t_list *lst);
 t_env	     		*t_access_env(t_list *lst);
 t_files				*t_access_files(t_list *lst);
-t_list				*list_sort(t_list **head);
+t_list				*list_sort_env(t_list **head);
 void				print_list(t_list **head);
 
 // AST TREE

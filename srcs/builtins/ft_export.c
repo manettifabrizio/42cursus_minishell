@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/12 10:27:13 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:51:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		ft_export(t_main *m, char **a, t_list **head)
 	t_env	*tmp;
 	t_list	*lhead;
 
-	if (!(lhead = list_sort(head)))
+	if (!(lhead = list_sort_env(head)))
 		malloc_error(m, NULL, NO_READING);
 	l = lhead;
 	if (!(a[1]))

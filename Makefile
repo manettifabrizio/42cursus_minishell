@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/23 15:09:15 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/25 15:49:01 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FILES		=	minishell.c							\
 				lexe/sort_utils.c 					\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
-				parse/lists/list_sort.c				\
+				parse/lists/list_sort_env.c			\
 				parse/lists/print_list.c			\
 				parse/split/split_exp.c				\
 				parse/split/split_var.c				\
