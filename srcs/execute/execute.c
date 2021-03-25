@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+
 void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 {
 	if ((logic_type == NODE_LOGIC_AMPERSTAND && m->exit_status)
@@ -25,6 +26,7 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 			error(NO_ERRNO, "command not found");
 			m->exit_status = 127;
 		}
+	ft_free_array(m->arr);
 }
 
 void			execute_command(t_main *m, t_node *command, int logic_type)
