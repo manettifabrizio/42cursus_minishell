@@ -51,11 +51,11 @@ t_lexer				*build_lexer(t_main *m, char *s)
 
 	lexer = init_lexer(m, s);
 	while_create_token(m, lexer);
+	ft_free_array(m->arr);
 	if (!lexer->tokens)
 		return (NULL);
 	if ((type = sort_lexer(m, lexer)) > 0)
 	{
-		ft_free_array(m->arr);
 		if (!(s = multilines(m, s, type)))
 			return (NULL);
 		free_lexer(lexer);

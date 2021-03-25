@@ -75,8 +75,7 @@ int				execute_bin(t_main *m, t_node *cmd)
 	char	*path;
 	pid_t	pid;
 
-	if (!(path = search_path(cmd->data, m->pathdirs))
-		|| !(m->arr = create_cmd_table(cmd)))
+	if (!(path = search_path(cmd->data, m->pathdirs)))
 		return (0);
 	if (path)
 	{
@@ -86,12 +85,11 @@ int				execute_bin(t_main *m, t_node *cmd)
 		{
 			if ((execve(path, m->arr, m->env)) == -1)
 				return (0);
-			ft_free_array(m->arr);
-			free(path);
 			return (1);
 		}
 		else
 			m->exit_status = exit_status(pid);
+		free(path);
 		return (1);
 	}
 	return (0);

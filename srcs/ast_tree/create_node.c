@@ -19,9 +19,6 @@ t_node			*create_node(int type, char *data)
 	if (!(new = malloc(sizeof(t_node))))
 		return (NULL);
 	ast_set_type(new, type);
-	if (data)
-		ast_set_data(new, ft_strdup(data));
-	else
-		ast_set_data(new, NULL);
+	ast_set_data(new, data);
 	return (new);
 }
