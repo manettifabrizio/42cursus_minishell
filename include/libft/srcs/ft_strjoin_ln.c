@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin_ln.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 09:55:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 00:34:06 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/24 22:44:28 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/03/24 22:47:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+char 	*ft_strjoin_ln(char *s, char *s1)
 {
-	t_list	*head;
-	t_main	*m;
+	char 	*tmp;
 
-	(void)ac;
-	head = NULL;
-	m = NULL;
-	printf("%s\n", wildcard(m, ft_strdup(av[1])));
-	return (0);
+	tmp = ft_strdup(s1);
+	free(s1);
+	s1 = ft_strjoin(s, tmp);
+	free(tmp);
+	return (s1);
 }

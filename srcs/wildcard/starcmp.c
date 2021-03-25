@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:19:51 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/24 17:02:07 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/24 22:41:36 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		beginning_and_end(char *s, char *filename)
+int		beginning_and_end(char *s, char *fname)
 {
 	int		i;
 	t_uint	len;
@@ -21,19 +21,19 @@ int		beginning_and_end(char *s, char *filename)
 	{
 		i = -1;
 		while (s[++i] != '*');
-		if (ft_strncmp(s, filename, i) != 0)
+		if (ft_strncmp(s, fname, i) != 0)
 			return (0);
 	}
 	len = ft_strlen(s) - 1;
 	if (s[len] != '*')
 	{
 		i = len;
-		len = ft_strlen(filename) - 1;
+		len = ft_strlen(fname) - 1;
 		// printf("i = %d len = %d\n", i, len);
 		while (i > 0 && s[i] != '*')
 		{
-			// printf("s[%d] = %c file[%d] = %c\n", i, s[i], len, filename[len]);
-			if (s[i] != filename[len])
+			// printf("s[%d] = %c file[%d] = %c\n", i, s[i], len, fname[len]);
+			if (s[i] != fname[len])
 				return (0);
 			i--;
 			len--;
@@ -42,7 +42,7 @@ int		beginning_and_end(char *s, char *filename)
 	return (1);
 }
 
-int		starcmp(char *s, char *filename)
+int		starcmp(char *s, char *fname)
 {
 	int		i;
 	int		x;
@@ -54,19 +54,19 @@ int		starcmp(char *s, char *filename)
 	c = 0;
 	a = ft_split(s, '*');
 	// printf("----------------------\n");
-	// printf("s = %s filename = %s\n", s, filename);
+	// printf("s = %s fname = %s\n", s, fname);
 	// ft_print_array(a, "a");
-	if (ft_strcmp(s, "*") == 0 && filename[0] != '.')
+	if (ft_strcmp(s, "*") == 0 && fname[0] != '.')
 		return (1);
-	while (filename[i] && a[x])
+	while (fname[i] && a[x])
 	{
-		// printf("f[%d] = %c\n", i, filename[i]);
-		if (filename[i] == a[x][0])
+		// printf("f[%d] = %c\n", i, fname[i]);
+		if (fname[i] == a[x][0])
 		{
 			c = 0;
-			// printf("filename + i = %s a[%d] = %s\n", filename + i, x, a[x]);
+			// printf("fname + i = %s a[%d] = %s\n", fname + i, x, a[x]);
 		}
-		if (ft_strncmp(filename + i, a[x], ft_strlen(a[x])) == 0)
+		if (ft_strncmp(fname + i, a[x], ft_strlen(a[x])) == 0)
 		{
 			c = 1;
 			i += ft_strlen(a[x]);
@@ -75,10 +75,10 @@ int		starcmp(char *s, char *filename)
 		else
 			i++;
 	}
-	// printf("fname[%d] = %c a[%d] = %s\n", i, filename[i], x, a[x]);
-	if (filename[i] == 0 && a[x])
+	// printf("fname[%d] = %c a[%d] = %s\n", i, fname[i], x, a[x]);
+	if (fname[i] == 0 && a[x])
 		return (0);
-	if (!(beginning_and_end(s, filename)))
+	if (!(beginning_and_end(s, fname)))
 		return (0);
 	if (c == 1)
 		return (1);

@@ -6,47 +6,23 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/24 17:02:50 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/24 23:03:26 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_list_files(t_list **head)
-{
-	t_list	*l;
+// void	print_list_files(t_list **head)
+// {
+// 	t_list	*l;
 
-	l = *head;
-	while (l)
-	{
-		printf("%s\n", t_access_files(l)->name);
-		l = l->next;
-	}
-}
-
-t_list		*create_files_elem(char *s)
-{
-	t_files	*l;
-	t_list	*tmp;
-
-	if (!(l = malloc(sizeof(t_files))))
-		return (0);
-	l->name = s;
-	if (!(tmp = ft_lstnew(l)))
-		return (0);
-	return (tmp);
-}
-
-void		add_elem_to_list(t_list **hmatch, char *s)
-{
-	t_list	*lmatch;
-
-	// printf("filename = %s\n", s);
-	lmatch = create_files_elem(s);
-	if (!(*hmatch))
-		*hmatch = lmatch;
-	ft_lstadd_back(hmatch, lmatch);
-}
+// 	l = *head;
+// 	while (l)
+// 	{
+// 		printf("%s\n", t_access_files(l)->name);
+// 		l = l->next;
+// 	}
+// }
 
 void		files_parser(char *path, t_list **head)
 {
@@ -67,20 +43,20 @@ void		files_parser(char *path, t_list **head)
 	// print_list_files(head);
 }
 
-t_list		*find_matches(char *s, char *path, t_list **head)
+t_list		*find_matches(char *s, t_list **head)
 {
 	t_list	*l;
 	t_list	*hmatch;
-	char	*filename;
+	char	*fname;
 
 	l = *head;
 	hmatch = NULL;
 	while (l)
 	{
-		filename = t_access_files(l)->name;
-		// printf("filename = %s\n", filename);
-		if (starcmp(s, filename) && filename[0] != '.')
-			add_elem_to_list(&hmatch, filename);
+		fname = t_access_files(l)->name;
+		// printf("fname = %s\n", fname);
+		if (starcmp(s, fname) && fname[0] != '.')
+			add_elem_to_list(&hmatch, fname);
 		l = l->next;
 	}
 	free(s);
@@ -90,16 +66,9 @@ t_list		*find_matches(char *s, char *path, t_list **head)
 
 t_list		*star_to_str(char *s, char *path, t_list **head)
 {
-	int		i;
-
 	*head = NULL;
 	files_parser(path, head);
 	// printf("path = %s\nstr = %s\n", path, s);
-	// if (ft_strcmp(s, "*") == 0)
-	// {
-	// 	free(s);
-	// 	return (*head);
-	// }
-	return (find_matches(s, path, head));
+	return (find_matches(s, head));
 	// path = ft_strjoin_nl(path, t_access_files(l)->name);
 }

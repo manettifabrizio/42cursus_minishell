@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/24 14:41:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 00:53:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ int					check_multi(char *s, t_token_type type, int x);
 // WILDCARD
 char				*wildcard(t_main *m, char *s);
 t_list				*star_to_str(char *s, char *path, t_list **head);
-t_list				*star(char *s, int *i, t_list **head);
 int					starcmp(char *s, char *s1);
+t_list				*create_files_elem(char *s);
+void				add_elem_to_list(t_list **hmatch, char *s);
+char				*list_to_str(t_main *m, t_list **head);
+t_list				*list_sort_files(t_list **head);
+void				print_list_files(t_list *head);
 
 // HISTORY
 char				**init_history();
@@ -83,7 +87,7 @@ t_node				*build_line_job(t_list **token);
 t_node      		*build_job(t_list **token);
 t_node      		*build_command(t_list **token);
 t_node				*build_command_builtin(t_list **token);
-t_node      		*build_filename(t_list **token);
+t_node      		*build_fname(t_list **token);
 t_node      		*build_builtin(t_list **token);
 t_node      		*build_args(t_list **token);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
@@ -158,7 +162,6 @@ void				free_lexer(t_lexer *lexer);
 
 // UTILS
 t_uint				count_lines(char *s);
-char				*frankenstr(char *s, char *buf, char *s1);
 void				changing_line(t_cursor *p);
 
 #endif

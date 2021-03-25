@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_sort.c                                        :+:      :+:    :+:   */
+/*   list_sort_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 20:23:19 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 17:54:35 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 00:39:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		copy_list(t_list **head, t_list **lhead)
 	}
 }
 
-t_list			*list_sort(t_list **head)
+t_list			*list_sort_env(t_list **head)
 {
 	t_list	*l;
 	t_env	*tmp;
