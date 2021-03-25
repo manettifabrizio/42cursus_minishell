@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/22 16:54:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:27:03 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ typedef struct		s_node {
 	struct s_node	*left;
 	struct s_node	*right;
 }					t_node;
+
+typedef struct		s_std{
+	int fd_in;
+	int	fd_out;
+	int fd[2];
+	int	tmp_in;
+	int	tmp_out;
+}				t_std;
 
 typedef	struct		s_main
 {
