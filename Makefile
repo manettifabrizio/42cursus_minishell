@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/25 16:26:57 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/25 16:36:14 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,11 @@ FILES		=	minishell.c							\
 				parse/build/line2.c 				\
 				parse/parser.c						\
 				parse/check_parse_utils.c 			\
+				wildcard/star_to_str.c				\
+				wildcard/list_sort_files.c			\
+				wildcard/starcmp.c					\
+				wildcard/wild_lists.c				\
+				wildcard/wildcard.c					\
 				keys/arrows.c						\
 				keys/control.c						\
 				keys/delete.c						\
