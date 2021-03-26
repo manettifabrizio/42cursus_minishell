@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 15:51:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:40:17 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		check_varname(char **cmd, t_list **head, char *c)
+static int		check_varname(char **cmd, t_list **head, char *equal)
 {
 	t_list	*l;
 	t_env	*tmp;
@@ -25,10 +25,12 @@ static int		check_varname(char **cmd, t_list **head, char *c)
 		{
 			if (tmp->value)
 				free(tmp->value);
-			if (c && !(cmd[1]))
-				tmp->value = "";
+			if (equal && !(cmd[1]))
+				tmp->value = ft_strdup("");
 			else if (cmd[1])
 				tmp->value = cmd[1];
+			else
+				tmp->value = NULL;
 			return (1);
 		}
 		l = l->next;
@@ -62,7 +64,7 @@ static int		export_var(t_main *m, char **a, t_list **head)
 		cmd = split_exp(a[x], '=');
 		if (check_errors(m, cmd[0], a[x]))
 			if (!(check_varname(cmd, head, ft_strchr(a[x], '='))))
-				ft_lstadd_back(head, create_env_elem(cmd));
+				ft_lstadd_back(head, create_env_elem(cmd, ft_strchr(a[x], '=')));
 	}
 	return (1);
 }

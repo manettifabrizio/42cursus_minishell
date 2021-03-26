@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 19:35:31 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/26 17:08:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_list				*star_to_str(char *s, char *path, t_list **head);
 int					starcmp(char *s, char *s1);
 t_list				*create_files_elem(char *s);
 void				add_elem_to_list(t_list **hmatch, char *s);
-char				*list_to_str(t_main *m, t_list **head);
+t_list				*lst_to_token_lst(t_list *final);
 t_list				*list_sort_files(t_list **head);
 void				print_list_files(t_list *head);
 
@@ -87,7 +87,7 @@ t_list				**env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
 char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
-t_list				*create_env_elem(char **a);
+t_list				*create_env_elem(char **a, char *equal);
 int       			parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m);
 t_node      		*build_line(t_list **token, int par);
 t_node				*build_line_job(t_list **token);
@@ -121,7 +121,7 @@ void				execute_command_line(t_main *m, t_node *cmd_line, int type);
 int					builtins(t_main *m, char *cmd_name);
 int					ft_echo(t_main *m, char **a);
 int					ft_cd(t_main *m, char *s);
-int					ft_pwd(t_main *m, t_list **head);
+int					ft_pwd(t_main *m);
 int					ft_export(t_main *m, char **a, t_list **head);
 int					ft_unset(t_main *m, char **a, t_list **head);
 int					ft_env(t_main *m, t_list **head);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 14:19:28 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/26 13:52:44 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int		check_key(t_main *m, char **s, char *buf)
 	m->p->arr = split_keep(*s, '\n');
 	if (buf[0] == CTRL_C || buf[0] == CTRL_D || buf[0] == CTRL_Z)
 		return (control(m, *s, buf));
+	if (buf[0] == TAB)
+		return (1);
 	if (buf[0] == ESCAPE)
 	{
 		read(STDOUT_FILENO, buf, 1);

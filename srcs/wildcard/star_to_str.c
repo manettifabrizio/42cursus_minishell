@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 16:21:04 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/26 14:17:02 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ t_list		*find_matches(char *s, t_list **head)
 t_list		*star_to_str(char *s, char *path, t_list **head)
 {
 	*head = NULL;
+	if (ft_strcmp(s, "") == 0)
+		return (*head);
 	files_parser(path, head);
 	// printf("path = %s\nstr = %s\n", path, s);
 	// print_list_files(*head);
