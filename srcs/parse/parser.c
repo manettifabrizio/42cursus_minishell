@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 15:20:22 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:49:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,21 @@ void			print_preorder(t_node *node)
 	print_preorder(node->right);
 }
 
-int				return_parse(t_list *tokens, t_node **exec_tree, t_lexer *lexer)
+int				return_parse(t_list *tokens, t_node **exec_tree, \
+	t_lexer *lexer, t_main *m)
 {
 	if (tokens != NULL)
 	{
-		printf("minish: Syntax error near unexpected token: %s\n",
-				t_access_tok(tokens)->data);
+		printf("minish: %s near unexpected token: `%s'\n", SYNTAX_ERROR,
+			t_access_tok(tokens)->data);
+		m->exit_status = 2;
 		return (0);
 	}
 	if (!*exec_tree)
 	{
-		printf("minish: Syntax error near unexpected token: %s\n",
+		printf("minish: %s near unexpected token: `%s'\n", SYNTAX_ERROR,
 			t_access_tok(lexer->tokens)->data);
+		m->exit_status = 2;
 		return (0);
 	}
 	return (1);
@@ -55,5 +58,5 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 		ast_delete_node(*exec_tree);
 		return (parse(lexer, exec_tree, s, m));
 	}
-	return (return_parse(tokens, exec_tree, lexer));
+	return (return_parse(tokens, exec_tree, lexer, m));
 }

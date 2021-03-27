@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:31:04 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 17:04:50 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:46:58 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 int		ft_pwd(t_main *m)
 {
 	char	*pwd;
+	char	*old_pwd;
 	char	buf[1024];
 
+	old_pwd = get_env(m->ehead, "PWD");
 	if (!(pwd = getcwd(buf, 1024)))
-		error(ERRNO, NULL);
+	{
+		if (ft_strncmp(old_pwd + (ft_strlen(old_pwd) - 3), "/..", 3) == 0)
+			pwd = old_pwd;
+		else
+			return (error(ERRNO, ""));
+	}
+	else
+		set_env(m->ehead, "PWD", pwd);
 	printf("%s\n", pwd);
-	set_env(m->ehead, "PWD", pwd);
 	m->exit_status = 0;
 	return (1);
 }

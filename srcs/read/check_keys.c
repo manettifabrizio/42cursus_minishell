@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 13:52:44 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:06:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int		control(t_main *m, char *s, char *buf)
 		}
 		return (1);
 	}
-	if (buf[0] == CTRL_Z)
+	if (buf[0] == CTRL_Z || buf[0] == CTRL_BSLASH)
 		return (1);
 	return (0);
 }
@@ -82,26 +82,26 @@ int		arrows(t_main *m, char **s, char c)
 int		check_key(t_main *m, char **s, char *buf)
 {
 	m->p->arr = split_keep(*s, '\n');
-	if (buf[0] == CTRL_C || buf[0] == CTRL_D || buf[0] == CTRL_Z)
+	if (buf[0] == CTRL_C || buf[0] == CTRL_D || 
+		buf[0] == CTRL_Z || buf[0] == CTRL_BSLASH)
 		return (control(m, *s, buf));
 	if (buf[0] == TAB)
 		return (1);
-	if (buf[0] == ESCAPE)
+	if (buf[0] != ESCAPE)
+		return (0);
+	read(STDOUT_FILENO, buf, 1);
+	if (buf[0] == '[' || buf[0] == 'O')
 	{
 		read(STDOUT_FILENO, buf, 1);
-		if (buf[0] == '[' || buf[0] == 'O')
-		{
-			read(STDOUT_FILENO, buf, 1);
-			if (buf[0] == ARR_UP || buf[0] == ARR_DOWN ||
-				buf[0] == ARR_RIGHT || buf[0] == ARR_LEFT)
-				return (arrows(m, s, buf[0]));
-			if (buf[0] == DELETE)
-				return (delete(*s, buf, m->p));
-			if (buf[0] == HOME || buf[0] == END)
-				return (home_end(*s, buf[0], m->p));
-			if (buf[0] == '1')
-				return (move_word_or_column(*s, m->p));
-		}
+		if (buf[0] == ARR_UP || buf[0] == ARR_DOWN ||
+			buf[0] == ARR_RIGHT || buf[0] == ARR_LEFT)
+			return (arrows(m, s, buf[0]));
+		if (buf[0] == DELETE)
+			return (delete(*s, buf, m->p));
+		if (buf[0] == HOME || buf[0] == END)
+			return (home_end(*s, buf[0], m->p));
+		if (buf[0] == '1')
+			return (move_word_or_column(*s, m->p));
 	}
 	return (0);
 }

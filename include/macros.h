@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:16:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 13:52:28 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:01:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define BACKSPACE			127
 
 # define ERROR				"\e[0;31merror\e[0m"
+# define SYNTAX_ERROR		"\e[0;31msyantax error\e[0m"
 # define ERRNO				0
 # define NO_ERRNO			1
 # define READING			0
@@ -47,4 +48,5 @@
 # define NO_BREAK			1
 
 # define CHARSET            " <>|;&()\'\"\n"
+
 #endif
