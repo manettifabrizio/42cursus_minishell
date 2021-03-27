@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 15:40:17 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:46:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,26 @@ static int		check_varname(char **cmd, t_list **head, char *equal)
 	return (0);
 }
 
+static int		not_a_valid_identifier(t_main *m, char *s)
+{
+	printf("minish: %s: `%s': not a valid identifier\n", ERROR, s);
+	m->exit_status = -1;
+	free(s);
+	return (0);
+}
+
 static int		check_errors(t_main *m, char *varname, char *s)
 {
 	int		x;
 
 	x = -1;
+	if (s)
+	{
+
+	}
 	while (varname[++x])
 		if (!(ft_isalpha(varname[x])))
-		{
-			printf("minish: %s: `%s': not a valid identifier\n", ERROR, s);
-			m->exit_status = -1;
-			return (0);
-		}
+			return (not_a_valid_identifier(m, s));
 	return (1);
 }
 
