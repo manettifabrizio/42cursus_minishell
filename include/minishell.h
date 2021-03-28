@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 17:08:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 00:24:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_node              *create_node(int type, char *data);
 void				ft_signal(int num);
 void				execute_simple_pipe(t_main *m, t_node *node_pipe);
 int					execute_bin(t_main *m, t_node *cmd);
+int					exit_status(pid_t pid);
 void        		handle_redirection(t_node *node_redirect);
 char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);

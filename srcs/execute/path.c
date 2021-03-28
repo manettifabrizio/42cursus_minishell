@@ -6,25 +6,11 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:12:43 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/23 12:54:38 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 00:15:12 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char		*absolute_path(char *cmd_name)
-{
-	int		fd;
-	// If is a directory it forks
-	if (cmd_name[0] == '/' || cmd_name[0] == '.')
-	{
-		if ((fd = open(cmd_name, O_RDONLY)) == -1)
-			return (NULL); 
-		close(fd);
-		return (cmd_name);
-	}
-	return (NULL);
-}
 
 char		*search_path(char *cmd_name, char **pathdirs)
 {
@@ -34,7 +20,7 @@ char		*search_path(char *cmd_name, char **pathdirs)
 	int				i;
 
 	i = 0;
-	if (absolute_path(cmd_name))
+	if (cmd_name[0] == '/' || cmd_name[0] == '.')
 		return (cmd_name);
 	while (pathdirs[i])
 	{

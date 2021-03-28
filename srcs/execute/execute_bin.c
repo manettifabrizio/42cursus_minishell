@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/25 16:27:15 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 00:29:46 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,42 @@ char			**create_cmd_table(t_node *root)
 	return (args);
 }
 
-int				exit_signals(int signal)
+static int		absolute_path(t_main *m, char *path)
 {
-	if (signal == SIGINT)
-		return (130);
-	else if (signal == SIGQUIT)
-		return (131);
-	else if (signal == SIGTSTP)
-		return (146);
+	int		fd;
+	
+	if (path[0] == '/' || path[0] == '.')
+	{
+		if ((fd = open(path, O_RDONLY)) == -1)
+		{
+			error(ERRNO, "");
+			m->exit_status = 127;
+			return (1);
+		}
+		close(fd);
+	}
 	return (0);
 }
 
-int				exit_status(pid_t pid)
+static int		check_dir_and_absolute(t_main *m, char *path)
 {
-	int		ret;
-	int		status;
+	DIR		*dir;
 
-	ret = waitpid(pid, &status, 0);
-	if (ret < 0)
-		printf("Failed to wait for process %d (errno = %d)\n", (int)pid, errno);
-	else if (ret != pid)
-		printf("Got ret of process %d (status 0x%.4X) when expecting PID %d\n"
-				, ret, status, (int)pid);
-	else if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	else if (WIFSIGNALED(status))
-		return (exit_signals(WTERMSIG(status)));
-	else
-		return (-1);
-	return (1);
+	if (ft_strcmp(path, ".") == 0)
+	{
+		error(NO_ERRNO, "filename argument required\n\
+.: usage: . filename [arguments]");
+		m->exit_status = 2;
+		return (1);
+	}
+	if ((dir = opendir(path)))
+	{
+		error(NO_ERRNO, "is a directory");
+		m->exit_status = 126;
+		return (1);
+	}
+	
+	return (0);
 }
 
 int				execute_bin(t_main *m, t_node *cmd)
@@ -75,6 +82,8 @@ int				execute_bin(t_main *m, t_node *cmd)
 	char	*path;
 	pid_t	pid;
 
+	if (check_dir_and_absolute(m, cmd->data))
+		return (-1);
 	if (!(path = search_path(cmd->data, m->pathdirs)))
 		return (0);
 	if (path)
@@ -89,7 +98,7 @@ int				execute_bin(t_main *m, t_node *cmd)
 		}
 		else
 			m->exit_status = exit_status(pid);
-		free(path);
+		// free(path);
 		return (1);
 	}
 	return (0);
