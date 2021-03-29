@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/12 10:27:13 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/26 17:08:07 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				builtins(t_main *m, char *cmd_name)
 	else if (ft_strcmp(cmd_name, "cd") == 0)
 		return (ft_cd(m, (m->arr)[1]));
 	else if (ft_strcmp(cmd_name, "pwd") == 0)
-		return (ft_pwd(m, m->ehead));
+		return (ft_pwd(m));
 	else if (ft_strcmp(cmd_name, "export") == 0)
 		return (ft_export(m, m->arr, m->ehead));
 	else if (ft_strcmp(cmd_name, "unset") == 0)
