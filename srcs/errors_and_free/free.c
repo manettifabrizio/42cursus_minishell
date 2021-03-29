@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 18:27:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 17:12:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:26:59 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		env_del(void *l)
 	tmp = (t_env*)l;
 	free(tmp->name);
 	free(tmp->value);
+    free(tmp);
 }
 
 void			free_all(t_main *m)

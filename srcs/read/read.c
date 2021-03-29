@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 17:21:33 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:15:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char	*line_read(t_main *m)
 	
 	s = ft_strdup("");
 	ft_bzero(buf, 2);
-	m->hist = add_history(s, m->hist);
+	if (!(m->hist = add_history(s, m->hist)))
+		malloc_error(m, s, READING);
 	while (reading(m, &s, buf) > 0)
 		if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
 			malloc_error(m, s, READING);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:07:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:10:21 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 11:55:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	control_d(t_main *m)
 	make_history(m->hist_path, m->hist);
 	free_all(m);
 	ft_putstr("exit\n");
+	while (1);
 	exit(status);
 }

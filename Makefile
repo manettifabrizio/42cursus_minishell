@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/29 10:42:05 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/29 11:58:14 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADERS) $(INCLUDE)
 	@printf "[ $(NAME) ] Compiling...\r"
-	@($(CC) -o $(NAME) $(SOURCE) $(INCLUDE) $(CFLAGS) $(FSANITIZE))
+	@($(CC) -o $(NAME) $(SOURCE) $(INCLUDE) $(CFLAGS) )
 	@printf "${GREEN}"
 	@printf "                          iiii                     iiii                  hhhhhhh                                lllllll lllllll  \n"
 	@printf "                         i::::i                   i::::i                 h:::::h                                l:::::l l:::::l  \n"

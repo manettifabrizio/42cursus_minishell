@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:29:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/12 10:23:54 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 11:54:43 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void		the_end(t_main *m, int status)
 	make_history(m->hist_path, m->hist);
 	free_all(m);
 	printf("exit status = %d\n", status);
+	while (1);
 	exit(status);
 }
 
