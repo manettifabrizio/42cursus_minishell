@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/29 00:29:46 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 10:57:17 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,17 @@ char			**create_cmd_table(t_node *root)
 	return (args);
 }
 
-static int		absolute_path(t_main *m, char *path)
+static int		check_dir_and_absolute(t_main *m, char *path)
 {
+	DIR		*dir;
 	int		fd;
-	
+
+	if ((dir = opendir(path)))
+	{
+		error(NO_ERRNO, "is a directory");
+		m->exit_status = 126;
+		return (1);
+	}
 	if (path[0] == '/' || path[0] == '.')
 	{
 		if ((fd = open(path, O_RDONLY)) == -1)
@@ -53,27 +60,6 @@ static int		absolute_path(t_main *m, char *path)
 		}
 		close(fd);
 	}
-	return (0);
-}
-
-static int		check_dir_and_absolute(t_main *m, char *path)
-{
-	DIR		*dir;
-
-	if (ft_strcmp(path, ".") == 0)
-	{
-		error(NO_ERRNO, "filename argument required\n\
-.: usage: . filename [arguments]");
-		m->exit_status = 2;
-		return (1);
-	}
-	if ((dir = opendir(path)))
-	{
-		error(NO_ERRNO, "is a directory");
-		m->exit_status = 126;
-		return (1);
-	}
-	
 	return (0);
 }
 
