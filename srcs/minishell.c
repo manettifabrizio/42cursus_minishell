@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 12:09:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:34:30 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ static void		prompt(int exit_status)
 		ft_putstr("\e[0;31m\e[1m $ \e[0m");
 }
 
-static void		init_cursor(t_main *m)
+static void		init_cursor(t_cursor *p)
 {
-	m->p->lpos = 0;
-	m->p->hnum = 0;
-	m->p->lnum = 0;
-	m->p->spos = 0;
-	m->p->multi = 0;
+	p->lpos = 0;
+	p->hnum = 0;
+	p->lnum = 0;
+	p->spos = 0;
+	p->multi = 0;
+	p->arr = NULL;
 }
 
 static int		init_shell(t_main **m, char **env)
@@ -39,7 +40,7 @@ static int		init_shell(t_main **m, char **env)
 	(*m)->arr = NULL;
 	(*m)->env = env;
 	(*m)->ehead = malloc(sizeof(t_list));
-	(*m)->ehead = env_parser((*m)->ehead, env);
+	env_parser((*m)->ehead, env);
 	(*m)->home = ft_strdup(get_env((*m)->ehead, "HOME"));
 	(*m)->p = malloc(sizeof(t_cursor));
 	(*m)->hist = init_history();
@@ -47,7 +48,7 @@ static int		init_shell(t_main **m, char **env)
 	if (!((*m)->ehead) || !((*m)->home) || !((*m)->p) ||
 		!((*m)->hist) || !((*m)->base_term))
 			return (0);
-	init_cursor(*m);
+	init_cursor((*m)->p);
 	(*m)->hist_path = ft_strjoin(get_env((*m)->ehead, "PWD"), "/.minish_history");
 	(*m)->pathdirs = path_parser((*m)->ehead);
 	(*m)->exit_status = 0;

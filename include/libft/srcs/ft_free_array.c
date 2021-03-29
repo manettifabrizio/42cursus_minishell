@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 20:33:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/02/25 21:07:35 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:42:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	ft_free_array(char **a)
 	i = -1;
 	while (a[++i])
 		ft_memdel((void**)(&(a[i])));
-	ft_memdel((void**)a);
+	free(a);
+	a = NULL;
 }

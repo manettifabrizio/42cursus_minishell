@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 12:15:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:42:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 int		reading(t_main *m, char **s, char *buf)
 {
 	read(STDOUT_FILENO, buf, 1);
+	m->p->arr = split_keep(*s, '\n');
 	if (!(check_key(m, s, buf)))
 	{
 		buf[1] = 0;
-		*s = str_print_and_handle(m, *s, buf, m->p);
+		*s = str_print_and_handle(*s, buf, m->p);
 	}
+	if (m->p->arr)
+		ft_free_array(m->p->arr);
 	if (buf[0] == CTRL_C)
 		return (-1);
 	if (buf[0] == '\n')

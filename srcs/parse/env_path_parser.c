@@ -6,24 +6,29 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:23:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 15:40:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:30:56 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list		*create_env_elem(char **a, char *equal)
+t_list		*create_env_elem(char *s)
 {
+	int		i;
 	t_env	*l;
 	t_list	*tmp;
 
 	if (!(l = malloc(sizeof(t_env))))
 		return (0);
-	l->name = a[0];
-	if (equal && !(a[1]))
+	i = 0;
+	while (s[i] && s[i] != '=')
+			i++;
+	if (s)
+		l->name = ft_substr(s, 0, i);
+	if (s[i] && !s[i + 1])
 		l->value = ft_strdup("");
-	else if (a[1])
-		l->value = a[1];
+	else if (s[i + 1])
+		l->value = ft_substr(s, i + 1, ft_strlen(s) - i);
 	else
 		l->value = NULL;
 	if (!(tmp = ft_lstnew(l)))
@@ -31,23 +36,20 @@ t_list		*create_env_elem(char **a, char *equal)
 	return (tmp);
 }
 
-t_list		**env_parser(t_list **head, char **env)
+void		env_parser(t_list **head, char **env)
 {
 	int		x; //segfault se c'è un  problema
-	char	**a;
 	t_list	*tmp;
 
 	x = -1;
 	while (env[++x])
 	{
-		a = ft_split(env[x], '=');
-		tmp = create_env_elem(a, ft_strchr(env[x], '='));
+		tmp = create_env_elem(env[x]);
 		if (x == 0)
 			*head = tmp;
 		else
 			ft_lstadd_back(head, tmp);
 	}
-	return (head);
 }
 
 char		*get_env(t_list **head, char *name)

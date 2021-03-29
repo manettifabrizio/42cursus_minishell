@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 18:27:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 12:26:59 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:25:51 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,26 @@ static void		env_del(void *l)
 	t_env	*tmp;
 
 	tmp = (t_env*)l;
+    // printf("%p ", tmp->name);
 	free(tmp->name);
-	free(tmp->value);
+    // printf("= %p\n", tmp->value);
+    if (tmp->value)
+	    free(tmp->value);
     free(tmp);
 }
 
 void			free_all(t_main *m)
 {
 	free(m->home);
+    // printf("h = %p\n", m->ehead);
 	ft_lstclear(m->ehead, env_del);
-	free(m->p);
+    free(m->ehead);
+    free(m->p);
 	ft_free_array(m->hist);
 	free(m->hist_path);
 	if (m->arr)
 		ft_free_array(m->arr);
 	ft_free_array(m->pathdirs);
+    free(m->base_term);
 	free(m);
 }

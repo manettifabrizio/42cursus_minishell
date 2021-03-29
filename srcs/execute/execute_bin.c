@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/29 10:57:17 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:03:23 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				execute_bin(t_main *m, t_node *cmd)
 		}
 		else
 			m->exit_status = exit_status(pid);
-		// free(path);
+		free(path);
 		return (1);
 	}
 	return (0);

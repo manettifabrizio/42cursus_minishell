@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:02:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 11:47:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:37:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char		*inword_write(char *s, char *buf, t_cursor p)
 	return (s);
 }
 
-char 	*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor *p)
+char 	*str_print_and_handle(char *s, char *buf, t_cursor *p)
 {
 	if (buf[0] == '\n')
 	{
@@ -80,7 +80,6 @@ char 	*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor *p)
 		ft_putchar(buf[0]);
 		return (s);
 	}
-	m->p->arr = split_keep(s, '\n');
 	if (p->lpos == 0 && p->spos == 0 && (ft_isprint(buf[0])))
 	{
 		ft_putchar(buf[0]);
@@ -93,6 +92,5 @@ char 	*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor *p)
 		else
 			s = inword_write(s, buf, *p);
 	}
-	ft_free_array(m->p->arr);
 	return (s);
 }

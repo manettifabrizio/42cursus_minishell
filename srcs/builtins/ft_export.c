@@ -6,14 +6,15 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 14:14:30 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:32:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		check_varname(char **cmd, t_list **head, char *equal)
+static int		check_varname(char *s, t_list **head)
 {
+	int		i;
 	t_list	*l;
 	t_env	*tmp;
 
@@ -21,14 +22,17 @@ static int		check_varname(char **cmd, t_list **head, char *equal)
 	while (l)
 	{
 		tmp = t_access_env(l);
-		if (ft_strcmp(cmd[0], tmp->name) == 0)
+		i = 0;
+		while (s[i] && s[i] != '=')
+			i++;
+		if (ft_strcmp(ft_substr(s, 0, i), tmp->name) == 0)
 		{
 			if (tmp->value)
 				free(tmp->value);
-			if (equal && !(cmd[1]))
+			if (s[i] && !s[i + 1])
 				tmp->value = ft_strdup("");
-			else if (cmd[1])
-				tmp->value = cmd[1];
+			else if (s[i + 1])
+				tmp->value = ft_substr(s, i + 1, ft_strlen(s) - i);
 			else
 				tmp->value = NULL;
 			return (1);
@@ -41,7 +45,7 @@ static int		check_varname(char **cmd, t_list **head, char *equal)
 static int		not_a_valid_identifier(t_main *m, char *s)
 {
 	printf("minish: %s: `%s': not a valid identifier\n", ERROR, s);
-	m->exit_status = -1;
+	m->exit_status = 1;
 	return (0);
 }
 
@@ -55,21 +59,24 @@ static int		check_errors(t_main *m, char *varname, char *s)
 	while (varname[++x])
 		if (!(ft_isalpha(varname[x])))
 			return (not_a_valid_identifier(m, s));
+	free(varname);
 	return (1);
 }
 
 static int		export_var(t_main *m, char **a, t_list **head)
 {
 	int		x;
-	char	**var;
+	int		i;
 
 	x = 0;
 	while (a[++x])
 	{	// cmd non ha bisogno di essere free() perchè l'inidirizzo finisce in ehead
-		var = split_exp(a[x], '=');
-		if (check_errors(m, var[0], a[x]))
-			if (!(check_varname(var, head, ft_strchr(a[x], '='))))
-				ft_lstadd_back(head, create_env_elem(var, ft_strchr(a[x], '=')));
+		i = 0;
+		while (a[x][i] && a[x][i] != '=')
+			i++;
+		if (check_errors(m, ft_substr(a[x], 0, i), a[x]))
+			if (!(check_varname(a[x], head)))
+				ft_lstadd_back(head, create_env_elem(a[x]));
 	}
 	return (1);
 }

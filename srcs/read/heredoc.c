@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/14 13:51:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:49:00 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,19 @@ static int		reading_heredoc(t_main *m, char **s, char *keywrd, int fd)
 	ft_bzero(buf, 3);
 	buf[1] = 'h';
 	read(STDOUT_FILENO, buf, 1);
+	m->p->arr = split_keep(*s, '\n');
 	if (!(check_key(m, s, buf)))
-		*s = str_print_and_handle(m, *s, buf, m->p);
+	{
+		buf[1] = 0;
+		*s = str_print_and_handle(*s, buf, m->p);
+	}
+	if (m->p->arr)
+		ft_free_array(m->p->arr);
 	if (buf[0] == CTRL_C || buf[0] == CTRL_D)
 		return (-1);
 	if (buf[0] == '\n')
 	{
+		printf("keywrd = %s\n, s = %s\n", keywrd, *s);
 		if (ft_strcmp(keywrd, *s) != 0)
 		{
 			ft_putstr_fd(*s, fd);

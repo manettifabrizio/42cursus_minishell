@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:40:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 11:04:56 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:59:55 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static void		delete_elem(t_main *m, t_list *l, t_list *prev)
 	t_env	*tmp;
 
 	if (ft_strcmp(t_access_env(l)->name, "PATH") == 0)
+	{
+		ft_free_array(m->pathdirs);
 		m->pathdirs[0] = NULL;
+	}
 	tmp = t_access_env(l);
 	prev->next = l->next;
 	free(tmp->name);

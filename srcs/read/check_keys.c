@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 15:06:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:36:45 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		arrows(t_main *m, char **s, char c)
 
 int		check_key(t_main *m, char **s, char *buf)
 {
-	m->p->arr = split_keep(*s, '\n');
 	if (buf[0] == CTRL_C || buf[0] == CTRL_D || 
 		buf[0] == CTRL_Z || buf[0] == CTRL_BSLASH)
 		return (control(m, *s, buf));
