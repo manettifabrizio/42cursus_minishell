@@ -6,16 +6,18 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:40:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 18:03:06 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 11:04:56 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		delete_elem(t_list *l, t_list *prev)
+static void		delete_elem(t_main *m, t_list *l, t_list *prev)
 {
 	t_env	*tmp;
 
+	if (ft_strcmp(t_access_env(l)->name, "PATH") == 0)
+		m->pathdirs[0] = NULL;
 	tmp = t_access_env(l);
 	prev->next = l->next;
 	free(tmp->name);
@@ -47,7 +49,7 @@ int		ft_unset(t_main *m, char **a, t_list **head)
 		while (l)
 		{
 			if (ft_strcmp(a[x], t_access_env(l)->name) == 0)
-				delete_elem(l, prev);
+				delete_elem(m, l, prev);
 			prev = l;
 			l = l->next;
 		}

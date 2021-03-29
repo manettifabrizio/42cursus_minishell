@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/25 16:36:14 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/29 10:42:05 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ FILES		=	minishell.c							\
 				execute/execute.c					\
 				execute/execute_pipe_utils.c 		\
 				execute/execute_bin.c				\
+				execute/exit_status.c				\
 				execute/redirection.c				\
 				builtins/builtins.c					\
 				builtins/ft_echo.c					\

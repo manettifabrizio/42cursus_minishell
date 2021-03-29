@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 12:03:18 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:15:10 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void				while_create_token(t_main *m, t_lexer *lexer)
 }
 
 t_lexer				*build_lexer(t_main *m, char *s)
-{
+{	// check lexer in case s is empty to gain lines and also history position
 	t_lexer		*lexer;
 	int			type;
 
@@ -66,5 +66,7 @@ t_lexer				*build_lexer(t_main *m, char *s)
 		return (NULL);
 	if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
 		malloc_error(m, s, READING);
+	if (lexer->nb_tokens <= 0)
+		free_lexer(lexer);
 	return (lexer);
 }

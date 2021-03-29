@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 19:55:31 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:08:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ char		*cut_str(char *s, int type)
 {
 	int		i;
 
-	i = (s[0] == '/') ? 1 : 0;
+	i = 0;
 	while (s[i] && s[i] != '/')
 		i++;
 	if (type == 0)
-		return (ft_substr(s, (s[0] == '/') ? 1 : 0, i));
+		return (ft_substr(s, 0, i));
 	else if (type == 1)
 	{
 		i++;
@@ -78,7 +78,9 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 	if (!ft_strchr(s, '/') && hmatch)
 		add_to_final(&hmatch, path, final);
 	lmatch = hmatch;
+	// printf("s = {%s}\n", s);
 	s = cut_str(s, 1);
+	// printf("s = {%s}\n", s);
 	while (lmatch)
 	{
 		fname = t_access_files(lmatch)->name;
@@ -94,25 +96,6 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 	}
 	free(s);
 	// printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
-}
-
-t_list		*str_to_token_lst(char *str)
-{
-	t_list	*head;
-	int		i;
-	char	**tab;
-
-	head = NULL;
-	i = 0;
-	if (!(tab = ft_split(str, ' ')))
-		return (NULL);
-	while (tab[i])
-	{
-		if (!create_tok_lst(tab[i], WORD, &head))
-			return (NULL);
-		i++;
-	}
-	return (head);
 }
 
 t_list 			*wildcard(t_main *m, char *s)
@@ -133,7 +116,7 @@ t_list 			*wildcard(t_main *m, char *s)
 	// printf("***********************************************\n");
 	r_create_list(m, s + start, path, &head, &final);
 	// printf("***********************************************\n");
-	// print_list_files(head);
 	final = list_sort_files(&final);
-	return (str_to_token_lst(list_to_str(m, &final)));
+	// print_list_files(final);
+	return (lst_to_token_lst(final));
 }

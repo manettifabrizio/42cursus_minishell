@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 23:03:10 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 13:38:00 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:07:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void		print_list_files(t_list *head)
 	l = head;
 	while (l)
 	{
-		printf("%s\n", t_access_files(l)->name);
+		printf("%s", t_access_files(l)->name);
+		if (l->next)
+			printf(" ");
 		l = l->next;
 	}
+	printf("\n");
 }
 
 t_list		*create_files_elem(char *s)
@@ -47,40 +50,20 @@ void		add_elem_to_list(t_list **hmatch, char *s)
 	ft_lstadd_back(hmatch, lmatch);
 }
 
-char		*list_to_str(t_main *m, t_list **head)
+t_list		*lst_to_token_lst(t_list *final)
 {
-	t_uint	len;
+	t_list	*head;
 	t_list	*l;
-	char	*s;
-	int		i;
+	char	*fname;
 
-	len = 0;
-	l = *head;
-	// print_list_files(*head);
+	head = NULL;
+	l = final;
 	while (l)
 	{
-		len += ft_strlen(t_access_files(l)->name) + 1;
+		fname = t_access_files(l)->name;
+		if (!create_tok_lst(fname, WORD, &head))
+			return (NULL);
 		l = l->next;
 	}
-	// printf("len = %d\n", len);
-	if (!(s = malloc(len * sizeof(char))))
-		malloc_error(m, s, NO_READING);
-	i = 0;
-	l = *head;
-	while (l)
-	{
-		ft_strcpy(s + i, t_access_files(l)->name);
-		i += ft_strlen(t_access_files(l)->name);
-		s[i++] = ' ';
-		l = l->next;
-	}
-	if (i > 0)
-		s[i - 1] = 0;
-	else
-	{
-		free(s);
-		return ("");
-	}
-	// printf("%s\n", s);
-	return (s);
+	return (head);
 }

@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:23:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/21 18:41:19 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:40:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list		*create_env_elem(char **a)
+t_list		*create_env_elem(char **a, char *equal)
 {
 	t_env	*l;
 	t_list	*tmp;
@@ -20,7 +20,9 @@ t_list		*create_env_elem(char **a)
 	if (!(l = malloc(sizeof(t_env))))
 		return (0);
 	l->name = a[0];
-	if (a[1])
+	if (equal && !(a[1]))
+		l->value = ft_strdup("");
+	else if (a[1])
 		l->value = a[1];
 	else
 		l->value = NULL;
@@ -39,7 +41,7 @@ t_list		**env_parser(t_list **head, char **env)
 	while (env[++x])
 	{
 		a = ft_split(env[x], '=');
-		tmp = create_env_elem(a);
+		tmp = create_env_elem(a, ft_strchr(env[x], '='));
 		if (x == 0)
 			*head = tmp;
 		else
