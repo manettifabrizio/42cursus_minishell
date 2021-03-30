@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:26:57 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 13:48:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:39:58 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static t_node		*build_command_heredoc(t_list **token)
 	t_node	*builtin;
 	char	*filename;
 
-	if ((builtin = build_builtin(token)) == NULL)
-		return (NULL);
+	builtin = build_builtin(token);
 	if (!check(DLESSER, NULL, token))
 	{
 		ast_delete_node(builtin);
@@ -42,8 +41,7 @@ static t_node		*build_command_over(t_list **token)
 	t_node	*builtin;
 	char	*filename;
 
-	if ((builtin = build_builtin(token)) == NULL)
-		return (NULL);
+	builtin = build_builtin(token);
 	if (!check(DGREATER, NULL, token))
 	{
 		ast_delete_node(builtin);
@@ -66,8 +64,7 @@ static t_node		*build_command_out(t_list **token)
 	t_node	*builtin;
 	char	*filename;
 
-	if ((builtin = build_builtin(token)) == NULL)
-		return (NULL);
+	builtin = build_builtin(token);
 	if (!check(LESSER, NULL, token))
 	{
 		ast_delete_node(builtin);
@@ -90,8 +87,7 @@ static t_node		*build_command_in(t_list **token)
 	t_node	*builtin;
 	char	*pathname;
 
-	if ((builtin = build_builtin(token)) == NULL)
-		return (NULL);
+	builtin = build_builtin(token);
 	if (!check(GREATER, NULL, token))
 	{
 		ast_delete_node(builtin);

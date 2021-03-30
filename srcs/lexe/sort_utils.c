@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 19:16:25 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 15:22:06 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:49:52 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int			check_pre_space(t_lexer *lexer)
 	t_list		*cur_tok;
 	t_list		*prev;
 
-	cur_tok = lexer->tokens;
-	prev = NULL;
+	cur_tok = lexer->tokens->next;
+	prev = lexer->tokens;
 	while (cur_tok && (t_access_tok(cur_tok)->type == SPACE
 			|| t_access_tok(cur_tok)->type == NEWLINE))
 	{
@@ -42,7 +42,7 @@ int			check_pre_space(t_lexer *lexer)
 		ft_lstdelone(prev, &free);
 	}
 	if (cur_tok)
-		lexer->tokens = cur_tok;
+		lexer->tokens->next = cur_tok;
 	else
 		return (-1);
 	return (0);

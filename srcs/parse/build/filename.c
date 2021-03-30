@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:29:11 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 12:03:52 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:08:01 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ static t_node	*build_filename_over(t_list **token)
 	return (result);
 }
 
+static t_node	*build_filename_out(t_list **token)
+{
+	t_node	*result;
+	char	*pathname;
+
+	if (!check(LESSER, NULL, token))
+		return (NULL);
+	if (!check(WORD, &pathname, token))
+		return (NULL);
+	if (!(result = create_node(NODE_REDIRECT_OUT, pathname)))
+		return (NULL);
+	ast_attach_branch(result, NULL, build_filename(token));
+	return (result);
+}
+
 static t_node	*build_filename_empty(t_list **token)
 {
 	(void)token;
@@ -59,6 +74,9 @@ t_node			*build_filename(t_list **token)
 		return (node);
 	if ((*token = save)
 		&& (node = build_filename_over(token)))
+		return (node);
+	if ((*token = save)
+		&& (node = build_filename_out(token)))
 		return (node);
 	if ((*token = save)
 		&& (node = build_filename_empty(token)))

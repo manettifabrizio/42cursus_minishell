@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/28 11:51:43 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:56:10 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 {
+	if (!builtin)
+		return ;
 	if ((logic_type == NODE_LOGIC_AMPERSTAND && m->exit_status)
 		|| (logic_type == NODE_LOGIC_PIPE && !m->exit_status))
 		return ;
