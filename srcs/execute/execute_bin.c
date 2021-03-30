@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/30 15:20:08 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:41:57 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,8 @@ int				execute_bin(t_main *m, t_node *cmd)
 	char	*path;
 	pid_t	pid;
 
-	printf("1\n");
 	if (check_dir_and_absolute(m, cmd->data))
 		return (-1);
-	printf("2\n");
 	if (!(path = search_path(cmd->data, m->pathdirs)))
 		return (0);
 	if (path)
@@ -89,6 +87,5 @@ int				execute_bin(t_main *m, t_node *cmd)
 		// free(path);
 		return (1);
 	}
-	printf("3\n");
 	return (0);
 }
