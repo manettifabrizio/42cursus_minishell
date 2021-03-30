@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 16:42:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 00:22:30 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ char	*line_read(t_main *m)
 	char	buf[2];
 	
 	s = ft_strdup("");
+	printf("s = %p\n", s);
 	ft_bzero(buf, 2);
 	if (!(m->hist = add_history(s, m->hist)))
 		malloc_error(m, s, READING);
+	for (int i = 0; m->hist[i]; i++)
+		printf("m->hist[%d] = %p\n", i, m->hist[i]);
 	while (reading(m, &s, buf) > 0)
-		if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
+		if (!(m->hist = history(s, m->hist, m->p->hnum)))
 			malloc_error(m, s, READING);
 	m->p->lpos = 0;
 	m->p->hnum = 0;

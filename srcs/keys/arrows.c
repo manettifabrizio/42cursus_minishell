@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:35:38 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 17:21:03 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/29 20:53:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int		arrow_up(char **s, char **h, t_cursor *p)
 	p->lpos = 0;
 	p->spos = 0;
 	p->lnum = count_lines(h[p->hnum]) - 1;
-	if (p->hnum > 1)
-		ft_free_array(p->arr);
+	ft_free_array(p->arr);
 	p->arr = split_keep(h[p->hnum], '\n');
 	free(*s);
 	(*s) = ft_strdup(h[p->hnum]);
@@ -50,8 +49,8 @@ int		arrow_down(char **s, char **h, t_cursor *p)
 	p->lpos = 0;
 	p->spos = 0;
 	p->lnum = count_lines(h[p->hnum]) - 1;
-	if (p->hnum > 1)
-		ft_free_array(p->arr);
+	// if (p->hnum > 0)
+	ft_free_array(p->arr);
 	p->arr = split_keep(h[p->hnum], '\n');
 	free(*s);
 	(*s) = ft_strdup(h[p->hnum]);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:05:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 12:08:50 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 20:42:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static char		**read_history(int fd, char **h)
 	while ((ret = get_next_separator(fd, &s)))
 	{
 		if (ft_isprint(s[0]))
-			if (!(h = add_history(ft_strdup(s), h)))
+			if (!(h = add_history(s, h)))
 				break ;
 		free(s);
 	}
 	if (ret == 0)
-		h = add_history(ft_strdup(s), h);
+		h = add_history(s, h);
 	else if (h)
 	{
 		printf("minish: %s: failed reading history file\n", ERROR);
