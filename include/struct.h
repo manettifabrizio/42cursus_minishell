@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 19:27:18 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:09:28 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef enum		e_token_type{
 	OPEN_PAR,
 	CLOSE_PAR,
 	CHAR_NULL,
+	WILDCARD
 }					t_token_type;
 
 typedef enum		e_node_type {

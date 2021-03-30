@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/25 19:55:33 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:57:22 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 {
 	t_list		*cur_tok;
 	t_list		*prev;
-	int			type;
 	t_list		*wild;
+	int			type;
 
 	cur_tok = lexer->tokens->next;
 	prev = cur_tok->next;
@@ -35,17 +35,14 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 				if (!heredoc(m, t_access_tok(cur_tok)->data))
 					return (-1);
 		}
-		if (type == WORD && ft_strrchr(t_access_tok(cur_tok)->data, '*'))
-			{
-				wild = wildcard(m ,t_access_tok(cur_tok)->data);
-				prev->next = wild;
-				wild = ft_lstlast(wild);
-				if (cur_tok->next)
-					wild->next = cur_tok->next;
-				else
-					wild->next = NULL;
-				cur_tok = wild;
-			}
+		else if (type == WILDCARD)
+		{
+			wild = wildcard(m ,t_access_tok(cur_tok)->data);
+			(prev)->next = wild;
+			wild = ft_lstlast(wild);
+			wild->next = (cur_tok)->next;
+			cur_tok = wild;
+		}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
@@ -81,8 +78,6 @@ int					sort_space_and_quote(t_lexer *lexer, t_main *m)
 	t_list	*prev;
 	int		type;
 
-	if ((check_pre_space(lexer) == -1))
-		return (-1);
 	cur_tok = lexer->tokens->next;
 	prev = lexer->tokens;
 	if ((type = while_sorting(m, &cur_tok, &prev)))
@@ -130,7 +125,7 @@ static void			sort_backslash_quote(t_lexer *lexer)
 	t_list	*cur_tok;
 	t_list	*prev;
 	int		len;
-	
+
 	cur_tok = lexer->tokens->next;
 	prev = lexer->tokens;
 	while (cur_tok)
@@ -146,6 +141,9 @@ static void			sort_backslash_quote(t_lexer *lexer)
 						return ;
 			}
 		}
+		if (ft_strrchr(t_access_tok(cur_tok)->data, '*')
+			&& t_access_tok(prev)->type == SPACE)
+				t_access_tok(cur_tok)->type = WILDCARD;
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
@@ -162,6 +160,8 @@ int					sort_lexer(t_main *m, t_lexer *lexer)
 	token->data = NULL;
 	head = ft_lstnew(token);
 	ft_lstadd_front(&(lexer->tokens), head);
+	if ((check_pre_space(lexer) == -1))
+		return (-1);
 	sort_backslash_quote(lexer);
 	if ((type = sort_space_and_quote(lexer, m)))
 		return (type);

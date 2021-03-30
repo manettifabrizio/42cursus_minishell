@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:12:52 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 15:23:30 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:18:53 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
 	char	*tmp;
 	char	*data;
 
+	if (!(check_closing_quote(*cur_tok, type)))
+		return (NULL);
 	if (!(data = malloc(sizeof(char))))
 		malloc_error(m, NULL, NO_READING);
 	*data = '\0';
-	if (!(check_closing_quote(*cur_tok, type)))
-		return (NULL);
 	del_cur_tok_and_link_next(prev, cur_tok);
 	while (*cur_tok && t_access_tok(*cur_tok)->type != type)
 	{
@@ -54,7 +54,9 @@ static char			*get_data_word(t_list **prev, t_list **cur_tok, t_main *m)
 {
 	char	*data;
 	char	*tmp;
+	t_list 	*wild;
 
+	wild = NULL;
 	if (!(data = malloc(sizeof(char))))
 		malloc_error(m, NULL, NO_READING);
 	*data = '\0';
@@ -86,8 +88,11 @@ static char			*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 		if (type == WORD)
 			data = join_and_free(data, get_data_word(prev, cur_tok, m));
 		else
-			data = join_and_free(data,
-					get_data_inside_quote(prev, cur_tok, type, m));
+		{
+			if (!(tmp = get_data_inside_quote(prev, cur_tok, type, m)))
+				return (NULL);
+			data = join_and_free(data, tmp);
+		}
 		if (type != SQUOTE)
 		{
 			tmp = data;
