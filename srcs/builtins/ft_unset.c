@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:40:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 11:04:56 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:16:55 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ static void		delete_elem(t_main *m, t_list *l, t_list *prev)
 	t_env	*tmp;
 
 	if (ft_strcmp(t_access_env(l)->name, "PATH") == 0)
+	{
+		ft_free_array(m->pathdirs);
 		m->pathdirs[0] = NULL;
+	}
 	tmp = t_access_env(l);
 	prev->next = l->next;
 	free(tmp->name);
 	if (tmp->value)
 		free(tmp->value);
+	free(tmp);
+	free(l);
 }
 
 static int		check_errors(t_main *m, char *s)
@@ -49,7 +54,10 @@ int		ft_unset(t_main *m, char **a, t_list **head)
 		while (l)
 		{
 			if (ft_strcmp(a[x], t_access_env(l)->name) == 0)
+			{
 				delete_elem(m, l, prev);
+				break ;
+			}
 			prev = l;
 			l = l->next;
 		}

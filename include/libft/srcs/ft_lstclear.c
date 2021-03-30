@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 21:10:09 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:24:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:53:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		tmp = actual;
 		del(actual->content);
-		free(actual);
+		free(tmp);
 		actual = actual->next;
 	}
 	*lst = NULL;

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:05:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/14 13:03:06 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/29 20:42:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ static char		**read_history(int fd, char **h)
 
 	s = NULL;
 	while ((ret = get_next_separator(fd, &s)))
+	{
 		if (ft_isprint(s[0]))
-			if (!(h = add_history(ft_strdup(s), h)))
-				break;
+			if (!(h = add_history(s, h)))
+				break ;
+		free(s);
+	}
 	if (ret == 0)
-		h = add_history(ft_strdup(s), h);
+		h = add_history(s, h);
 	else if (h)
 	{
-		printf("minish: \033[0;31merror:\033[0m failed reading history file\n");
+		printf("minish: %s: failed reading history file\n", ERROR);
 		ft_free_array(h);
 	}
 	close(fd);
@@ -34,13 +37,13 @@ static char		**read_history(int fd, char **h)
 	return (h);
 }
 
-char			**init_history()
+char			**init_history(void)
 {
 	int		fd;
 	char	**h;
 
 	if (!(h = malloc(1 * sizeof(char*))))
-		return (NULL); //error
+		return (NULL);
 	h[0] = NULL;
 	if ((fd = open(".minish_history", O_RDONLY)) < 0)
 		return (h);

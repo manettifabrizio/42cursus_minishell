@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 00:24:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:55:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int					check_key(t_main *m, char **s, char *buf);
 int					arrows(t_main *m, char **s, char c);
 int					home_end(char *s, char c, t_cursor *p);
 int					word_move(char *s, t_cursor *p);
-char 				*str_print_and_handle(t_main *m, char *s, char *buf, t_cursor *p);
+char 				*str_print_and_handle(char *s, char *buf, t_cursor *p);
 int					heredoc(t_main *m, char *keywrd);
 int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
@@ -83,11 +83,11 @@ int					create_tok(char *data, t_token_type type, t_lexer *lexer);
 int					create_tok_lst(char *data, t_token_type type, t_list **head);
 
 // PARSE
-t_list				**env_parser(t_list **head, char **env);
+void				env_parser(t_list **head, char **env);
 char				**path_parser(t_list **head);
 char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
-t_list				*create_env_elem(char **a, char *equal);
+t_list				*create_env_elem(char *s);
 int       			parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m);
 t_node      		*build_line(t_list **token, int par);
 t_node				*build_line_job(t_list **token);
@@ -170,6 +170,7 @@ int					status_error(t_main *m, int errtype, int status, char *message);
 void				malloc_error(t_main *m, char *s, int errtype);
 void                malloc_error_lexer(t_main *m, t_lexer *lexer);
 int         		error_parsing(char *data);
+void				env_del(void *l);
 void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
 
