@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:23:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 16:30:56 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:05:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list		*create_env_elem(char *s)
 		l->name = ft_substr(s, 0, i);
 	if (s[i] && !s[i + 1])
 		l->value = ft_strdup("");
-	else if (s[i + 1])
+	else if (s[i] && s[i + 1])
 		l->value = ft_substr(s, i + 1, ft_strlen(s) - i);
 	else
 		l->value = NULL;

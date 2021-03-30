@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 18:27:00 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/30 00:19:30 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:54:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_lexer(t_lexer *lexer)
     lexer = NULL;
 }
 
-static void		env_del(void *l)
+void		env_del(void *l)
 {
 	t_env	*tmp;
 
@@ -54,8 +54,8 @@ void			free_all(t_main *m)
 	ft_lstclear(m->ehead, env_del);
     free(m->ehead);
     free(m->p);
-	for (int i = 0; m->hist[i]; i++)
-		printf("m->hist[%d] = %p\n", i, m->hist[i]);
+	// for (int i = 0; m->hist[i]; i++)
+	// 	printf("m->hist[%d] = %p\n", i, m->hist[i]);
 	ft_free_array(m->hist);
 	free(m->hist_path);
 	// if (m->arr)

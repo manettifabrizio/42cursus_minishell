@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/30 00:31:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:37:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char		**first_line(char *s, t_uint size)
 			return (NULL);
 	if (!(tmp[0] = ft_strdup(s)))
 			return (NULL);
-	printf("tmp[0] = [%s] = %p\n", tmp[0], tmp[0]);
+	// printf("tmp[0] = [%s] = %p\n", tmp[0], tmp[0]);
 	tmp[1] = NULL;
 	return (tmp);
 }
@@ -49,13 +49,12 @@ static char		**other_lines(char *s, char **a)
 			return (NULL);
 		copy_array(tmp, a, 1);
 	}
-	// else
-	// {
-	if (!(tmp = malloc((len + 1) * sizeof(char*))))
-			return (NULL);
-		
-	copy_array(tmp, a, 0);
-	// }
+	else
+	{
+		if (!(tmp = malloc((len + 1) * sizeof(char*))))
+				return (NULL);
+		copy_array(tmp, a, 0);
+	}
 	return (tmp);
 }
 
@@ -70,7 +69,7 @@ char		**add_history(char *s, char **a)
 	else
 		tmp = other_lines(s, a);
 	ft_free_array(a);
-	printf("a = %p\n", tmp);
+	// printf("a = %p\n", tmp);
 	return (tmp);
 }
 
@@ -78,8 +77,8 @@ char			**history(char *s, char **a, t_uint hnum)
 {
 	if (hnum == 0)
 	{
-		printf("s = [%s]\n", s);
-		ft_print_array(a, "a");
+		// printf("s = [%s]\n", s);
+		// ft_print_array(a, "a");
 		if (ft_strcmp(s, "") == 0) //scale array by one
 			a = add_history(s, a);
 		else // string is still being written

@@ -6,26 +6,22 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 16:32:01 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:00:21 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		check_varname(char *s, t_list **head)
+static int		check_varname(char *varname, char *s, t_list **ehead, int i)
 {
-	int		i;
 	t_list	*l;
 	t_env	*tmp;
 
-	l = *head;
+	l = *ehead;
 	while (l)
 	{
 		tmp = t_access_env(l);
-		i = 0;
-		while (s[i] && s[i] != '=')
-			i++;
-		if (ft_strcmp(ft_substr(s, 0, i), tmp->name) == 0)
+		if (ft_strcmp(varname, tmp->name) == 0)
 		{
 			if (tmp->value)
 				free(tmp->value);
@@ -59,35 +55,37 @@ static int		check_errors(t_main *m, char *varname, char *s)
 	while (varname[++x])
 		if (!(ft_isalpha(varname[x])))
 			return (not_a_valid_identifier(m, s));
-	free(varname);
 	return (1);
 }
 
-static int		export_var(t_main *m, char **a, t_list **head)
+static int		export_var(t_main *m, char **a, t_list **ehead)
 {
 	int		x;
 	int		i;
+	char	*varname;
 
 	x = 0;
 	while (a[++x])
-	{	// cmd non ha bisogno di essere free() perchè l'inidirizzo finisce in ehead
+	{
 		i = 0;
 		while (a[x][i] && a[x][i] != '=')
 			i++;
-		if (check_errors(m, ft_substr(a[x], 0, i), a[x]))
-			if (!(check_varname(a[x], head)))
-				ft_lstadd_back(head, create_env_elem(a[x]));
+		varname = ft_substr(a[x], 0, i);
+		if (check_errors(m, varname, a[x]))
+			if (!(check_varname(varname, a[x], ehead, i)))
+				ft_lstadd_back(ehead, create_env_elem(a[x]));
+		free(varname);
 	}
 	return (1);
 }
 
-int		ft_export(t_main *m, char **a, t_list **head)
+int		ft_export(t_main *m, char **a, t_list **ehead)
 {
 	t_list	*l;
 	t_env	*tmp;
 	t_list	*lhead;
 
-	if (!(lhead = list_sort_env(head)))
+	if (!(lhead = list_sort_env(ehead)))
 		malloc_error(m, NULL, NO_READING);
 	l = lhead;
 	if (!(a[1]))
@@ -101,9 +99,9 @@ int		ft_export(t_main *m, char **a, t_list **head)
 			l = l->next;
 		}
 	else
-		if (!(export_var(m, a, head)))
+		if (!(export_var(m, a, ehead)))
 			malloc_error(m, NULL, NO_READING);
 	m->exit_status = (m->exit_status == -1) ? 1 : 0;
-	// free_list();
+	ft_lstclear(&lhead, free);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 16:37:35 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:55:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int					status_error(t_main *m, int errtype, int status, char *message);
 void				malloc_error(t_main *m, char *s, int errtype);
 void                malloc_error_lexer(t_main *m, t_lexer *lexer);
 int         		error_parsing(char *data);
+void				env_del(void *l);
 void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
 
