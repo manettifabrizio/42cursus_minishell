@@ -6,17 +6,22 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 12:44:02 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/18 14:52:19 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:11:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_signal(int signalnum)
+void	ft_useless(int signalnum)
 {
-	if (signalnum == SIGINT)
+	(void)signalnum;
+}
+
+void	ft_signal(int exit_status)
+{
+	if (exit_status == SIG_CTRL_C)
 		ft_putstr("\b\b  \b\b");
-	if (signalnum == SIGQUIT)
+	if (exit_status == SIG_CTRL_BSLASH)
 		ft_putstr("Quit: 3\n");
 }
 

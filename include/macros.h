@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:16:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 14:40:55 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:11:09 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define END				70
 # define HOME				72
 # define BACKSPACE			127
+
+# define SIG_CTRL_C			130
+# define SIG_CTRL_BSLASH	131
 
 # define ERROR				"\e[0;31merror\e[0m"
 # define SYNTAX_ERROR		"\e[0;31msyantax error\e[0m"

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 16:49:00 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:57:17 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int		reading_heredoc(t_main *m, char **s, char *keywrd, int fd)
 		return (-1);
 	if (buf[0] == '\n')
 	{
-		printf("keywrd = %s\n, s = %s\n", keywrd, *s);
 		if (ft_strcmp(keywrd, *s) != 0)
 		{
 			ft_putstr_fd(*s, fd);

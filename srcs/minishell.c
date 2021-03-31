@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/03/31 11:14:02 by fmanetti         ###   ########.fr       */
-=======
-/*   Updated: 2021/03/31 12:31:10 by viroques         ###   ########.fr       */
->>>>>>> toto
+/*   Updated: 2021/03/31 17:05:18 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +94,6 @@ int				main(int ac, char **av, char **env)
 				execute_command_line(m, exec_tree, 0);
 				ast_delete_node(exec_tree);
 			}
-		// printf("s = %p\n", s);
 		// if (s)
 		// 	free(s);
 	}
