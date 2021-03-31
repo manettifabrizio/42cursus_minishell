@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 12:31:10 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:56:56 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ void			execute_command(t_main *m, t_node *command, int logic_type)
 		command->type == NODE_REDIRECT_OVER ||
 		command->type == NODE_REDIRECT_HEREDOC)
 	{
-		handle_redirection(command);
+		if (handle_redirection(command))
+		{
+			dup2(tmp_in, STDIN_FILENO);
+			dup2(tmp_out, STDOUT_FILENO);	
+			return ;
+		}
 		execute_builtin(m, command->left, logic_type);
 		if (command->type == NODE_REDIRECT_HEREDOC)
 			remove(".heredoc");
-		dup2(tmp_in, STDOUT_FILENO);
+		dup2(tmp_in, STDIN_FILENO);
 		dup2(tmp_out, STDOUT_FILENO);
 	}
 	else

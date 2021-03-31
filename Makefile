@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
+#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/30 13:41:00 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/03/31 19:55:29 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ FILES		=	minishell.c							\
 				parse/build/builtin.c				\
 				parse/build/command.c				\
 				parse/build/command2.c 				\
-				parse/build/filename.c				\
 				parse/build/job.c					\
 				parse/build/line.c					\
 				parse/build/line2.c 				\
