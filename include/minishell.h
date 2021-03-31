@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 17:19:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:57:10 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ t_node				*build_line_job(t_list **token);
 t_node      		*build_job(t_list **token);
 t_node      		*build_command(t_list **token);
 t_node				*build_command_builtin(t_list **token);
-t_node      		*build_filename(t_list **token);
 t_node      		*build_builtin(t_list **token);
 t_node      		*build_args(t_list **token);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
@@ -106,7 +105,7 @@ void				ft_signal(int exit_status);
 void				execute_simple_pipe(t_main *m, t_node *node_pipe);
 int					execute_bin(t_main *m, t_node *cmd);
 int					exit_status(pid_t pid);
-void        		handle_redirection(t_node *node_redirect);
+int        			handle_redirection(t_node *node_redirect);
 char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
 void     			execute_ast_tree(t_main *m, t_node *exec_tree);

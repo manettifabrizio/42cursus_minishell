@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 17:15:33 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:57:37 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 		return ;
 	if (!(m->arr = create_cmd_table(builtin, m)))
 		malloc_error(m, NULL, NO_READING);
-		// ft_print_array(m->arr, "a");
 	if (!(builtins(m, builtin->data)))
 		if (!(execute_bin(m, builtin)))
 		{
@@ -45,7 +44,12 @@ void			execute_command(t_main *m, t_node *command, int logic_type)
 		command->type == NODE_REDIRECT_OVER ||
 		command->type == NODE_REDIRECT_HEREDOC)
 	{
-		handle_redirection(command);
+		if (handle_redirection(command))
+		{
+			dup2(tmp_in, STDIN_FILENO);
+			dup2(tmp_out, STDOUT_FILENO);	
+			return ;
+		}
 		execute_builtin(m, command->left, logic_type);
 		if (command->type == NODE_REDIRECT_HEREDOC)
 			remove(".heredoc");
