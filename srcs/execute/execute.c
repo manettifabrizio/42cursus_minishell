@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/30 15:42:56 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 10:47:41 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 	if ((logic_type == NODE_LOGIC_AMPERSTAND && m->exit_status)
 		|| (logic_type == NODE_LOGIC_PIPE && !m->exit_status))
 		return ;
-	if (!(m->arr = create_cmd_table(builtin)))
+	if (!(m->arr = create_cmd_table(builtin, m)))
 		malloc_error(m, NULL, NO_READING);
 	if (!(builtins(m, builtin->data)))
 		if (!(execute_bin(m, builtin)))

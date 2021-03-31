@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 19:27:42 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:31:23 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char		*home_replacer(char *s, char *home, t_list **head)
 		else
 			tmp = ft_strdup(s);
 	}
-	free(s);
+	// free(s);
 	return (tmp);
 }
 
