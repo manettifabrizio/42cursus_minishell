@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/30 14:37:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:24:03 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,24 @@ char		**add_history(char *s, char **a)
 
 char			**history(char *s, char **a, t_uint hnum)
 {
+	char	*tmp;
+
 	if (hnum == 0)
 	{
 		// printf("s = [%s]\n", s);
-		// ft_print_array(a, "a");
 		if (ft_strcmp(s, "") == 0) //scale array by one
 			a = add_history(s, a);
-		else // string is still being written
+		else
 		{
+			tmp = ft_strdup(s);
 			if (a[1]) // avoid same command repetition
 				if (ft_strcmp(s, a[1]) == 0)
-					s[0] = '\0';
+					tmp[0] = '\0';
 			// printf("a[0] = [%s] = %p\n", a[0], a[0]);	
 			free(a[0]);
-			if (!(a[0] = ft_strdup(s)))
+			if (!(a[0] = ft_strdup(tmp)))
 				return (NULL);
+			free(tmp);
 		}
 	}
 	// free(s);
