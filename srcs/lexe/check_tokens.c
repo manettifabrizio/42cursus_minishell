@@ -6,25 +6,16 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:00:05 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/30 13:53:48 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:43:52 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			is_quote_or_space(char c, char *next,
-					t_lexer *lexer, int *i)
+int			is_quote_or_space(char c, t_lexer *lexer)
 {
 	if (c == '\n')
 		return (create_tok("\n", NEWLINE, lexer));
-	if (c == '\\')
-	{
-		if (next && (*next == '\"' || *next == '\''))
-		{
-			*i += 1;
-			return (create_tok(next, WORD, lexer));
-		}
-	}
 	if (c == '\"')
 		return (create_tok("\"", DQUOTE, lexer));
 	if (c == '\'')
@@ -54,7 +45,7 @@ int			is_redirection(char c, char *next, t_lexer *lexer, int *i)
 		}
 		return (create_tok("<", LESSER, lexer));
 	}
-	return (is_quote_or_space(c, next, lexer, i));
+	return (is_quote_or_space(c, lexer));
 }
 
 int			is_an_operator(char c, char *next, t_lexer *lexer, int *i)

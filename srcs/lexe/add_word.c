@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:12:52 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/29 14:18:53 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:00:48 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
 
 	if (!(check_closing_quote(*cur_tok, type)))
 		return (NULL);
-	if (!(data = malloc(sizeof(char))))
+	if (!(data = malloc(sizeof(char) + 1)))
 		malloc_error(m, NULL, NO_READING);
-	*data = '\0';
+	*data = t_access_tok(*cur_tok)->data[0];
+	data[1] = '\0';
 	del_cur_tok_and_link_next(prev, cur_tok);
 	while (*cur_tok && t_access_tok(*cur_tok)->type != type)
 	{
@@ -46,6 +47,10 @@ char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
 		ft_lstdelone(*cur_tok, &free);
 		*cur_tok = (*prev)->next;
 	}
+	tmp = data;
+	if (!(data = ft_strjoin(tmp, t_access_tok(*cur_tok)->data)))
+		malloc_error(m, NULL, NO_READING);
+	free(tmp);
 	del_cur_tok_and_link_next(prev, cur_tok);
 	return (data);
 }
@@ -93,12 +98,12 @@ static char			*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 				return (NULL);
 			data = join_and_free(data, tmp);
 		}
-		if (type != SQUOTE)
-		{
-			tmp = data;
-			data = check_vars(m, tmp, m->ehead, m->exit_status);
-			free(tmp);
-		}
+		// if (type != SQUOTE)
+		// {
+		// 	tmp = data;
+		// 	data = check_vars(m, tmp, m->ehead, m->exit_status);
+		// 	free(tmp);
+		// }
 	}
 	return (data);
 }
