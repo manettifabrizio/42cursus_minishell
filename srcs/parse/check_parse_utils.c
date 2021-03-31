@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:14:42 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 22:20:29 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:33:31 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,16 @@ int				check(t_token_type tok_type, char **bufferptr, t_list **token)
 	return (0);
 }
 
-t_node			*return_err_check_par(t_node *node)
+t_node			*return_err_check_par(t_list **token)
 {
-	ast_delete_node(node);
-	printf("minish: Missing closing parenthese\n");
+	t_list *multi;
+	t_token *tok;
+
+	tok = malloc(sizeof(t_token));
+	tok->type = CLOSE_PAR;
+	tok->data = NULL;
+	multi = ft_lstnew(tok);
+	ft_lstadd_back(token, multi);
 	return (NULL);
 }
 
@@ -43,7 +49,7 @@ t_node			*check_closing_par(int par, t_list **token, t_node *node)
 	if (par)
 	{
 		if (!check_par(CLOSE_PAR, NULL, token))
-			return (return_err_check_par(node));
+			return (return_err_check_par(token));
 		if (check_par(DPIPE, NULL, token))
 		{
 			logic = create_node(NODE_LOGIC_PIPE, ft_strdup("close par"));
