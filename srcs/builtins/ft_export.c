@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/30 15:00:21 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:37:19 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static int		check_errors(t_main *m, char *varname, char *s)
 	int		x;
 
 	x = -1;
-	if (!varname)
-		return (not_a_valid_identifier(m, ""));
+	if (!varname || !varname[0])
+		return (not_a_valid_identifier(m, s));
 	while (varname[++x])
 		if (!(ft_isalpha(varname[x])))
 			return (not_a_valid_identifier(m, s));
