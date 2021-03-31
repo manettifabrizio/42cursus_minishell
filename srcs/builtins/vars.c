@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 19:27:42 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:27:30 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char		*home_replacer(char *s, char *home, t_list **head)
 		else
 			tmp = ft_strdup(s);
 	}
-	free(s);
+	// free(s);
 	return (tmp);
 }
 

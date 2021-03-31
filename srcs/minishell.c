@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 20:56:26 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/03/31 11:14:02 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int				main(int ac, char **av, char **env)
 				execute_command_line(m, exec_tree, 0);
 				ast_delete_node(exec_tree);
 			}
-		free(s);
+		// printf("s = %p\n", s);
+		// if (s)
+		// 	free(s);
 	}
 	return (0);
 }
