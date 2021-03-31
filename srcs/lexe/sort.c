@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/30 17:49:37 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:19:42 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,6 @@ int					sort_space_and_quote(t_lexer *lexer, t_main *m)
 	return (0);
 }
 
-// static int			replace_backslash_and_link_next(t_list **cur_tok, int len)
-// {
-// 	t_list *quote;
-
-// 	quote = NULL;
-// 	t_access_tok(*cur_tok)->data[len - 1] = '\"';
-// 	quote = (*cur_tok)->next;
-// 	if ((*cur_tok)->next->next)
-// 		(*cur_tok)->next = (*cur_tok)->next->next;
-// 	else
-// 	{
-// 		(*cur_tok)->next = NULL;
-// 		free(t_access_tok(quote)->data);
-// 		ft_lstdelone(quote, &free);
-// 		return (0);
-// 	}
-// 	free(t_access_tok(quote)->data);
-// 	ft_lstdelone(quote, &free);
-// 	return (1);
-// }
 
 void		print_lst(t_list *lst)
 {
@@ -120,27 +100,15 @@ void		print_lst(t_list *lst)
 	}
 }
 
-static void			sort_backslash_quote(t_lexer *lexer)
+static void			type_wildcard(t_lexer *lexer)
 {
 	t_list	*cur_tok;
 	t_list	*prev;
-	// int		len;
 
 	cur_tok = lexer->tokens->next;
 	prev = lexer->tokens;
 	while (cur_tok)
 	{
-		// if (t_access_tok(cur_tok)->type == WORD)
-		// {
-		// 	len = ft_strlen(t_access_tok(cur_tok)->data);
-		// 	if (t_access_tok(cur_tok)->data[len - 1] == '\\')
-		// 	{
-		// 		if (cur_tok->next &&
-		// 			t_access_tok(cur_tok->next)->type == DQUOTE)
-		// 			if (!replace_backslash_and_link_next(&cur_tok, len))
-		// 				return ;
-		// 	}
-		// }
 		if (ft_strrchr(t_access_tok(cur_tok)->data, '*')
 			&& t_access_tok(prev)->type == SPACE)
 				t_access_tok(cur_tok)->type = WILDCARD;
@@ -149,7 +117,7 @@ static void			sort_backslash_quote(t_lexer *lexer)
 	}
 }
 
-int					sort_lexer(t_main *m, t_lexer *lexer)
+int					 sort_lexer(t_main *m, t_lexer *lexer)
 {
 	int		type;
 	t_list	*head;
@@ -162,7 +130,7 @@ int					sort_lexer(t_main *m, t_lexer *lexer)
 	ft_lstadd_front(&(lexer->tokens), head);
 	if ((check_pre_space(lexer) == -1))
 		return (-1);
-	sort_backslash_quote(lexer);
+	type_wildcard(lexer);
 	if ((type = sort_space_and_quote(lexer, m)))
 		return (type);
 	if ((type = sort_heredoc_and_wildcard(m, lexer)))
