@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:14:42 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 22:33:31 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:38:39 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ t_node			*return_err_check_par(t_list **token)
 	t_list *multi;
 	t_token *tok;
 
-	tok = malloc(sizeof(t_token));
+	if (!(tok = malloc(sizeof(t_token))))
+		return (NULL);
 	tok->type = CLOSE_PAR;
 	tok->data = NULL;
-	multi = ft_lstnew(tok);
+	if (!(multi = ft_lstnew(tok)))
+		return (NULL);
 	ft_lstadd_back(token, multi);
 	return (NULL);
 }
