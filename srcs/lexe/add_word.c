@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:12:52 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/30 18:00:48 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:24:47 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,6 @@ static char			*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 				return (NULL);
 			data = join_and_free(data, tmp);
 		}
-		// if (type != SQUOTE)
-		// {
-		// 	tmp = data;
-		// 	data = check_vars(m, tmp, m->ehead, m->exit_status);
-		// 	free(tmp);
-		// }
 	}
 	return (data);
 }
