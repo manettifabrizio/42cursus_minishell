@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 14:06:16 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:23:52 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,23 @@ char			*add_squote(char *str, int *i)
 char			*add_w(char *str, int *i, t_main *m)
 {
 	int 	start;
-	int 	end;
 	char	*sub;
 	char	*var;
 
 	start = *i;
-	end = start;
-	while (str[end])
+	while (str[*i])
 	{
-		if (str[end] == '\\')
+		if (str[*i] == '\\')
 		{
-			if (str[end + 1] && (str[end + 1] == '\''
-				|| str[end + 1 == '\"']))
-			end++;
+			if (str[*i + 1] && (str[*i + 1] == '\''
+				|| str[*i + 1 == '\"']))
+			*i += 1;
 		}
-		else if (str[end] == '\'' || str[end] == '\"')
+		else if (str[*i] == '\'' || str[*i] == '\"')
 			break;
-		end++;
+		*i += 1;
 	}
-	*i =  *i + (end - start);
-	sub = ft_substr(str, start, (end - start));
+	sub = ft_substr(str, start, *i);
 	var = check_vars(m, sub, m->ehead, m->exit_status);
 	free(sub);
 	return (var);
