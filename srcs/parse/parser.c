@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 19:51:09 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:14:30 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 	if (tokens != NULL && !tokens->next)
 	{
 		type = t_access_tok(tokens)->type;
-		if (type == DPIPE || type == DAMPERSTAND || type == PIPE)
+		if (type == DPIPE || type == DAMPERSTAND || type == PIPE
+			|| type == CLOSE_PAR)
 		{
 			s = multilines(m, s, type);
 			lexer = build_lexer(m, s);

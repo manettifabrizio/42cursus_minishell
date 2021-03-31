@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 19:57:10 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:15:39 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void        		ast_set_data(t_node *node, char *data);
 void        		ast_set_type(t_node *node, int type);
 void        		ast_attach_branch(t_node *root, t_node *left, t_node *right);
 void                ast_attach_right(t_node *root, t_node *right);
-
+void				print_preorder(t_node *node);
 // SPLIT
 char				**split_exp(char const *s, char c);
 char				**split_var(char *s);

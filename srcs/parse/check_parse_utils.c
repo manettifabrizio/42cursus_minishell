@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:14:42 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/25 19:13:00 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:20:29 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ t_node			*check_closing_par(int par, t_list **token, t_node *node)
 			return (return_err_check_par(node));
 		if (check_par(DPIPE, NULL, token))
 		{
-			logic = create_node(NODE_LOGIC_PIPE, "close par");
+			logic = create_node(NODE_LOGIC_PIPE, ft_strdup("close par"));
 			line = build_line(token, 0);
 			ast_attach_branch(logic, node->right, line);
 			ast_attach_right(node, logic);
 		}
 		else if (check_par(DAMPERSTAND, NULL, token))
 		{
-			logic = create_node(NODE_LOGIC_AMPERSTAND, "close par");
+			logic = create_node(NODE_LOGIC_AMPERSTAND, ft_strdup("close par"));
 			line = build_line(token, 0);
 			ast_attach_branch(logic, node->right, line);
 			ast_attach_right(node, logic);

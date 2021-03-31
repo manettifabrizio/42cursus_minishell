@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 15:29:28 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 21:37:19 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void		ast_delete_node(t_node *node)
 	ast_delete_node(node->left);
 	ast_delete_node(node->right);
 	free(node);
+	node = NULL;
 }

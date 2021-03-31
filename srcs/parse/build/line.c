@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:21:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/18 11:54:35 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 22:15:57 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_node	*build_line_logic_pipe(t_list **token, int par)
 		ast_delete_node(job);
 		return (NULL);
 	}
-	if (!(result = create_node(NODE_LOGIC_PIPE, par ? "open" : NULL)))
+	if (!(result = create_node(NODE_LOGIC_PIPE, par ? ft_strdup("open") : NULL)))
 		return (NULL);
 	ast_attach_branch(result, job, line);
 	return (result);
@@ -54,7 +54,7 @@ static t_node	*build_line_logic_amper(t_list **token, int par)
 		ast_delete_node(job);
 		return (NULL);
 	}
-	if (!(result = create_node(NODE_LOGIC_AMPERSTAND, par ? "open" : NULL)))
+	if (!(result = create_node(NODE_LOGIC_AMPERSTAND, par ? ft_strdup("open") : NULL)))
 		return (NULL);
 	ast_attach_branch(result, job, line);
 	return (result);
