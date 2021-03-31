@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 10:47:32 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 10:49:46 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,8 @@ int				execute_bin(t_main *m, t_node *cmd)
 		}
 		else
 			m->exit_status = exit_status(pid);
-		// free(path);
+		if (path)
+			free(path);
 		return (1);
 	}
 	return (0);
