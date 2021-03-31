@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:26:57 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/29 16:39:58 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:02:21 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,13 @@ static t_node		*build_command_in(t_list **token)
 	return (result);
 }
 
+t_node				*build_return(t_list **token, t_node *node)
+{
+	if (!node->left)
+		ast_attach_branch(node, NULL, build_command(token));
+	return (node);
+}
+
 t_node				*build_command(t_list **token)
 {
 	t_node *node;
@@ -112,16 +119,16 @@ t_node				*build_command(t_list **token)
 	save = *token;
 	if ((*token = save)
 		&& (node = build_command_in(token)))
-		return (node);
+		return (build_return(token, node));
 	if ((*token = save)
 		&& (node = build_command_out(token)))
-		return (node);
+		return (build_return(token, node));
 	if ((*token = save)
 		&& (node = build_command_over(token)))
-		return (node);
+		return (build_return(token, node));
 	if ((*token = save)
 		&& (node = build_command_heredoc(token)))
-		return (node);
+		return (build_return(token, node));
 	if ((*token = save)
 		&& (node = build_command_builtin(token)))
 		return (node);

@@ -6,12 +6,11 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 10:47:41 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:31:10 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 {
