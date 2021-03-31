@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
 /*   Updated: 2021/03/31 11:09:38 by fmanetti         ###   ########.fr       */
@@ -74,8 +74,6 @@ int                 check_closing_quote(t_list *tokens, t_token_type type);
 int                 check_pre_space(t_lexer *lexer);
 void                word_interpolation(t_main *m, t_list **cur_tok, t_list **prev);
 char				*join_and_free(char *s1, char *s2);
-int					is_quote_or_space(char c, char *next,
-					t_lexer *lexer, int *i);
 int					is_redirection(char c, char *next, t_lexer *lexer, int *i);
 int					is_an_operator(char c, char *next, t_lexer *lexer, int *i);
 t_list				*generate_tok(char *data, t_token_type type, t_main *m);
@@ -111,7 +109,7 @@ void        		handle_redirection(t_node *node_redirect);
 char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
 void     			execute_ast_tree(t_main *m, t_node *exec_tree);
-char                **create_cmd_table(t_node *root);
+char                **create_cmd_table(t_node *root, t_main *m);
 void				init_std(t_std *std);
 void				execute_inter_pipe(t_std *std, t_main *m, t_node *job, int logic_type);
 void				execute_command(t_main *m, t_node *command, int logic_type);

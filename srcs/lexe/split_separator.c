@@ -6,13 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 15:23:01 by viroques         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:58:57 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_sep(char *charset, char c)
+int		is_in(char *charset, char c)
 {
 	int	i;
 
@@ -28,6 +28,22 @@ int		is_sep(char *charset, char c)
 	return (0);
 }
 
+int		is_sep(const char *s, int i, char *charset)
+{
+	if (i == 0)
+	{
+		if (is_in(charset, s[i]) || is_in(charset, s[i + 1]))
+			return (1);
+	}
+	else
+	{
+		if ((is_in(charset, s[i]) && s[i - 1] != '\\')
+			|| (is_in(charset, s[i + 1]) && s[i] != '\\'))
+			return (1);
+	}
+	return (0);
+}
+
 char	**ft_count_string(const char *s, char *charset)
 {
 	int		string;
@@ -38,7 +54,7 @@ char	**ft_count_string(const char *s, char *charset)
 	string = 0;
 	while (s[i])
 	{
-		if (is_sep(charset, s[i]) || is_sep(charset, s[i + 1]))
+		if (is_sep(s, i, charset))
 			string++;
 		i++;
 	}
@@ -59,7 +75,7 @@ void	ft_count_letter(const char *s, char *charset, char **tb)
 	while (s[i])
 	{
 		letter++;
-		if (is_sep(charset, s[i]) || is_sep(charset, s[i + 1]))
+		if (is_sep(s, i, charset))
 		{
 			if (!(tb[string] = malloc(sizeof(char) * (letter + 1))))
 			{
@@ -86,7 +102,7 @@ void	ft_fill_tab(char const *s, char *charset, char **tb)
 	{
 		tb[string][letter] = s[i];
 		letter++;
-		if (is_sep(charset, s[i]) || is_sep(charset, s[i + 1]))
+		if (is_sep(s, i, charset))
 		{
 			tb[string][letter] = 0;
 			string++;

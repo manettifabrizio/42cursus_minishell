@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
 /*   Updated: 2021/03/31 10:49:46 by fmanetti         ###   ########.fr       */
@@ -12,7 +12,126 @@
 
 #include "minishell.h"
 
-char			**create_cmd_table(t_node *root)
+char			*add_quote(char *str, int *i, t_main *m)
+{
+	int		start;
+	int		end;
+	char	*sub;
+	char	*var;
+
+	start = *i;
+	end = start;
+	while (str[end])
+	{
+		if (str[end] == '\\')
+		{
+			if (str[end + 1] && str[end + 1] == '\"')
+			end++;
+		}
+		else if (str[end] == '\"')
+			break;
+		end++;
+	}
+	*i = *i + (end - start);
+	sub = ft_substr(str, start, (end - start));
+	var = check_vars(m, sub, m->ehead, m->exit_status);
+	free(sub);
+	return (var);
+}
+
+char			*add_squote(char *str, int *i)
+{
+	int		start;
+	int		end;
+
+	start = *i;
+	end = start;
+	while (str[end])
+	{
+		if (str[end] == '\\')
+		{
+			if (str[end + 1] && str[end + 1] == '\'')
+			end++;
+		}
+		else if (str[end] == '\'')
+			break;
+		end++;
+	}
+	*i = *i + end;
+	return (ft_substr(str, start, end - 1));
+}
+
+char			*add_w(char *str, int *i, t_main *m)
+{
+	int 	start;
+	int 	end;
+	char	*sub;
+	char	*var;
+
+	start = *i;
+	end = start;
+	while (str[end])
+	{
+		if (str[end] == '\\')
+		{
+			if (str[end + 1] && (str[end + 1] == '\''
+				|| str[end + 1 == '\"']))
+			end++;
+		}
+		else if (str[end] == '\'' || str[end] == '\"')
+			break;
+		end++;
+	}
+	*i =  *i + (end - start);
+	sub = ft_substr(str, start, (end - start));
+	var = check_vars(m, sub, m->ehead, m->exit_status);
+	free(sub);
+	return (var);
+}
+
+char			*change_data(char *str, t_main *m)
+{
+	int i;
+	char *data;
+	char *tmp;
+	char *add;
+
+	data = malloc(sizeof(char));
+	*data = '\0';
+	i =  0;
+	while ((size_t)i < ft_strlen(str))
+	{
+		if (str[i] && str[i] == '\"')
+		{
+			i++;
+			tmp = data;
+			add = add_quote(str, &i, m);
+			data = ft_strjoin(tmp, add);
+			free(tmp);
+			free(add);
+		}
+		else if (str[i] == '\'')
+		{
+			i++;
+			tmp = data;
+			add = add_squote(str, &i);
+			data = ft_strjoin(tmp, add);
+			free(tmp);
+			free(add);
+		}
+		else
+		{
+			tmp = data;
+			add = add_w(str, &i, m);
+			data = ft_strjoin(tmp, add);
+			free(add);
+			free(tmp);
+		}
+	}
+	return (data);
+}
+
+char			**create_cmd_table(t_node *root, t_main *m)
 {
 	t_node	*node;
 	char	**args;
@@ -31,7 +150,7 @@ char			**create_cmd_table(t_node *root)
 	nbcmd = 0;
 	while (node)
 	{
-		args[nbcmd] = ft_strdup(node->data);
+		args[nbcmd] = change_data(node->data, m);
 		node = node->left;
 		nbcmd++;
 	}
