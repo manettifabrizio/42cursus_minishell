@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 17:19:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/01 10:45:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 	char 	**a;
 	
 	x = -1;
+	// printf("check_vars\n");
 	a = split_var(s);
+	// ft_print_array(a, "a");
 	if (a[0])
 		while (a[++x])
 			if (a[x][0] == '$' || a[x][0] == '~')
@@ -69,5 +71,6 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 			}
 	if (!(tmp = ft_merge(a)))
 		malloc_error(m, s, NO_READING);
+	// printf("tmp = %s\n", tmp);
 	return (tmp);
 }

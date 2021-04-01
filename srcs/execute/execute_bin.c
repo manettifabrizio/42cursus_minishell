@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
 /*   Updated: 2021/04/01 11:54:28 by viroques         ###   ########.fr       */
@@ -196,7 +196,7 @@ static int		check_dir_and_absolute(t_main *m, char *path)
 	{
 		if ((fd = open(path, O_RDONLY)) == -1)
 		{
-			error(ERRNO, "");
+			error(ERRNO, NULL);
 			m->exit_status = 127;
 			return (1);
 		}
@@ -209,7 +209,7 @@ int				execute_bin(t_main *m)
 {
 	char	*path;
 	pid_t	pid;
-	
+  
 	if (check_dir_and_absolute(m, m->arr[0]))
 		return (-1);
 	if (!(path = search_path(m->arr[0], m->pathdirs)))

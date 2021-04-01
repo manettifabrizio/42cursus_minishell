@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
+#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/31 19:55:29 by viroques         ###   ########.fr        #
+#    Updated: 2021/04/01 09:39:31 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ FILES		=	minishell.c							\
 				parse/build/line2.c 				\
 				parse/parser.c						\
 				parse/check_parse_utils.c 			\
+				parse/vars.c						\
 				wildcard/star_to_str.c				\
 				wildcard/list_sort_files.c			\
 				wildcard/starcmp.c					\
@@ -70,7 +71,6 @@ FILES		=	minishell.c							\
 				builtins/ft_unset.c					\
 				builtins/ft_env.c					\
 				builtins/ft_exit.c					\
-				builtins/vars.c						\
 				ast_tree/ast_tree.c					\
 				ast_tree/create_node.c 				\
 				errors_and_free/error.c				\

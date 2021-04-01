@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 20:05:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 20:42:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:31:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char		**read_history(int fd, char **h)
 		h = add_history(s, h);
 	else if (h)
 	{
-		printf("minish: %s: failed reading history file\n", ERROR);
+		error(NO_ERRNO, "failed reading history file");
 		ft_free_array(h);
 	}
 	close(fd);

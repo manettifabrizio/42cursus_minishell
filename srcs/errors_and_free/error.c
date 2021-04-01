@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:46:05 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/15 18:13:04 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:27:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,38 @@
 int		error(int errtype, char *message)
 {
 	if (errtype == ERRNO)
-		printf("minish: %s: %s\n", ERROR, strerror(errno));
+	{
+		ft_putstr_fd("minish: ", STDERR_FILENO);
+		ft_putstr_fd(ERROR, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
 	else if (errtype == NO_ERRNO)
-		printf("minish: %s: %s\n", ERROR, message);
+	{
+		ft_putstr_fd("minish: ", STDERR_FILENO);
+		ft_putstr_fd(ERROR, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(message, STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
 	return (1);
 }
 
 int		status_error(t_main *m, int errtype, int status, char *message)
 {
 	if (errtype == ERRNO)
-		printf("minish: %s:%s %s\n", ERROR, message, strerror(errno));
-	else if (errtype == NO_ERRNO)
-		printf("minish: %s: %s\n", ERROR, message);
+	{
+		ft_putstr_fd("minish: ", STDERR_FILENO);
+		ft_putstr_fd(ERROR, STDERR_FILENO);
+		ft_putchar_fd(':', STDERR_FILENO);
+		ft_putstr_fd(message, STDERR_FILENO);
+		ft_putchar_fd(' ', STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
+	if (errtype == NO_ERRNO)
+		error(NO_ERRNO, message);
 	m->exit_status = status;
 	return (1);
 }
@@ -36,12 +56,8 @@ void		malloc_error(t_main *m, char *s, int errtype)
 	int		status;
 
 	if (errtype == READING)
-	{
-		printf("minish: %s: %s\n", ERROR, strerror(errno));
 		free(s);
-	}
-	else if (errtype == NO_READING)
-		printf("minish: %s: %s\n", ERROR, strerror(errno));
+	error(ERRNO, NULL);
 	status = 1;
 	free_all(m);
 	exit(status);

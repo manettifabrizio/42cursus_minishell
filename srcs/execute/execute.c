@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 10:59:59 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:08:23 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ void			execute_command(t_main *m, t_node *command, int logic_type)
 		if (handle_redirection(command))
 		{
 			dup2(tmp_in, STDIN_FILENO);
-			dup2(tmp_out, STDOUT_FILENO);	
+			dup2(tmp_out, STDOUT_FILENO);
+			m->exit_status = 1;
 			return ;
 		}
+		m->exit_status = 0;
 		execute_builtin(m, command->left, logic_type);
 		if (command->type == NODE_REDIRECT_HEREDOC)
 			remove(".heredoc");
