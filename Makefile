@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
+#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/01 09:39:31 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/04/01 16:25:08 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ FILES		=	minishell.c							\
 				execute/execute_bin.c				\
 				execute/exit_status.c				\
 				execute/redirection.c				\
+				execute/change_data.c				\
 				builtins/builtins.c					\
 				builtins/ft_echo.c					\
 				builtins/ft_cd.c					\

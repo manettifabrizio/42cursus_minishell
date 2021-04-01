@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/01 10:59:58 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:27:17 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void				ft_signal(int exit_status);
 void				execute_simple_pipe(t_main *m, t_node *node_pipe);
 int					execute_bin(t_main *m);
 int					exit_status(pid_t pid);
-int        			handle_redirection(t_node *node_redirect);
+int        			handle_redirection(t_node *node_redirect, t_main *m);
 char        		*search_path(char *cmd_name, char **directories);
 char        		**get_directories_path(char **env);
 void     			execute_ast_tree(t_main *m, t_node *exec_tree);
@@ -115,6 +115,7 @@ void				execute_inter_pipe(t_std *std, t_main *m, t_node *job, int logic_type);
 void				execute_command(t_main *m, t_node *command, int logic_type);
 void				execute_builtin(t_main *m, t_node *builtin, int logic_type);
 void				execute_command_line(t_main *m, t_node *cmd_line, int type);
+char				*change_data(char *str, t_main *m);
 
 // BUILTINS
 int					builtins(t_main *m, char *cmd_name);

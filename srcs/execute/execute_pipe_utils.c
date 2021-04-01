@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:21:37 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/24 14:59:04 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 15:05:17 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			execute_inter_pipe(t_std *std, t_main *m,
 	std->fd_out = std->fd[1];
 	dup2(std->fd_in, STDIN_FILENO);
 	dup2(std->fd_out, STDOUT_FILENO);
-	execute_builtin(m, job->left, logic_type);
+	execute_command(m, job->left, logic_type);
 	close(std->fd_in);
 	std->fd_in = std->fd[0];
 }

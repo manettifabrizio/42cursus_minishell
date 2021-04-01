@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 12:08:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:56:35 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 
 void			execute_command(t_main *m, t_node *command, int logic_type)
 {
-	int		tmp_in;
-	int		tmp_out;
-
-	tmp_in = dup(STDIN_FILENO);
-	tmp_out = dup(STDOUT_FILENO);
 	if (!command)
 		return ;
 	if (command->type == NODE_REDIRECT_IN ||
@@ -44,10 +39,8 @@ void			execute_command(t_main *m, t_node *command, int logic_type)
 		command->type == NODE_REDIRECT_OVER ||
 		command->type == NODE_REDIRECT_HEREDOC)
 	{
-		if (handle_redirection(command))
+		if (handle_redirection(command, m))
 		{
-			dup2(tmp_in, STDIN_FILENO);
-			dup2(tmp_out, STDOUT_FILENO);
 			m->exit_status = 1;
 			return ;
 		}
@@ -55,47 +48,50 @@ void			execute_command(t_main *m, t_node *command, int logic_type)
 		execute_builtin(m, command->left, logic_type);
 		if (command->type == NODE_REDIRECT_HEREDOC)
 			remove(".heredoc");
-		dup2(tmp_in, STDIN_FILENO);
-		dup2(tmp_out, STDOUT_FILENO);
+		if (!command->left)
+			execute_command(m, command->right, logic_type);
 	}
 	else
 		execute_builtin(m, command, logic_type);
 	ft_signal(m->exit_status);
 }
 
-static void		execute_pipe(t_main *m, t_node *node_pipe, int logic_type)
+static void		execute_pipe(t_main *m, t_node *node_pipe, int logic_type, t_std *std)
 {
 	t_node	*job;
-	t_std	std;
 
-	init_std(&std);
-	dup2(std.fd_out, STDOUT_FILENO);
-	execute_builtin(m, node_pipe->left, logic_type);
+	pipe(std->fd);
+	std->fd_in = std->fd[0];
+	std->fd_out = std->fd[1];
+	dup2(std->fd_out, STDOUT_FILENO);
+	execute_command(m, node_pipe->left, logic_type);
 	job = node_pipe->right;
 	while (job->type == NODE_PIPE)
 	{
-		execute_inter_pipe(&std, m, job, logic_type);
+		execute_inter_pipe(std, m, job, logic_type);
 		job = job->right;
 	}
-	dup2(std.fd_in, STDIN_FILENO);
-	close(std.fd_out);
-	dup2(std.tmp_out, STDOUT_FILENO);
+	dup2(std->fd_in, STDIN_FILENO);
+	close(std->fd_out);
+	dup2(std->tmp_out, STDOUT_FILENO);
 	execute_command(m, job, logic_type);
-	close(std.fd_in);
-	dup2(std.tmp_out, STDOUT_FILENO);
-	dup2(std.tmp_in, STDIN_FILENO);
+	close(std->fd_in);
 }
 
 static void		execute_job(t_main *m, t_node *job, int logic_type)
 {
+	t_std	std;
+
 	if (!job)
 		return ;
+	std.tmp_in = dup(STDIN_FILENO);
+	std.tmp_out = dup(STDOUT_FILENO);
 	if (job->type == NODE_PIPE)
-		execute_pipe(m, job, logic_type);
+		execute_pipe(m, job, logic_type, &std);
 	else
-	{
 		execute_command(m, job, logic_type);
-	}
+	dup2(std.tmp_in, STDIN_FILENO);
+	dup2(std.tmp_out, STDOUT_FILENO);
 }
 
 void			execute_command_line(t_main *m, t_node *cmd_line, int type)

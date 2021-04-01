@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 14:33:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:16:30 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 int					call_multi_back(char *str)
 {
-	char *needle;
+	int		i;
 
-	needle = ft_strrchr(str, '\\');
-	if (needle)
+	i = 0;
+	while (str[i])
 	{
-		needle++;
-		if (!*needle)
+		if (str[i] == '\\')
+			break;
+		i++;
+	}
+	if (str[i] == '\\')
+	{
+		if (i == 0 && !(str[i + 1]))
+			return (1);
+		if ( i > 0 && !(str[i + 1]) && str[i - 1] != '\\')
 			return (1);
 	}
 	return (0);
