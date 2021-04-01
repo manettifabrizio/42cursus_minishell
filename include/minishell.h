@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 22:15:39 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 10:37:12 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_node              *create_node(int type, char *data);
 void				ft_useless(int num);
 void				ft_signal(int exit_status);
 void				execute_simple_pipe(t_main *m, t_node *node_pipe);
-int					execute_bin(t_main *m, t_node *cmd);
+int					execute_bin(t_main *m);
 int					exit_status(pid_t pid);
 int        			handle_redirection(t_node *node_redirect);
 char        		*search_path(char *cmd_name, char **directories);

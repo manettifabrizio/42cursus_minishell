@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 22:36:20 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:08:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int				return_parse(t_list *tokens, t_node **exec_tree, \
 	{
 		printf("minish: %s near unexpected token: `%s'\n", SYNTAX_ERROR,
 			t_access_tok(tokens)->data);
-		m->exit_status = 2;
+		m->exit_status = 258;
 		return (0);
 	}
 	if (!*exec_tree)
 	{
 		printf("minish: %s near unexpected token: `%s'\n", SYNTAX_ERROR,
 			t_access_tok(lexer->tokens)->data);
-		m->exit_status = 2;
+		m->exit_status = 258;
 		return (0);
 	}
 	return (1);

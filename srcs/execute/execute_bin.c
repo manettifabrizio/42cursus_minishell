@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 21:08:20 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:18:33 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ static int		check_dir_and_absolute(t_main *m, char *path)
 	{
 		if ((fd = open(path, O_RDONLY)) == -1)
 		{
-			error(ERRNO, "");
+			error(ERRNO, NULL);
 			m->exit_status = 127;
 			return (1);
 		}
@@ -208,14 +208,14 @@ static int		check_dir_and_absolute(t_main *m, char *path)
 	return (0);
 }
 
-int				execute_bin(t_main *m, t_node *cmd)
+int				execute_bin(t_main *m)
 {
 	char	*path;
 	pid_t	pid;
 
-	if (check_dir_and_absolute(m, cmd->data))
+	if (check_dir_and_absolute(m, m->arr[0]))
 		return (-1);
-	if (!(path = search_path(cmd->data, m->pathdirs)))
+	if (!(path = search_path(m->arr[0], m->pathdirs)))
 		return (0);
 	if (path)
 	{

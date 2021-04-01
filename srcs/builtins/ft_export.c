@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 13:37:19 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:32:41 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,14 @@ static int		check_varname(char *varname, char *s, t_list **ehead, int i)
 
 static int		not_a_valid_identifier(t_main *m, char *s)
 {
-	printf("minish: %s: `%s': not a valid identifier\n", ERROR, s);
+	ft_putstr_fd("minish: ", STDERR_FILENO);
+	ft_putstr_fd(ERROR, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putchar_fd('`', STDERR_FILENO);
+	ft_putstr_fd(s, STDERR_FILENO);
+	ft_putchar_fd('\'', STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("not a valid identifier\n", STDERR_FILENO);
 	m->exit_status = 1;
 	return (0);
 }

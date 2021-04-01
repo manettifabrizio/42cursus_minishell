@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:31:04 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 15:46:58 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:18:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_pwd(t_main *m)
 		if (ft_strncmp(old_pwd + (ft_strlen(old_pwd) - 3), "/..", 3) == 0)
 			pwd = old_pwd;
 		else
-			return (error(ERRNO, ""));
+			return (error(ERRNO, NULL));
 	}
 	else
 		set_env(m->ehead, "PWD", pwd);
