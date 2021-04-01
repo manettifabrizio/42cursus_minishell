@@ -6,11 +6,25 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 12:19:42 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:29:36 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int					call_multi_back(char *str)
+{
+	char *needle;
+
+	needle = ft_strrchr(str, '\\');
+	if (needle)
+	{
+		needle++;
+		if (!*needle)
+			return (1);
+	}
+	return (0);
+}
 
 int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 {
@@ -42,6 +56,11 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 			wild = ft_lstlast(wild);
 			wild->next = (cur_tok)->next;
 			cur_tok = wild;
+		}
+		else if (type == WORD)
+		{
+			if (call_multi_back(t_access_tok(cur_tok)->data))
+				return (PIPE);
 		}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;

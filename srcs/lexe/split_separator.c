@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/30 18:58:57 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:53:14 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ int		is_sep(const char *s, int i, char *charset)
 {
 	if (i == 0)
 	{
-		if (is_in(charset, s[i]) || is_in(charset, s[i + 1]))
+		if (is_in(charset, s[i]) || is_in(charset, s[i + 1]
+			|| s[i + 1] == '\0'))
 			return (1);
 	}
 	else
 	{
 		if ((is_in(charset, s[i]) && s[i - 1] != '\\')
-			|| (is_in(charset, s[i + 1]) && s[i] != '\\'))
+			|| (is_in(charset, s[i + 1]) && s[i] != '\\')
+			|| s[i + 1] == '\0')
 			return (1);
 	}
 	return (0);

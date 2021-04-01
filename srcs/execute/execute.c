@@ -21,7 +21,7 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 		return ;
 	if (!(m->arr = create_cmd_table(builtin, m)))
 		malloc_error(m, NULL, NO_READING);
-	if (!(builtins(m, builtin->data)))
+	if (!(builtins(m, m->arr[0])))
 		if (!(execute_bin(m)))
 		{
 			error(NO_ERRNO, "command not found");
