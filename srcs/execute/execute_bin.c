@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 21:08:20 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:54:28 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char			*add_quote(char *str, int *i, t_main *m)
 	int		start;
 	char	*sub;
 	char	*var;
-	char	*backslash;
 
 	start = *i;
 	while (str[*i])
@@ -59,10 +58,8 @@ char			*add_quote(char *str, int *i, t_main *m)
 	}
 	sub = ft_substr(str, start, *i - start - 1);
 	var = check_vars(m, sub, m->ehead, m->exit_status);
-	backslash = sort_backslash(var, m);
 	free(sub);
-	free(var);
-	return (backslash);
+	return (var);
 }
 
 char			*add_squote(char *str, int *i)
@@ -208,14 +205,14 @@ static int		check_dir_and_absolute(t_main *m, char *path)
 	return (0);
 }
 
-int				execute_bin(t_main *m, t_node *cmd)
+int				execute_bin(t_main *m)
 {
 	char	*path;
 	pid_t	pid;
-
-	if (check_dir_and_absolute(m, cmd->data))
+	
+	if (check_dir_and_absolute(m, m->arr[0]))
 		return (-1);
-	if (!(path = search_path(cmd->data, m->pathdirs)))
+	if (!(path = search_path(m->arr[0], m->pathdirs)))
 		return (0);
 	if (path)
 	{

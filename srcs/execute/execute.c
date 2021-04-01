@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 19:57:37 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 10:59:59 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 		return ;
 	if (!(m->arr = create_cmd_table(builtin, m)))
 		malloc_error(m, NULL, NO_READING);
-	if (!(builtins(m, builtin->data)))
-		if (!(execute_bin(m, builtin)))
+	if (!(builtins(m, m->arr[0])))
+		if (!(execute_bin(m)))
 		{
 			error(NO_ERRNO, "command not found");
 			m->exit_status = 127;
