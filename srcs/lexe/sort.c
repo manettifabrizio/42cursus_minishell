@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 12:29:36 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 14:33:49 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 		}
 		else if (type == WILDCARD)
 		{
-			wild = wildcard(m ,t_access_tok(cur_tok)->data);
-			(prev)->next = wild;
-			wild = ft_lstlast(wild);
-			wild->next = (cur_tok)->next;
-			cur_tok = wild;
+			if ((wild = wildcard(m ,t_access_tok(cur_tok)->data)))
+			{
+				(prev)->next = wild;
+				wild = ft_lstlast(wild);
+				wild->next = (cur_tok)->next;
+				cur_tok = wild;
+			}
 		}
 		else if (type == WORD)
 		{
@@ -119,6 +121,22 @@ void		print_lst(t_list *lst)
 	}
 }
 
+int				is_wild(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (i == 0 && str[i] == '*')
+			return (1);
+		if (i > 0 && str[i - 1] != '\\' && str[i] == '*')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static void			type_wildcard(t_lexer *lexer)
 {
 	t_list	*cur_tok;
@@ -128,7 +146,7 @@ static void			type_wildcard(t_lexer *lexer)
 	prev = lexer->tokens;
 	while (cur_tok)
 	{
-		if (ft_strrchr(t_access_tok(cur_tok)->data, '*')
+		if ((is_wild(t_access_tok(cur_tok)->data))
 			&& t_access_tok(prev)->type == SPACE)
 				t_access_tok(cur_tok)->type = WILDCARD;
 		prev = cur_tok;
