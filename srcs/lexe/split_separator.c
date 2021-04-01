@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 11:53:14 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 14:04:32 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		is_sep(const char *s, int i, char *charset)
 {
 	if (i == 0)
 	{
-		if (is_in(charset, s[i]) || is_in(charset, s[i + 1]
-			|| s[i + 1] == '\0'))
+		if (is_in(charset, s[i]) || is_in(charset, s[i + 1])
+			|| s[i + 1] == '\0')
 			return (1);
 	}
 	else
@@ -56,7 +56,7 @@ char	**ft_count_string(const char *s, char *charset)
 	string = 0;
 	while (s[i])
 	{
-		if (is_sep(s, i, charset))
+		if (is_sep(s, i, charset)) 
 			string++;
 		i++;
 	}

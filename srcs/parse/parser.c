@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 22:38:59 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/01 14:08:48 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 	par = 0;
 	tokens = lexer->tokens;
 	*exec_tree = build_line(&(tokens), par);
-	if (tokens != NULL && !tokens->next)
+	if (tokens != NULL && !tokens->next && tokens != lexer->tokens)
 	{
 		type = t_access_tok(tokens)->type;
 		if (type == DPIPE || type == DAMPERSTAND || type == PIPE
