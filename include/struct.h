@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 10:15:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:49:55 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef enum		e_token_type{
 	OPEN_PAR,
 	CLOSE_PAR,
 	CHAR_NULL,
-	WILDCARD
+	WILDCARD,
+	BACKSLASH
 }					t_token_type;
 
 typedef enum		e_node_type {
