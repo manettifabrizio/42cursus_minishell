@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/02 16:35:25 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 16:43:43 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 	par = 0;
 	tokens = lexer->tokens;
 	*exec_tree = build_line(&(tokens), par);
-	print_preorder(*exec_tree);
 	if (call_multilines(lexer, tokens))
 	{
 		type = t_access_tok(tokens)->type;
