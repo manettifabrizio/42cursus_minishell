@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 16:56:35 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:23:06 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void			execute_command(t_main *m, t_node *command, int logic_type)
 	}
 	else
 		execute_builtin(m, command, logic_type);
-	ft_signal(m->exit_status);
 }
 
 static void		execute_pipe(t_main *m, t_node *node_pipe, int logic_type, t_std *std)

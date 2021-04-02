@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/01 13:32:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:31:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ static int		check_varname(char *varname, char *s, t_list **ehead, int i)
 	return (0);
 }
 
-static int		not_a_valid_identifier(t_main *m, char *s)
+static int		not_a_valid_identifier(t_main *m, char *varname)
 {
 	ft_putstr_fd("minish: ", STDERR_FILENO);
 	ft_putstr_fd(ERROR, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putchar_fd('`', STDERR_FILENO);
-	ft_putstr_fd(s, STDERR_FILENO);
+	ft_putstr_fd(varname, STDERR_FILENO);
 	ft_putchar_fd('\'', STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd("not a valid identifier\n", STDERR_FILENO);
@@ -52,16 +52,16 @@ static int		not_a_valid_identifier(t_main *m, char *s)
 	return (0);
 }
 
-static int		check_errors(t_main *m, char *varname, char *s)
+static int		check_errors(t_main *m, char *varname)
 {
 	int		x;
 
 	x = -1;
 	if (!varname || !varname[0])
-		return (not_a_valid_identifier(m, s));
+		return (not_a_valid_identifier(m, varname));
 	while (varname[++x])
 		if (!(ft_isalpha(varname[x])))
-			return (not_a_valid_identifier(m, s));
+			return (not_a_valid_identifier(m, varname));
 	return (1);
 }
 
@@ -78,7 +78,7 @@ static int		export_var(t_main *m, char **a, t_list **ehead)
 		while (a[x][i] && a[x][i] != '=')
 			i++;
 		varname = ft_substr(a[x], 0, i);
-		if (check_errors(m, varname, a[x]))
+		if (check_errors(m, varname))
 			if (!(check_varname(varname, a[x], ehead, i)))
 				ft_lstadd_back(ehead, create_env_elem(a[x]));
 		free(varname);

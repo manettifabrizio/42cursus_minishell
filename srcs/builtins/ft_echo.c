@@ -6,38 +6,42 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 14:28:59 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:07:03 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		check_options(char **a, int x)
+static int		check_options(char **a, int *x)
 {
 	int		i;
+	int		c;
 
-	while (a[x])
+	c = 0;
+	while (a[*x])
 	{
-		if (ft_strncmp(a[x], "-n", 2) != 0)
-			return (x);
+		if (ft_strncmp(a[*x], "-n", 2) != 0)
+			return (c);
 		i = 1;		
-		while (a[x][++i])
-			if (a[x][i] != 'n')
-				return (x);
-		x++;
+		while (a[*x][++i])
+			if (a[*x][i] != 'n')
+				return (c);
+		c = 1;
+		(*x)++;
 	}
-	return (x);
+	return (c);
 }
 
 int				ft_echo(t_main *m, char **a)
 {
 	int x;
 
+	x = 1;
 	if (!(a[1]))
 		ft_putchar('\n');
 	else
 	{
-		x = check_options(a, 1);
+		check_options(a, &x);
 		while (a[x])
 		{
 			ft_putstr(a[x]);
@@ -45,7 +49,8 @@ int				ft_echo(t_main *m, char **a)
 				ft_putchar(' ');
 			x++;
 		}
-		if (ft_strcmp(a[1], "-n") != 0)
+		x = 1;
+		if (!(check_options(a, &x)))
 			ft_putchar('\n');
 	}
 	m->exit_status = 0;

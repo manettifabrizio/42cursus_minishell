@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 15:08:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:36:55 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,9 @@ t_list 			*wildcard(t_main *m, char *s)
 	start = ft_strlen(path);
 	// printf("***********************************************\n");
 	r_create_list(m, s + start, path, &head, &final);
+	if (ft_lstsize(final) == 0)
+		return (NULL);
 	// printf("***********************************************\n");
 	final = list_sort_files(&final);
-	// print_list_files(final);
 	return (lst_to_token_lst(final));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 17:31:09 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:17:23 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,16 @@ void			print_preorder(t_node *node)
 int				return_parse(t_list *tokens, t_node **exec_tree, \
 	t_lexer *lexer, t_main *m)
 {
-	if (tokens != NULL)
+	if (tokens != NULL || !exec_tree)
 	{
-		printf("minish: %s near unexpected token: `%s'\n", SYNTAX_ERROR,
-			t_access_tok(tokens)->data);
-		m->exit_status = 258;
-		return (0);
-	}
-	if (!*exec_tree)
-	{
-		printf("minish: %s near unexpected token: `%s'\n", SYNTAX_ERROR,
-			t_access_tok(lexer->tokens)->data);
+		ft_putstr_fd("minish: ", STDERR_FILENO);
+		ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
+		ft_putstr_fd(" near unexpected token: `", STDERR_FILENO);
+		if (tokens != NULL)
+			ft_putstr_fd(t_access_tok(tokens)->data, STDERR_FILENO);
+		else if (!exec_tree)
+			ft_putstr_fd(t_access_tok(lexer->tokens)->data, STDERR_FILENO);
+		ft_putstr_fd("'\n", STDERR_FILENO);
 		m->exit_status = 258;
 		return (0);
 	}
