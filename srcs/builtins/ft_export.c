@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 10:31:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/02 15:21:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ static int		not_a_valid_identifier(t_main *m, char *varname)
 {
 	ft_putstr_fd("minish: ", STDERR_FILENO);
 	ft_putstr_fd(ERROR, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putchar_fd('`', STDERR_FILENO);
+	ft_putstr_fd(": `", STDERR_FILENO);
 	ft_putstr_fd(varname, STDERR_FILENO);
-	ft_putchar_fd('\'', STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("': ", STDERR_FILENO);
 	ft_putstr_fd("not a valid identifier\n", STDERR_FILENO);
 	m->exit_status = 1;
 	return (0);
@@ -81,6 +79,11 @@ static int		export_var(t_main *m, char **a, t_list **ehead)
 		if (check_errors(m, varname))
 			if (!(check_varname(varname, a[x], ehead, i)))
 				ft_lstadd_back(ehead, create_env_elem(a[x]));
+		if (ft_strcmp(varname, "PATH") == 0)
+		{
+			ft_free_array(m->pathdirs);
+			m->pathdirs = path_parser(ehead);
+		}
 		free(varname);
 	}
 	return (1);
