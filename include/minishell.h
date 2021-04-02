@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/01 16:27:17 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:23:40 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ t_node              *check_closing_par(int par, t_list **token, t_node *node);
 t_node              *create_node(int type, char *data);
 
 //EXECUTE
-void				ft_useless(int num);
-void				ft_signal(int exit_status);
+void				ft_signal(int signalnum);
 void				execute_simple_pipe(t_main *m, t_node *node_pipe);
 int					execute_bin(t_main *m);
 int					exit_status(pid_t pid);

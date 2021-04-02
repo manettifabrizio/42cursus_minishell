@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:19:51 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 15:05:39 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:41:30 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ int		beginning_and_end(char *s, char *fname)
 	return (1);
 }
 
+int		is_star(char *s)
+{
+	int		i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] != '*')
+			return (0);
+	return (1);
+}
+
 int		starcmp(char *s, char *fname)
 {
 	int		i;
@@ -56,7 +67,7 @@ int		starcmp(char *s, char *fname)
 	a = ft_split(s, '*');
 	// printf("s = %s fname = %s\n", s, fname);
 	// ft_print_array(a, "a");
-	if (ft_strcmp(s, "*") == 0 && fname[0] != '.')
+	if (is_star(s) && fname[0] != '.')
 		return (1);
 	while (fname[i] && a[x])
 	{
