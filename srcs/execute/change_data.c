@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:23:16 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/02 12:01:32 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:20:25 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,7 @@ char			*add_squote(char *str, int *i)
 	start = *i;
 	while (str[*i])
 	{
-		if (str[*i] == '\\')
-		{
-			if (str[*i + 1] && str[*i + 1] == '\'')
-			*i += 1;
-		}
-		else if (str[*i] == '\'')
+		if (str[*i] == '\'')
 		{
 			*i += 1;
 			break;
