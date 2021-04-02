@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 16:16:30 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:53:48 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 				wild = ft_lstlast(wild);
 				wild->next = (cur_tok)->next;
 				cur_tok = wild;
+				//free
 			}
+			else
+				t_access_tok(cur_tok)->type = WORD;
+			
 		}
 		else if (type == WORD)
 		{
 			if (call_multi_back(t_access_tok(cur_tok)->data))
-				return (PIPE);
+				return (BACKSLASH);
 		}
 		prev = cur_tok;
 		cur_tok = cur_tok->next;

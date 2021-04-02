@@ -6,11 +6,57 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/01 16:25:21 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:33:53 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char			**remove_empty_tab(char **tab, t_main *m)
+{
+	int		i;
+	int		nb;
+	char	**new;
+
+	i = 0;
+	nb = 0;
+	while(tab[i])
+	{
+		if (tab[i][0] != '\0')
+			nb++;
+		i++;
+	}
+	if (!(new = malloc(sizeof(char *) * (nb + 1))))
+		malloc_error(m, NULL, NO_ERRNO);
+	i = 0;
+	nb = 0;
+	while (tab[i])
+	{
+		if (tab[i][0] != '\0')
+		{
+			new[nb] = ft_strdup(tab[i]);
+			nb++;
+		}
+		i++;
+	}
+	new[nb] = NULL;
+	ft_free_array(tab);
+	return (new);
+}
+
+char			**check_empty_case(char **tab, t_main *m)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (tab[i][0] == '\0')
+			return (remove_empty_tab(tab, m));
+		i++;
+	}
+	return (tab);
+}
 
 char			**create_cmd_table(t_node *root, t_main *m)
 {
@@ -36,7 +82,7 @@ char			**create_cmd_table(t_node *root, t_main *m)
 		nbcmd++;
 	}
 	args[nbcmd] = NULL;
-	return (args);
+	return (check_empty_case(args, m));
 }
 
 static int		check_dir_and_absolute(t_main *m, char *path)
