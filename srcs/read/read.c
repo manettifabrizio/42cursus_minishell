@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/05 20:54:35 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 01:09:30 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		reading(t_main *m, char **s)
 		return (0);
 	if (buf[0] == CTRL_C)
 		return (-1);
-	if (buf[0] == CTRL_D && s[0] == '\0' && m->p->multi == 1)
+	if (buf[0] == CTRL_D && s[0] == 0 && m->p->multi == 1)
 		return (-2);
 	return (1);
 }

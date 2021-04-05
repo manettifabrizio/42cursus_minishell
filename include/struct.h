@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 16:34:40 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 00:03:02 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_lexer {
 typedef struct		s_node {
 	int				type;
 	char			*data;
+	int				parenthese;
 	struct s_node	*left;
 	struct s_node	*right;
 }					t_node;
@@ -111,6 +112,7 @@ typedef	struct		s_main
 	char			**arr;
 	char			**pathdirs;
 	struct termios	*base_term;
+	int				lvl_par;
 }					t_main;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/02 11:53:48 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/05 22:28:20 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ int					call_multi_back(char *str)
 		if ( i > 0 && !(str[i + 1]) && str[i - 1] != '\\')
 			return (1);
 	}
+	return (0);
+}
+
+int					count_parenthese(t_lexer *lexer)
+{
+	t_list *cur_tok;
+	int		open;
+	int		close;
+
+	open = 0;
+	close = 0;
+	cur_tok = lexer->tokens;
+	while (cur_tok)
+	{
+		if (t_access_tok(cur_tok)->type == OPEN_PAR)
+			open++;
+		if (t_access_tok(cur_tok)->type == CLOSE_PAR)
+			close++;
+		cur_tok = cur_tok->next;
+	}
+	if (open != close)
+		return (CLOSE_PAR);
 	return (0);
 }
 
@@ -182,6 +204,8 @@ int					 sort_lexer(t_main *m, t_lexer *lexer)
 	if ((type = sort_space_and_quote(lexer, m)))
 		return (type);
 	if ((type = sort_heredoc_and_wildcard(m, lexer)))
+		return (type);
+	if ((type = count_parenthese(lexer)))
 		return (type);
 	if (lexer->tokens->next)
 	{
