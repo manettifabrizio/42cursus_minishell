@@ -6,7 +6,7 @@
 #    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/01 16:25:08 by viroques         ###   ########.fr        #
+#    Updated: 2021/04/03 11:14:30 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ FILES		=	minishell.c							\
 				parse/build/command2.c 				\
 				parse/build/job.c					\
 				parse/build/line.c					\
-				parse/build/line2.c 				\
 				parse/parser.c						\
 				parse/check_parse_utils.c 			\
 				parse/vars.c						\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 10:23:40 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:34:10 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
 t_list				*create_env_elem(char *s);
 int       			parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m);
-t_node      		*build_line(t_list **token, int par);
-t_node				*build_line_job(t_list **token);
-t_node      		*build_job(t_list **token);
+t_node      		*build_line(t_list **token, t_main *m);
+t_node      		*build_job(t_list **token, t_main *m);
 t_node      		*build_command(t_list **token);
 t_node				*build_command_builtin(t_list **token);
 t_node      		*build_builtin(t_list **token);
 t_node      		*build_args(t_list **token);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
-int                 check_par(t_token_type tok_type, char** bufferptr, t_list **token);
-t_node              *check_closing_par(int par, t_list **token, t_node *node);
+int                 check_par(t_token_type tok_type, t_list **token, t_main *m);
+t_node              *check_closing_par(int par, t_main *m, t_list **token, t_node *node);
+int					check_line_open_par(t_list **token);
+t_node				*check_line_closing_par(t_list **token, t_node *node, t_main *m);
 t_node              *create_node(int type, char *data);
 
 //EXECUTE

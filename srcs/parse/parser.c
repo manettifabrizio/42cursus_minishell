@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/02 16:43:43 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 01:05:32 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void			print_preorder(t_node *node)
 {
 	if (node == NULL)
 		return ;
-	printf("%s %i\n", node->data, node->type);
+	printf("%s %i par%i\n", node->data, node->type, node->parenthese);
 	print_preorder(node->left);
 	print_preorder(node->right);
 }
@@ -40,47 +40,41 @@ int				return_parse(t_list *tokens, t_node **exec_tree, \
 	return (1);
 }
 
-int				call_multilines(t_lexer *lexer, t_list *tokens)
+void			sort_parenthese(t_node *exec_tree)
 {
-	t_list *check;
+	t_node *node;
 
-	check = lexer->tokens;
-	if (tokens != NULL && !tokens->next)
+	node = exec_tree;
+	while (node)
 	{
-		while (check)
+		if (node->left && node->left->parenthese)
 		{
-			if (check->next && check->next == tokens)
-			{
-				if (t_access_tok(check)->type != SEMICOLON)
-					return (1);
-			}
-			check = check->next;
+			if (node->right && node->right->left)
+				node->right->left->parenthese = node->left->parenthese;
 		}
+		node = node->right;
 	}
-	return (0);
 }
 
 int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 {
 	t_list	*tokens;
-	int		par;
 	int		type;
-	t_lexer	*tmp;
 
-	par = 0;
 	tokens = lexer->tokens;
-	*exec_tree = build_line(&(tokens), par);
-	if (call_multilines(lexer, tokens))
+	*exec_tree = build_line(&(tokens), m);
+	sort_parenthese(*exec_tree);
+	// print_preorder(*exec_tree);
+	if (tokens != NULL && !tokens->next)
 	{
+		//no call multiligne after ;
 		type = t_access_tok(tokens)->type;
 		if (type == DPIPE || type == DAMPERSTAND || type == PIPE
 			|| type == CLOSE_PAR)
 		{
 			if ((s = multilines(m, s, type)))
 			{
-				tmp = lexer;
 				lexer = build_lexer(m, s);
-				free_lexer(tmp);
 				ast_delete_node(*exec_tree);
 				return (parse(lexer, exec_tree, s, m));
 			}
