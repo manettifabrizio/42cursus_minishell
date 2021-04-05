@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:29:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/30 13:57:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/05 10:05:40 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int				ft_exit(t_main *m, char **a)
 		status = ft_atoi(a[1]);
 		i = -1;
 		while (a[1][++i])
-			if (ft_isdigit(a[1][i]) == 0 && a[1][i] != '-')
+			if ((ft_isdigit(a[1][i]) == 0 && a[1][i] != '-' && a[1][i] != '+')
+				|| ((a[1][i] == '-' || a[1][i] == '+') && !a[1][i + 1]))
 			{
 				error(NO_ERRNO, "numeric argument required");
 				status = 255;
