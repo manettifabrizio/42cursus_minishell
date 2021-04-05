@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:16:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/01 11:07:00 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:51:39 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@
 # define BREAK				0
 # define NO_BREAK			1
 
+# define PROMPT				"\e[0;32m\e[1mminish\e[0m"
+# define GREEN_PROMPT		"\e[0;32m\e[1m $ \e[0m"
+# define RED_PROMPT			"\e[0;31m\e[1m $ \e[0m"
+# define MULTI_PROMPT		"\e[0;32m> \e[0m"
 # define CHARSET            " <>|;&()\'\"\n"
 
 #endif

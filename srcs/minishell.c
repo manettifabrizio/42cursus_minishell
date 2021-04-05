@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 16:43:51 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:49:33 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void		prompt(int exit_status)
 {
-	ft_putstr("\e[0;32m\e[1mminish\e[0m");
+	ft_putstr(PROMPT);
 	if (exit_status == 0)
-		ft_putstr("\e[0;32m\e[1m $ \e[0m");
+		ft_putstr(GREEN_PROMPT);
 	else
-		ft_putstr("\e[0;31m\e[1m $ \e[0m");
+		ft_putstr(RED_PROMPT);
 }
 
 static void		init_cursor(t_cursor *p)

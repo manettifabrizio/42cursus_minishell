@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 10:23:40 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:04:49 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void				set_term_cano(struct termios *base_term);
 
 // READ
 char				*line_read(t_main *m);
-int					reading(t_main *m, char **s, char *buf);
+int					reading(t_main *m, char **s);
 int					check_key(t_main *m, char **s, char *buf);
 int					arrows(t_main *m, char **s, char c);
 int					home_end(char *s, char c, t_cursor *p);

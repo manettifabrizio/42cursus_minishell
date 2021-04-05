@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 16:36:45 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:00:53 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int		control(t_main *m, char *s, char *buf)
 	{
 		if (s[0] == '\0')
 		{
-			if (ft_strlen(buf) == 2)
+			if (m->p->multi == 1)
 			{
 				m->exit_status = 0;
 				return (1);

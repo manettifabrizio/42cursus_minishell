@@ -6,29 +6,39 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 13:08:34 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/05 20:50:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		*ending(t_main *m, char *s, char *shist, t_uint type)
+static void		multi_error(t_main *m, t_token_type type)
 {
-	free(s);
+	if (type == SQUOTE || type == DQUOTE)
+	{
+		ft_putstr_fd("minish: unexpected EOF while looking for matching", 
+			STDERR_FILENO);
+		if (type == SQUOTE)
+			ft_putstr_fd(" `\''\n", STDERR_FILENO);
+		if (type == DQUOTE)
+			ft_putstr_fd(" `\"'\n", STDERR_FILENO);
+	}
+	ft_putstr_fd("minish: ", STDERR_FILENO);
+	ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
+	ft_putstr_fd(": unexpected end of file\n", STDERR_FILENO); 
+	m->exit_status = 258;
+}
+
+static char		*ending(t_main *m, char *shist, int ret, t_token_type type)
+{
 	set_term_cano(m->base_term);
 	m->p->multi = 0;
-	if (type == CTRL_C || type == CTRL_D)
+	if (ret < 0)
 	{
 		if (!(m->hist = history(ft_strdup(shist), m->hist, m->p->hnum)))
 			malloc_error(m, NULL, NO_READING);
-		if (type == CTRL_D)
-		{
-			status_error(m, NO_ERRNO, 258, "minish: unexpected EOF while \
-looking for matching c");
-			ft_putstr_fd("minish: ", STDERR_FILENO);
-			ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
-			ft_putstr_fd(": unexpected end of file\n", STDERR_FILENO); 
-		}
+		if (ret == -2)
+			multi_error(m, type);
 		return (NULL);
 	}
 	return (shist);
@@ -42,7 +52,6 @@ static char		*join_multichar(char *shist, t_token_type type)
 		shist[ft_strlen(shist) - 1] = '\0';
 	else
 		shist = ft_strjoin_nl(shist, " ");
-	
 	return (shist);
 }
 
@@ -50,24 +59,23 @@ char			*multilines(t_main *m, char *s, t_token_type type)
 {
 	int		ret;
 	char	*shist;
-	char 	buf[3];
 
 	ret = -2;
 	set_term_noncano();
 	m->p->multi = 1;
 	shist = ft_strdup(s);
-	ft_bzero(buf, 3);
-	buf[1] = 'm';
-	ft_putstr("\e[0;32m> \e[0m");
+	ft_putstr(MULTI_PROMPT);
 	s[0] = '\0';
-	while ((ret = reading(m, &s, buf)) > 0)
-		if (buf[0] == CTRL_D)
-			return (ending(m, s, shist, buf[0]));
+	while ((ret = reading(m, &s)) > 0);
+	if (ret < 0)
+	{
+		free(s);
+		return (ending(m, shist, ret, type));
+	}
 	shist = join_multichar(shist, type);
 	shist = ft_strjoin_nl(shist, s);
-	if (ret == -1)
-		return (ending(m, s, shist, buf[0]));
+	free(s);
 	m->p->lpos = 0;
 	m->p->hnum = 0;
-	return (ending(m, s, shist, NO_BREAK));
+	return (ending(m, shist, NO_BREAK, type));
 }
