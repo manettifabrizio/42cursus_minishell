@@ -92,7 +92,6 @@ int				main(int ac, char **av, char **env)
 				if (parse(lexer, &exec_tree, &s, m))
 				{
 					execute_command_line(m, exec_tree, 0);
-					free_lexer(lexer);
 					ast_delete_node(exec_tree);
 				}
 		free(s);

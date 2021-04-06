@@ -61,6 +61,7 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 	t_list		*prev;
 	t_list		*wild;
 	int			type;
+	t_list		*tmp;
 
 	cur_tok = lexer->tokens->next;
 	prev = cur_tok->next;
@@ -85,7 +86,9 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 				(prev)->next = wild;
 				wild = ft_lstlast(wild);
 				wild->next = (cur_tok)->next;
+				tmp = cur_tok;
 				cur_tok = wild;
+				free(tmp);
 				//free
 			}
 			else

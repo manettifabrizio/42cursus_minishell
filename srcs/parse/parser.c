@@ -35,8 +35,10 @@ int				return_parse(t_list *tokens, t_node **exec_tree, \
 			ft_putstr_fd(t_access_tok(lexer->tokens)->data, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
 		m->exit_status = 258;
+		free_lexer(lexer);
 		return (0);
 	}
+	free_lexer(lexer);
 	return (1);
 }
 
