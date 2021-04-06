@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 00:16:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:34:09 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ int					get_next_separator(int fd, char **line);
 t_lexer				*build_lexer(t_main *m, char **s);
 int					create_tok(char *data, t_token_type type, t_lexer *lexer);
 char				**ft_split_charset(const char *s, char *charset);
+int					is_sep(const char *s, int i, char *charset);
 void				del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok);
 int					add_new_word(t_list **prev, t_list **cur_tok, t_main *m);
 void				print_lst_tokens(t_lexer *lexer);
 int					sort_lexer(t_main *m, t_lexer *lexer);
+int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer);
+int					sort_space_and_quote(t_lexer *lexer, t_main *m);
 int					check_closing_quote(t_list *tokens, t_token_type type);
 int					check_pre_space(t_lexer *lexer);
 void				word_interpolation(t_main *m, t_list **cur_tok,
@@ -88,9 +91,8 @@ t_node				*build_builtin(t_list **token, t_main *m);
 t_node				*build_args(t_list **token, t_main *m);
 int					check(t_token_type tok_type, char **bufferptr,
 						t_list **token);
-int					check_par(t_token_type tok_type, t_list **token, t_main *m);
-t_node				*check_closing_par(int par, t_main *m, t_list **token,
-						t_node *node);
+int					check_par(t_token_type tok_type, t_list **token);
+t_node				*check_closing_par(int par,t_list **token, t_node *node);
 int					check_line_open_par(t_list **token);
 t_node				*check_line_closing_par(t_list **token, t_node *node,
 						t_main *m, int par);

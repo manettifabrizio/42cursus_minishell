@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 18:58:53 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:53:12 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			sort_parenthese(t_node *exec_tree)
 
 int				call_multiligne(t_lexer *lexer, t_list *tokens)
 {
-	t_list *check;
+	t_list	*check;
 	int		type;
 
 	check = lexer->tokens;

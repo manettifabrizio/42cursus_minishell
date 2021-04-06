@@ -6,50 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/02 14:11:40 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:50:14 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int		is_in(char *charset, char c, const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (c == '\\' && str[1] && str[1] == '\'')
-		return (1);
-	while (charset[i])
-	{
-		if (charset[i] == c)
-			return (1);
-		i++;
-	}
-	if (charset[i] == c)
-		return (1);
-	return (0);
-}
-
-int		is_sep(const char *s, int i, char *charset)
-{
-	if (i == 0)
-	{
-		if (is_in(charset, s[i], s + i) || is_in(charset, s[i + 1], s + i + 1)
-			|| s[i + 1] == '\0')
-			return (1);
-	}
-	else
-	{
-		if ((is_in(charset, s[i], s + i) && s[i - 1] != '\\')
-			|| (is_in(charset, s[i + 1], s + i + 1) && s[i] != '\\')
-			|| s[i + 1] == '\0')
-			return (1);
-	}
-	return (0);
-}
-
-char	**ft_count_string(const char *s, char *charset)
+static char		**ft_count_string(const char *s, char *charset)
 {
 	int		string;
 	int		i;
@@ -59,7 +22,7 @@ char	**ft_count_string(const char *s, char *charset)
 	string = 0;
 	while (s[i])
 	{
-		if (is_sep(s, i, charset)) 
+		if (is_sep(s, i, charset))
 			string++;
 		i++;
 	}
@@ -68,7 +31,7 @@ char	**ft_count_string(const char *s, char *charset)
 	return (tb);
 }
 
-void	ft_count_letter(const char *s, char *charset, char **tb)
+static void		ft_count_letter(const char *s, char *charset, char **tb)
 {
 	int		i;
 	int		string;
@@ -94,7 +57,7 @@ void	ft_count_letter(const char *s, char *charset, char **tb)
 	}
 }
 
-void	ft_fill_tab(char const *s, char *charset, char **tb)
+static void		ft_fill_tab(char const *s, char *charset, char **tb)
 {
 	int		i;
 	int		string;
@@ -118,7 +81,7 @@ void	ft_fill_tab(char const *s, char *charset, char **tb)
 	tb[string] = NULL;
 }
 
-char	**ft_split_charset(const char *s, char *charset)
+char			**ft_split_charset(const char *s, char *charset)
 {
 	char	**tb;
 

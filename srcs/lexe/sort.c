@@ -6,36 +6,15 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 14:22:37 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:41:46 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int					call_multi_back(char *str)
+static int		count_parenthese(t_lexer *lexer)
 {
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\\')
-			break;
-		i++;
-	}
-	if (str[i] == '\\')
-	{
-		if (i == 0 && !(str[i + 1]))
-			return (1);
-		if ( i > 0 && !(str[i + 1]) && str[i - 1] != '\\')
-			return (1);
-	}
-	return (0);
-}
-
-int					count_parenthese(t_lexer *lexer)
-{
-	t_list *cur_tok;
+	t_list	*cur_tok;
 	int		open;
 	int		close;
 
@@ -55,109 +34,7 @@ int					count_parenthese(t_lexer *lexer)
 	return (0);
 }
 
-int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
-{
-	t_list		*cur_tok;
-	t_list		*prev;
-	t_list		*wild;
-	int			type;
-	t_list		*tmp;
-
-	cur_tok = lexer->tokens->next;
-	prev = cur_tok->next;
-	while (cur_tok)
-	{
-		type = t_access_tok(cur_tok)->type;
-		if (type == DLESSER)
-		{
-			prev = cur_tok;
-			cur_tok = cur_tok->next;
-			if (!cur_tok)
-				return (0);
-			type = t_access_tok(cur_tok)->type;
-			if (type == WORD)
-				if (!heredoc(m, t_access_tok(cur_tok)->data))
-					return (-1);
-		}
-		else if (type == WILDCARD)
-		{
-			if ((wild = wildcard(m ,t_access_tok(cur_tok)->data)))
-			{
-				(prev)->next = wild;
-				wild = ft_lstlast(wild);
-				wild->next = (cur_tok)->next;
-				tmp = cur_tok;
-				cur_tok = wild;
-				free(tmp);
-				//free
-			}
-			else
-				t_access_tok(cur_tok)->type = WORD;
-			
-		}
-		else if (type == WORD)
-		{
-			if (call_multi_back(t_access_tok(cur_tok)->data))
-				return (BACKSLASH);
-		}
-		prev = cur_tok;
-		cur_tok = cur_tok->next;
-	}
-	return (0);
-}
-
-int					while_sorting(t_main *m, t_list **cur_tok, t_list **prev)
-{
-	int type;
-
-	while (*cur_tok)
-	{
-		type = t_access_tok(*cur_tok)->type;
-		if (type == SPACE || type == NEWLINE)
-			del_cur_tok_and_link_next(prev, cur_tok);
-		else if (type == DQUOTE || type == SQUOTE || type == WORD)
-		{
-			if (add_new_word(prev, cur_tok, m))
-				return (t_access_tok(*cur_tok)->type);
-		}
-		else
-		{
-			*prev = *cur_tok;
-			*cur_tok = (*cur_tok)->next;
-		}
-	}
-	return (0);
-}
-
-int					sort_space_and_quote(t_lexer *lexer, t_main *m)
-{
-	t_list	*cur_tok;
-	t_list	*prev;
-	int		type;
-
-	cur_tok = lexer->tokens->next;
-	prev = lexer->tokens;
-	if ((type = while_sorting(m, &cur_tok, &prev)))
-		return (type);
-	return (0);
-}
-
-
-void		print_lst(t_list *lst)
-{
-	t_list *toto;
-
-	toto = lst;
-	printf("\n LEXER \n");
-	while (toto)
-	{
-		t_token *t = toto->content;
-		printf("%s     ---------- %u\n", t->data, t->type);
-		toto = toto->next;
-	}
-}
-
-int				is_wild(char *str)
+static int		is_wild(char *str)
 {
 	int i;
 
@@ -173,7 +50,7 @@ int				is_wild(char *str)
 	return (0);
 }
 
-static void			type_wildcard(t_lexer *lexer)
+static void		type_wildcard(t_lexer *lexer)
 {
 	t_list	*cur_tok;
 	t_list	*prev;
@@ -184,13 +61,13 @@ static void			type_wildcard(t_lexer *lexer)
 	{
 		if ((is_wild(t_access_tok(cur_tok)->data))
 			&& t_access_tok(prev)->type == SPACE)
-				t_access_tok(cur_tok)->type = WILDCARD;
+			t_access_tok(cur_tok)->type = WILDCARD;
 		prev = cur_tok;
 		cur_tok = cur_tok->next;
 	}
 }
 
-int					 sort_lexer(t_main *m, t_lexer *lexer)
+int				sort_lexer(t_main *m, t_lexer *lexer)
 {
 	int		type;
 	t_list	*head;
@@ -204,11 +81,9 @@ int					 sort_lexer(t_main *m, t_lexer *lexer)
 	if ((check_pre_space(lexer) == -1))
 		return (-1);
 	type_wildcard(lexer);
-	if ((type = sort_space_and_quote(lexer, m)))
-		return (type);
-	if ((type = sort_heredoc_and_wildcard(m, lexer)))
-		return (type);
-	if ((type = count_parenthese(lexer)))
+	if ((type = sort_space_and_quote(lexer, m))
+		|| (type = sort_heredoc_and_wildcard(m, lexer))
+		|| ((type = count_parenthese(lexer))))
 		return (type);
 	if (lexer->tokens->next)
 	{

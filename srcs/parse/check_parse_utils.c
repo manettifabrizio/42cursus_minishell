@@ -6,13 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 15:14:42 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 15:39:04 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:59:16 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				check(t_token_type tok_type, char **bufferptr, t_list **token)
+int			check(t_token_type tok_type, char **bufferptr, t_list **token)
 {
 	if (*token == NULL)
 		return (0);
@@ -28,20 +28,18 @@ int				check(t_token_type tok_type, char **bufferptr, t_list **token)
 	return (0);
 }
 
-t_node			*check_closing_par(int par, t_main *m, t_list **token, t_node *node)
+t_node		*check_closing_par(int par, t_list **token, t_node *node)
 {
 	int		close_par;
 
-	close_par = check_par(CLOSE_PAR, token, m);
+	close_par = check_par(CLOSE_PAR, token);
 	if ((close_par && !par) || (!close_par && par))
 		node->parenthese = 1;
 	return (node);
 }
 
-int				check_par(t_token_type tok_type, t_list **token, t_main *m)
+int			check_par(t_token_type tok_type, t_list **token)
 {
-	(void)m;
-
 	if (!token || !*token)
 		return (0);
 	if (t_access_tok(*token)->type == tok_type)
@@ -52,14 +50,15 @@ int				check_par(t_token_type tok_type, t_list **token, t_main *m)
 	return (0);
 }
 
-t_node			*check_line_closing_par(t_list **token, t_node *node, t_main *m, int par)
+t_node		*check_line_closing_par(t_list **token, t_node *node,
+										t_main *m, int par)
 {
-	check_par(CLOSE_PAR, token, m);
+	check_par(CLOSE_PAR, token);
 	if (par)
 	{
-		if ((check_par(DPIPE, token, m))
-			|| (check_par(DAMPERSTAND, token, m))
-			|| (check_par(SEMICOLON, token, m)))
+		if ((check_par(DPIPE, token))
+			|| (check_par(DAMPERSTAND, token))
+			|| (check_par(SEMICOLON, token)))
 			ast_attach_right(node->right, build_line(token, m));
 	}
 	return (node);

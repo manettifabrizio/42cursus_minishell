@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:23:55 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 12:57:35 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:56:07 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ t_node			*build_job(t_list **token, t_main *m)
 	t_list	*save;
 	int		job_par;
 
-	job_par = check_par(OPEN_PAR, token, m);
+	job_par = check_par(OPEN_PAR, token);
 	save = *token;
 	if ((*token = save) &&
 		(node = build_job_pipe(token, m)))
-		return (check_closing_par(job_par, m, token, node));
+		return (check_closing_par(job_par, token, node));
 	if ((*token = save) &&
 		(node = build_job_command(token, m)))
-		return (check_closing_par(job_par, m, token, node));
+		return (check_closing_par(job_par, token, node));
 	return (NULL);
 }

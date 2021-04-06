@@ -6,7 +6,7 @@
 #    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/03 11:14:30 by viroques         ###   ########.fr        #
+#    Updated: 2021/04/06 23:08:34 by viroques         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,14 @@ FILES		=	minishell.c							\
 				lexe/lexer.c						\
 				lexe/create_tokens.c				\
 				lexe/split_separator.c 				\
+				lexe/split_separator_utils.c 		\
 				lexe/sort.c 						\
 				lexe/sort_utils.c 					\
+				lexe/lexe_utils.c 					\
 				lexe/check_tokens.c 				\
 				lexe/add_word.c 					\
+				lexe/sort_heredoc_wild.c 			\
+				lexe/sort_spaces_quotes.c 			\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
 				parse/lists/list_sort_env.c			\
@@ -60,6 +64,7 @@ FILES		=	minishell.c							\
 				execute/execute.c					\
 				execute/execute_pipe_utils.c 		\
 				execute/execute_bin.c				\
+				execute/create_cmd_table.c 			\
 				execute/exit_status.c				\
 				execute/redirection.c				\
 				execute/change_data.c				\
