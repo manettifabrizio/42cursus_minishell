@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap_s.c                                        :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 17:54:57 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/08 17:58:52 by fmanetti         ###   ########.fr       */
+/*   Created: 2021/03/04 17:37:52 by fmanetti          #+#    #+#             */
+/*   Updated: 2021/04/06 17:28:36 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_swap_s(char **s1, char **s2)
+size_t		ft_arrlen(char **a)
 {
-	char	*tmp;
+	size_t	i;
 
-	tmp = *s1;
-	*s1 = *s2;
-	*s2 = tmp;
+	i = 0;
+	while (a[i])
+		i++;
+	return (i);
 }

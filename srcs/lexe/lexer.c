@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 16:31:48 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:24:16 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_lexer				*build_lexer(t_main *m, char *s)
 	}
 	if (type == -1)
 		return (NULL);
-	if (!(m->hist = history(ft_strdup(s), m->hist, m->p->hnum)))
+	if (!(m->hist = history(s, m->hist, m->p->hnum)))
 		malloc_error(m, s, READING);
 	return (lexer);
 }

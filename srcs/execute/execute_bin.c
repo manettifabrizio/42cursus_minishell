@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:18:41 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/02 12:47:00 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:14:38 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static int		check_dir_and_absolute(t_main *m, char *path)
 	{
 		error(NO_ERRNO, "is a directory");
 		m->exit_status = 126;
+		closedir(dir);
 		return (1);
 	}
 	if (path[0] == '/' || path[0] == '.')

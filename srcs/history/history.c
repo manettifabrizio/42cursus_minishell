@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 19:55:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 13:24:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:19:32 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char		**other_lines(char *s, char **a)
 	size_t	len;
 	char	**tmp;
 
-	len = ft_arrlen_s(a);
+	len = ft_arrlen(a);
 	tmp = NULL;
 	if (a[0][0])
 	{
@@ -63,7 +63,7 @@ char		**add_history(char *s, char **a)
 	size_t	len;
 	char 	**tmp;
 	
-	len = ft_arrlen_s(a);
+	len = ft_arrlen(a);
 	if (!(a[0]))
 		tmp = first_line(s, 1);
 	else

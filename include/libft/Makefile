@@ -6,13 +6,13 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/11 17:50:17 by fmanetti          #+#    #+#              #
-#    Updated: 2021/03/24 22:49:06 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/04/06 17:31:55 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
-FILES	=	ft_arrlen_s.c		\
+FILES	=	ft_arrlen.c			\
 			ft_atof.c			\
 			ft_atoi.c			\
 			ft_bzero.c			\
@@ -65,8 +65,6 @@ FILES	=	ft_arrlen_s.c		\
 			ft_strtrim.c		\
 			ft_substr.c			\
 			ft_swap.c			\
-			ft_swap_f.c			\
-			ft_swap_s.c			\
 			ft_tolower.c		\
 			ft_toupper.c		\
 			get_next_line.c

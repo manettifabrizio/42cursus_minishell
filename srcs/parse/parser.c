@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 16:31:47 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:34:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 		else
 			return (0);
 	}
+	free(s);
 	return (return_parse(tokens, exec_tree, lexer, m));
 }

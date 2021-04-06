@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:50:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 15:28:13 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:24:17 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static int		free_split(char **t, int x)
 
 char			**ft_split(char const *s, char c)
 {
-	// printf("s = %s\n", s);
 	int		x;
 	int		y;
 	int		wrd;
