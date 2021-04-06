@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:23:16 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 15:12:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 23:16:50 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ char			*add_w(char *str, int *i, t_main *m)
 	free(var);
 	return (backslash);
 }
+
 
 char			*change_data(char *str, t_main *m)
 {

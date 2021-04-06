@@ -6,28 +6,15 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:12:52 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 14:24:47 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:38:06 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void				del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok)
+static char				*init_data(t_list **cur_tok, int type, t_main *m)
 {
-	if ((*cur_tok)->next)
-		(*prev)->next = (*cur_tok)->next;
-	else
-		(*prev)->next = NULL;
-	free(t_access_tok(*cur_tok)->data);
-	ft_lstdelone(*cur_tok, &free);
-	(*cur_tok) = (*prev)->next;
-}
-
-char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
-								t_token_type type, t_main *m)
-{
-	char	*tmp;
-	char	*data;
+	char *data;
 
 	if (!(check_closing_quote(*cur_tok, type)))
 		return (NULL);
@@ -35,6 +22,17 @@ char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
 		malloc_error(m, NULL, NO_READING);
 	*data = t_access_tok(*cur_tok)->data[0];
 	data[1] = '\0';
+	return (data);
+}
+
+static char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
+								t_token_type type, t_main *m)
+{
+	char	*tmp;
+	char	*data;
+
+	if (!(data = init_data(cur_tok, type, m)))
+		return (NULL);
 	del_cur_tok_and_link_next(prev, cur_tok);
 	while (*cur_tok && t_access_tok(*cur_tok)->type != type)
 	{
@@ -55,11 +53,12 @@ char				*get_data_inside_quote(t_list **prev, t_list **cur_tok,
 	return (data);
 }
 
-static char			*get_data_word(t_list **prev, t_list **cur_tok, t_main *m)
+static char				*get_data_word(t_list **prev, t_list **cur_tok,
+										t_main *m)
 {
 	char	*data;
 	char	*tmp;
-	t_list 	*wild;
+	t_list	*wild;
 
 	wild = NULL;
 	if (!(data = malloc(sizeof(char))))
@@ -76,7 +75,7 @@ static char			*get_data_word(t_list **prev, t_list **cur_tok, t_main *m)
 	return (data);
 }
 
-static char			*get_data(t_list **prev, t_list **cur_tok, t_main *m)
+static char				*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 {
 	char			*data;
 	t_token_type	type;
@@ -100,7 +99,7 @@ static char			*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 	return (data);
 }
 
-int					add_new_word(t_list **prev, t_list **cur_tok, t_main *m)
+int						add_new_word(t_list **prev, t_list **cur_tok, t_main *m)
 {
 	char	*data;
 	t_list	*new_word;
