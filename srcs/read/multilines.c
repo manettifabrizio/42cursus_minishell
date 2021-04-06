@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/05 20:50:52 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:44:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		multi_error(t_main *m, t_token_type type)
 {
-	if (type == SQUOTE || type == DQUOTE)
+	if (type == SQUOTE || type == DQUOTE || type == CLOSE_PAR)
 	{
 		ft_putstr_fd("minish: unexpected EOF while looking for matching", 
 			STDERR_FILENO);
@@ -22,6 +22,8 @@ static void		multi_error(t_main *m, t_token_type type)
 			ft_putstr_fd(" `\''\n", STDERR_FILENO);
 		if (type == DQUOTE)
 			ft_putstr_fd(" `\"'\n", STDERR_FILENO);
+		if (type == CLOSE_PAR)
+			ft_putstr_fd(" `)'\n", STDERR_FILENO);
 	}
 	ft_putstr_fd("minish: ", STDERR_FILENO);
 	ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
@@ -46,7 +48,7 @@ static char		*ending(t_main *m, char *shist, int ret, t_token_type type)
 
 static char		*join_multichar(char *shist, t_token_type type)
 {
-	if (type == SQUOTE || type == DQUOTE)
+	if (type == SQUOTE || type == DQUOTE || type == CLOSE_PAR)
 		shist = ft_strjoin_nl(shist, "\n");
 	else if (type == BACKSLASH)
 		shist[ft_strlen(shist) - 1] = '\0';
