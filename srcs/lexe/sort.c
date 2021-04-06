@@ -88,6 +88,8 @@ int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 				wild->next = (cur_tok)->next;
 				tmp = cur_tok;
 				cur_tok = wild;
+				if (t_access_tok(tmp)->data)
+					free(t_access_tok(tmp)->data);
 				free(tmp);
 				//free
 			}
