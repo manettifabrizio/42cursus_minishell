@@ -6,13 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:30:47 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/29 14:54:51 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:02:05 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_node		*build_builtin_1(t_list **token)
+static t_node		*build_builtin_1(t_list **token, t_main *m)
 {
 	t_node	*result;
 	t_node	*args;
@@ -20,20 +20,20 @@ static t_node		*build_builtin_1(t_list **token)
 
 	if (!check(WORD, &pathname, token))
 		return (NULL);
-	args = build_args(token);
+	args = build_args(token, m);
 	if (!(result = create_node(NODE_BUILTIN, pathname)))
-		return (NULL);
+		malloc_error(m, NULL, NO_READING);
 	ast_attach_branch(result, args, NULL);
 	return (result);
 }
 
-t_node				*build_builtin(t_list **token)
+t_node				*build_builtin(t_list **token, t_main *m)
 {
 	t_list	*save;
 	t_node	*builtin;
 
 	save = *token;
-	if (!(builtin = build_builtin_1(token)))
+	if (!(builtin = build_builtin_1(token, m)))
 		*token = save;
 	return (builtin);
 }

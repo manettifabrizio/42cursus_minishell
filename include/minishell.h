@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 01:08:05 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 12:58:25 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ t_list				*create_env_elem(char *s);
 int       			parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m);
 t_node      		*build_line(t_list **token, t_main *m);
 t_node      		*build_job(t_list **token, t_main *m);
-t_node      		*build_command(t_list **token);
-t_node				*build_command_builtin(t_list **token);
-t_node      		*build_builtin(t_list **token);
-t_node      		*build_args(t_list **token);
+t_node      		*build_command(t_list **token, t_main *m);
+t_node				*build_command_builtin(t_list **token, t_main *m);
+t_node      		*build_builtin(t_list **token, t_main *m);
+t_node      		*build_args(t_list **token, t_main *m);
 int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
 int                 check_par(t_token_type tok_type, t_list **token, t_main *m);
 t_node              *check_closing_par(int par, t_main *m, t_list **token, t_node *node);
