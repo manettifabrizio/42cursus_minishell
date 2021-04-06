@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 14:22:44 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:31:48 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_lexer				*build_lexer(t_main *m, char *s)
 		return (NULL);
 	if ((type = sort_lexer(m, lexer)) > 0)
 	{
+		free_lexer(lexer);
 		if (!(s = multilines(m, s, type)))
 			return (NULL);
-		free_lexer(lexer);
 		return (build_lexer(m, s));
 	}
 	if (type == -1)
