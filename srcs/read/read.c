@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 01:09:30 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 13:57:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		reading(t_main *m, char **s)
 		return (0);
 	if (buf[0] == CTRL_C)
 		return (-1);
-	if (buf[0] == CTRL_D && s[0] == 0 && m->p->multi == 1)
+	if (buf[0] == CTRL_D && (*s)[0] == 0 && m->p->multi == 1)
 		return (-2);
 	return (1);
 }
@@ -51,8 +51,6 @@ char	*line_read(t_main *m)
 	s = ft_strdup("");
 	if (!(m->hist = add_history(s, m->hist)))
 		malloc_error(m, s, READING);
-	// for (int i = 0; m->hist[i]; i++)
-		// printf("m->hist[%d] = %p\n", i, m->hist[i]);
 	while (reading(m, &s) > 0)
 		if (!(m->hist = history(s, m->hist, m->p->hnum)))
 			malloc_error(m, s, READING);
