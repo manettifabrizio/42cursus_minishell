@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 15:44:35 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:49:40 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			execute_builtin(t_main *m, t_node *builtin, int logic_type)
 		return ;
 	if (!(m->arr = create_cmd_table(builtin, m)))
 		return ;
-	if (!(builtins(m, m->arr[0])))
+	if (m->arr[0] && !(builtins(m, m->arr[0])))
 		if (!(execute_bin(m)))
 		{
 			error(NO_ERRNO, "command not found");
