@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 15:40:56 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:26:21 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ int				call_multiligne(t_lexer *lexer, t_list *tokens)
 int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 {
 	t_list	*tokens;
+	t_lexer *tmp;
 
+	tmp = lexer;
 	tokens = lexer->tokens;
 	*exec_tree = build_line(&(tokens), m);
 	sort_parenthese(*exec_tree);
@@ -95,6 +97,8 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 	{
 		if ((s = multilines(m, s, t_access_tok(tokens)->type)))
 		{
+			tmp = lexer;
+			free(tmp);
 			lexer = build_lexer(m, s);
 			ast_delete_node(*exec_tree);
 			return (parse(lexer, exec_tree, s, m));
