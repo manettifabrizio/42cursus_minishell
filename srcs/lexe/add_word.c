@@ -82,9 +82,7 @@ static char			*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 	t_token_type	type;
 	char			*tmp;
 
-	if (!(data = malloc(sizeof(char))))
-		malloc_error(m, NULL, NO_READING);
-	*data = '\0';
+	data = NULL;
 	while (*cur_tok && (t_access_tok(*cur_tok)->type == DQUOTE
 			|| t_access_tok(*cur_tok)->type == SQUOTE
 			|| t_access_tok(*cur_tok)->type == WORD))
