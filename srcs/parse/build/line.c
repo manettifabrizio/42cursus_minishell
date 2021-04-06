@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:21:26 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 12:57:14 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:39:09 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,15 @@ t_node			*build_line(t_list **token, t_main *m)
 	save = *token;
 	if ((*token = save)
 		&& (node = build_line_logic_pipe(token, m)))
-		return (check_line_closing_par(token, node, m));
+		return (check_line_closing_par(token, node, m, line_par));
 	if ((*token = save) &&
 		(node = build_line_logic_amper(token, m)))
-		return (check_line_closing_par(token, node, m));
+		return (check_line_closing_par(token, node, m, line_par));
 	if ((*token = save)
 		&& (node = build_line_semicolon(token, m)))
-		return (check_line_closing_par(token, node, m));
+		return (check_line_closing_par(token, node, m, line_par));
 	if ((*token = save)
 		&& (node = build_line_job(token, m)))
-		return (check_line_closing_par(token, node, m));
+		return (check_line_closing_par(token, node, m, line_par));
 	return (NULL);
 }

@@ -6,13 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:23:16 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 13:59:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:12:49 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char			*sort_backslash(char *str, t_main *m)
+char			*sort_backslash(char *str, t_main *m, int quote)
 {
 	int		i;
 	char	*new;
@@ -24,7 +24,10 @@ char			*sort_backslash(char *str, t_main *m)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\')
+		if (!quote && str[i] == '\\')
+			i++;
+		if (quote && str[i] == '\\' &&
+			str[i + 1] && str[i + 1] =='\\')
 			i++;
 		new[j] = str[i];
 		j++;
@@ -40,14 +43,14 @@ char			*add_quote(char *str, int *i, t_main *m)
 	int		start;
 	char	*sub;
 	char	*var;
+	char	*backslash;
 
 	start = *i;
 	while (str[*i])
 	{
 		if (str[*i] == '\\')
 		{
-			if (str[*i + 1] && (str[*i + 1] == '\"'
-				|| str[*i + 1] == '\\'))
+			if (str[*i + 1] && str[*i + 1] == '\"')
 				*i += 1;
 		}
 		else if (str[*i] == '\"')
@@ -59,8 +62,10 @@ char			*add_quote(char *str, int *i, t_main *m)
 	}
 	sub = ft_substr(str, start, *i - start - 1);
 	var = check_vars(m, sub, m->ehead, m->exit_status);
+	backslash = sort_backslash(var, m, 1);
+	free(var);
 	free(sub);
-	return (var);
+	return (backslash);
 }
 
 char			*add_squote(char *str, int *i)
@@ -102,7 +107,7 @@ char			*add_w(char *str, int *i, t_main *m)
 	}
 	sub = ft_substr(str, start, *i - start);
 	var = check_vars(m, sub, m->ehead, m->exit_status);
-	backslash = sort_backslash(var, m);
+	backslash = sort_backslash(var, m, 0);
 	free(sub);
 	free(var);
 	return (backslash);

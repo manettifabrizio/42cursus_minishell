@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 13:37:43 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:44:35 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void			execute_command_line(t_main *m, t_node *cmd_line, int type)
 		if (cmd_line->left && cmd_line->left->parenthese)
 		{
 			if ((type == NODE_LOGIC_PIPE && !m->exit_status))
-				cmd_line = cmd_line->right;
+				cmd_line = cmd_line->right;	
 		}
 			execute_job(m, cmd_line->left, type);
 			execute_command_line(m, cmd_line->right, cmd_line->type);

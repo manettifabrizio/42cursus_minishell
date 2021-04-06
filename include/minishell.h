@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 12:58:25 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:19:21 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int         		check(t_token_type tok_type, char** bufferptr, t_list **token);
 int                 check_par(t_token_type tok_type, t_list **token, t_main *m);
 t_node              *check_closing_par(int par, t_main *m, t_list **token, t_node *node);
 int					check_line_open_par(t_list **token);
-t_node				*check_line_closing_par(t_list **token, t_node *node, t_main *m);
+t_node				*check_line_closing_par(t_list **token, t_node *node, t_main *m, int par);
 t_node              *create_node(int type, char *data);
 
 //EXECUTE
