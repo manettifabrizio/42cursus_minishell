@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 18:34:20 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:58:53 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				call_multiligne(t_lexer *lexer, t_list *tokens)
 	return (0);
 }
 
-int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
+int				parse(t_lexer *lexer, t_node **exec_tree, char **s, t_main *m)
 {
 	t_list	*tokens;
 
@@ -93,7 +93,7 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 	sort_parenthese(*exec_tree);
 	if (call_multiligne(lexer, tokens))
 	{
-		if ((s = multilines(m, s, t_access_tok(tokens)->type)))
+		if ((*s = multilines(m, *s, t_access_tok(tokens)->type)))
 		{
 			lexer = build_lexer(m, s);
 			ast_delete_node(*exec_tree);
@@ -102,6 +102,5 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char *s, t_main *m)
 		else
 			return (0);
 	}
-	free(s);
 	return (return_parse(tokens, exec_tree, lexer, m));
 }

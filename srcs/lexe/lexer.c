@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 18:24:16 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:55:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void				while_create_token(t_main *m, t_lexer *lexer)
 	}
 }
 
-t_lexer				*build_lexer(t_main *m, char *s)
+t_lexer				*build_lexer(t_main *m, char **s)
 {	// check lexer in case s is empty to gain lines and also history position
 	t_lexer		*lexer;
 	int			type;
 
-	lexer = init_lexer(m, s);
+	lexer = init_lexer(m, *s);
 	while_create_token(m, lexer);
 	ft_free_array(m->arr);
 	if (!lexer->tokens)
@@ -57,13 +57,13 @@ t_lexer				*build_lexer(t_main *m, char *s)
 	if ((type = sort_lexer(m, lexer)) > 0)
 	{
 		free_lexer(lexer);
-		if (!(s = multilines(m, s, type)))
+		if (!(*s = multilines(m, *s, type)))
 			return (NULL);
 		return (build_lexer(m, s));
 	}
 	if (type == -1)
 		return (NULL);
-	if (!(m->hist = history(s, m->hist, m->p->hnum)))
-		malloc_error(m, s, READING);
+	if (!(m->hist = history(*s, m->hist, m->p->hnum)))
+		malloc_error(m, *s, READING);
 	return (lexer);
 }

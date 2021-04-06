@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 16:44:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 18:44:07 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		*ending(t_main *m, char *shist, int ret, t_token_type type)
 	m->p->multi = 0;
 	if (ret < 0)
 	{
-		if (!(m->hist = history(ft_strdup(shist), m->hist, m->p->hnum)))
+		if (!(m->hist = history(shist, m->hist, m->p->hnum)))
 			malloc_error(m, NULL, NO_READING);
 		if (ret == -2)
 			multi_error(m, type);
