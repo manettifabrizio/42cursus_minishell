@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 18:44:07 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:06:39 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static char		*ending(t_main *m, char *shist, int ret, t_token_type type)
 			malloc_error(m, NULL, NO_READING);
 		if (ret == -2)
 			multi_error(m, type);
+		free(shist);
 		return (NULL);
 	}
 	return (shist);

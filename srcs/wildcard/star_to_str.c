@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 16:57:35 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:19:16 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		files_parser(char *path, t_list **head)
 		tmp_path = ft_strdup(path);
 	if (!(dir_stream = opendir(tmp_path)))
 	{
+		free(tmp_path);
 		return ;
 	}
 	while ((dir = readdir(dir_stream)) > 0)
@@ -45,9 +46,10 @@ t_list		*find_matches(char *s, t_list **head)
 	{
 		fname = t_access_files(l)->name;
 		if (starcmp(s, fname) && fname[0] != '.')
-			add_elem_to_list(&hmatch, fname);
+			add_elem_to_list(&hmatch, ft_strdup(fname));
 		l = l->next;
 	}
+	ft_lstclear(head, files_del);
 	free(s);
 	return (hmatch);
 }
@@ -56,7 +58,10 @@ t_list		*star_to_str(char *s, char *path, t_list **head)
 {
 	*head = NULL;
 	if (ft_strcmp(s, "") == 0)
+	{
+		free(s);
 		return (*head);
+	}
 	files_parser(path, head);
 	return (find_matches(s, head));
 }

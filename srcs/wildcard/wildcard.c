@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 09:36:55 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:30:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,12 @@ void	add_to_final(t_list **hmatch, char *path, t_list **final)
 	char	*fname;
 
 	l = *hmatch;
-	// print_list_files(*hmatch);
 	while (l)
 	{
 		fname = t_access_files(l)->name;
 		add_elem_to_list(final, ft_strjoin(path, fname));
-		// printf("fname = %s\n", fname);
 		l = l->next;
 	}
-	// print_list_files(*final);
 }
 
 void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final)
@@ -69,33 +66,24 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 	t_list	*hmatch;
 	t_list	*lmatch;
 
-	// printf("\n\n************************************************\n");
-	// printf("s = [%s]\npath = [%s]\n", s, path);
 	hmatch = star_to_str(cut_str(s, 0), path, head);
-	// printf("====================\n");
-	// print_list_files(hmatch);
-	// printf("====================\n");
 	if (!ft_strchr(s, '/') && hmatch)
 		add_to_final(&hmatch, path, final);
 	lmatch = hmatch;
-	// printf("s = {%s}\n", s);
 	s = cut_str(s, 1);
-	// printf("s = {%s}\n", s);
-	while (lmatch)
+	while (lmatch && s[0] != 0)
 	{
 		fname = t_access_files(lmatch)->name;
 		if (is_dir(ft_strdup(path), fname))
 		{
-			// printf("path = [%s]\n", path);
 			npath = ft_strjoin(path, fname);
-			npath = ft_strjoin(npath, "/");
-			// printf("FINAL = %s\n", final);
+			npath = ft_strjoin_nl(npath, "/");
 			r_create_list(m, s, npath, head, final);
 		}
 		lmatch = lmatch->next;
 	}
+	ft_lstclear(&hmatch, files_del);
 	free(s);
-	// printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
 }
 
 t_list 			*wildcard(t_main *m, char *s)
@@ -113,11 +101,14 @@ t_list 			*wildcard(t_main *m, char *s)
 		path = ft_strdup("");
 	final = NULL;
 	start = ft_strlen(path);
-	// printf("***********************************************\n");
 	r_create_list(m, s + start, path, &head, &final);
+	free(s);
 	if (ft_lstsize(final) == 0)
+	{
+		free(path);
 		return (NULL);
-	// printf("***********************************************\n");
+	}
 	final = list_sort_files(&final);
+	free(path);
 	return (lst_to_token_lst(final));
 }

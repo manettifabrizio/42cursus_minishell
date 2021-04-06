@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 18:57:40 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:16:48 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_list				*create_files_elem(char *s);
 void				add_elem_to_list(t_list **hmatch, char *s);
 t_list				*lst_to_token_lst(t_list *final);
 t_list				*list_sort_files(t_list **head);
+void				files_del(void *l);
 void				print_list_files(t_list *head);
 char				**init_history();
 char				**history(char *s, char **a, t_uint hnum);

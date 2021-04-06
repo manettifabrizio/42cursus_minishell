@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 23:03:10 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/26 15:07:01 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:16:19 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ void		print_list_files(t_list *head)
 		l = l->next;
 	}
 	printf("\n");
+}
+
+void		files_del(void *l)
+{
+	t_files		*tmp;
+
+	tmp = (t_files*)l;
+	free(tmp->name);
+    free(tmp);
 }
 
 t_list		*create_files_elem(char *s)
@@ -65,5 +74,6 @@ t_list		*lst_to_token_lst(t_list *final)
 			return (NULL);
 		l = l->next;
 	}
+	ft_lstclear(&final, files_del);
 	return (head);
 }

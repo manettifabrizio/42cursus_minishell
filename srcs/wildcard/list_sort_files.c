@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 00:39:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 10:19:07 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 00:32:04 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ static void		copy_list(t_list **head, t_list **lhead)
 
 	*lhead = NULL;
 	l = *head;
-	// print_list_files(*head);
-	// printf("================\n");
 	while (l)
 	{
 		add_elem_to_list(lhead, t_access_files(l)->name);
-		// print_list_files(*lhead);
-		// printf("================\n");
 		l = l->next;
 	}
 }
@@ -51,7 +47,7 @@ t_list			*list_sort_files(t_list **head)
 		}
 		else
 			l = l->next;
-	}
-	// free_list()
+	} // ricontrollare
+	ft_lstclear(head, free);
 	return (lhead);
 }
