@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 14:26:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:29:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void				add_elem_to_list(t_list **hmatch, char *s);
 t_list				*lst_to_token_lst(t_list *final);
 t_list				*list_sort_files(t_list **head);
 void				files_del(void *l);
-void				print_list_files(t_list *head);
 char				**init_history();
 char				**history(char *s, char **a, t_uint hnum);
 char				**add_history(char *s, char **a);
@@ -59,7 +58,6 @@ char				**ft_split_charset(const char *s, char *charset);
 int					is_sep(const char *s, int i, char *charset);
 void				del_cur_tok_and_link_next(t_list **prev, t_list **cur_tok);
 int					add_new_word(t_list **prev, t_list **cur_tok, t_main *m);
-void				print_lst_tokens(t_lexer *lexer);
 int					sort_lexer(t_main *m, t_lexer *lexer);
 int					sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer);
 int					sort_space_and_quote(t_lexer *lexer, t_main *m);
@@ -134,7 +132,6 @@ void				ast_set_type(t_node *node, int type);
 void				ast_attach_branch(t_node *root, t_node *left,
 						t_node *right);
 void				ast_attach_right(t_node *root, t_node *right);
-void				print_preorder(t_node *node);
 char				**split_var(char *s);
 char				**split_keep(char *s, char c);
 int					arrow_up(char **s, char **h, t_cursor *p);
