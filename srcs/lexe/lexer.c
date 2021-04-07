@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 15:48:48 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:13:47 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static t_lexer		*init_lexer(t_main *m, char *s)
 {
 	t_lexer *lexer;
 
+	if (!*s)
+		return (NULL);
 	if (!(lexer = malloc(sizeof(t_lexer))))
 		malloc_error(m, NULL, NO_READING);
 	lexer->tokens = NULL;
@@ -49,7 +51,8 @@ t_lexer				*build_lexer(t_main *m, char **s)
 	t_lexer		*lexer;
 	int			type;
 
-	lexer = init_lexer(m, *s);
+	if (!(lexer = init_lexer(m, *s)))
+		return (NULL);
 	while_create_token(m, lexer);
 	ft_free_array(m->arr);
 	if (!lexer->tokens)
