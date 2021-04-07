@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/08 01:37:51 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 01:45:34 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,20 @@ static void		execute_job(t_main *m, char **s, t_node *job, int logic_type)
 	if ((logic_type == NODE_LOGIC_AMPERSTAND && m->exit_status)
 		|| (logic_type == NODE_LOGIC_PIPE && !m->exit_status))
 		return ;
-	if (job->type == NODE_PIPE)
+	if (job->type > NODE_BUILTIN)
 	{
 		std.tmp_in = dup(STDIN_FILENO);
 		std.tmp_out = dup(STDOUT_FILENO);
+	}
+	if (job->type == NODE_PIPE)
 		execute_pipe(m, s, job, &std);
+	else
+		execute_command(m, s, job);
+	if (job->type > NODE_BUILTIN)
+	{
 		dup2(std.tmp_in, STDIN_FILENO);
 		dup2(std.tmp_out, STDOUT_FILENO);
 	}
-	else
-		execute_command(m, s, job);
 }
 
 void			execute_command_line(t_main *m, char **s, t_node *cmd_line, int type)
