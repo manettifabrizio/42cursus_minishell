@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:45 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 22:42:36 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:48:48 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ t_lexer				*build_lexer(t_main *m, char **s)
 		return (build_lexer(m, s));
 	}
 	if (type == -1)
+	{
+		free_lexer(lexer);
 		return (NULL);
+	}
 	if (!(m->hist = history(*s, m->hist, m->p->hnum)))
 		malloc_error(m, *s, READING);
 	return (lexer);

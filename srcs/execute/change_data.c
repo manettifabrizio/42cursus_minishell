@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:23:16 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 23:16:50 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:05:27 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char			*sort_backslash(char *str, t_main *m, int quote)
 		if (!quote && str[i] == '\\')
 			i++;
 		if (quote && str[i] == '\\' &&
-			str[i + 1] && str[i + 1] =='\\')
+			str[i + 1] && str[i + 1] == '\\')
 			i++;
 		new[j] = str[i];
 		j++;
@@ -35,7 +35,7 @@ char			*sort_backslash(char *str, t_main *m, int quote)
 			i++;
 	}
 	new[j] = '\0';
-	return(new);
+	return (new);
 }
 
 char			*add_quote(char *str, int *i, t_main *m)
@@ -48,15 +48,12 @@ char			*add_quote(char *str, int *i, t_main *m)
 	start = *i;
 	while (str[*i])
 	{
-		if (str[*i] == '\\')
-		{
-			if (str[*i + 1] && str[*i + 1] == '\"')
-				*i += 1;
-		}
+		if (str[*i] == '\\' && str[*i + 1] && str[*i + 1] == '\"')
+			*i += 1;
 		else if (str[*i] == '\"')
 		{
 			*i += 1;
-			break;
+			break ;
 		}
 		*i += 1;
 	}
@@ -78,7 +75,7 @@ char			*add_squote(char *str, int *i)
 		if (str[*i] == '\'')
 		{
 			*i += 1;
-			break;
+			break ;
 		}
 		*i += 1;
 	}
@@ -87,7 +84,7 @@ char			*add_squote(char *str, int *i)
 
 char			*add_w(char *str, int *i, t_main *m)
 {
-	int 	start;
+	int		start;
 	char	*sub;
 	char	*var;
 	char	*backslash;
@@ -99,59 +96,41 @@ char			*add_w(char *str, int *i, t_main *m)
 		{
 			if (str[*i + 1] && (str[*i + 1] == '\''
 				|| str[*i + 1 == '\"']))
-			*i += 1;
+				*i += 1;
 		}
 		else if (str[*i] == '\'' || str[*i] == '\"')
-			break;
+			break ;
 		*i += 1;
 	}
 	sub = ft_substr(str, start, *i - start);
 	var = check_vars(m, sub, m->ehead, m->exit_status);
 	backslash = sort_backslash(var, m, 0);
-	free(sub);
 	free(var);
+	free(sub);
 	return (backslash);
 }
 
-
 char			*change_data(char *str, t_main *m)
 {
-	int i;
-	char *data;
-	char *tmp;
-	char *add;
+	int		i;
+	char	*data;
 
-	data = malloc(sizeof(char));
-	*data = '\0';
-	i =  0;
+	data = NULL;
+	i = 0;
 	while ((size_t)i < ft_strlen(str))
 	{
 		if (str[i] && str[i] == '\"')
 		{
 			i++;
-			tmp = data;
-			add = add_quote(str, &i, m);
-			data = ft_strjoin(tmp, add);
-			free(tmp);
-			free(add);
+			data = join_and_free(data, add_quote(str, &i, m));
 		}
 		else if (str[i] == '\'')
 		{
 			i++;
-			tmp = data;
-			add = add_squote(str, &i);
-			data = ft_strjoin(tmp, add);
-			free(tmp);
-			free(add);
+			data = join_and_free(data, add_squote(str, &i));
 		}
 		else
-		{
-			tmp = data;
-			add = add_w(str, &i, m);
-			data = ft_strjoin(tmp, add);
-			free(add);
-			free(tmp);
-		}
+			data = join_and_free(data, add_w(str, &i, m));
 	}
 	return (data);
 }

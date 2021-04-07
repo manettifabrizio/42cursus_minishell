@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 22:21:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 14:09:24 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:44:34 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int		replace_heredoc(t_main *m, t_list *cur_tok, t_list *prev)
 		return (0);
 	if (t_access_tok(cur_tok)->type == WORD)
 		if (!heredoc(m, t_access_tok(cur_tok)->data))
-			return (0);
+			return (-1);
 	return (1);
 }
 
