@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 16:30:47 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 20:24:24 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:42:03 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_node				*build_builtin(t_list **token, t_main *m)
 	save = *token;
 	if (!(builtin = build_builtin_1(token, m)))
 		*token = save;
-	// if (builtin)
-	// 	check_par(CLOSE_PAR, token);
+	check_par(CLOSE_PAR, token);
 	return (builtin);
 }
