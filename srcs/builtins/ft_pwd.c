@@ -29,6 +29,7 @@ int		ft_pwd(t_main *m)
 	else
 		set_env(m->ehead, "PWD", pwd);
 	ft_putstr(pwd);
+	ft_putchar('\n');
 	m->exit_status = 0;
 	return (1);
 }
