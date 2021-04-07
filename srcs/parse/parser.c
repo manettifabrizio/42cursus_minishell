@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 16:23:27 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:45:53 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			return_parse(t_list *tokens, t_node **exec_tree, \
 		ft_putstr_fd("'\n", STDERR_FILENO);
 		m->exit_status = 258;
 		free_lexer(lexer);
+		ast_delete_node(*exec_tree);
 		return (0);
 	}
 	free_lexer(lexer);
