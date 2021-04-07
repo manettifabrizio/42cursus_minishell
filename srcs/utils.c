@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:15:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 16:29:10 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:28:06 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void			print_preorder(t_node *node)
+{
+	if (!node)
+		return ;
+	printf("%i %s par=%i\n", node->type, node->data, node->parenthese);
+	print_preorder(node->left);
+	print_preorder(node->right);
+}
 
 t_uint			count_lines(char *s)
 {

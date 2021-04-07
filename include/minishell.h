@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 20:12:14 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:34:34 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,10 @@ char				**get_directories_path(char **env);
 void				execute_ast_tree(t_main *m, t_node *exec_tree);
 char				**create_cmd_table(t_node *root, t_main *m);
 void				init_std(t_std *std);
-void				execute_inter_pipe(t_std *std, t_main *m, t_node *job,
-						int logic_type);
-void				execute_command(t_main *m, t_node *command,
-						int logic_type);
-void				execute_builtin(t_main *m, t_node *builtin,
-						int logic_type);
+void				execute_inter_pipe(t_std *std, t_main *m, t_node *job);
+void				execute_command(t_main *m, t_node *command);
 void				execute_command_line(t_main *m, t_node *cmd_line,
-						int type);
+										int type);
 char				*change_data(char *str, t_main *m);
 int					builtins(t_main *m, char *cmd_name);
 int					ft_echo(t_main *m, char **a);
@@ -159,5 +155,5 @@ void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
 t_uint				count_lines(char *s);
 void				changing_line(t_cursor *p);
-
+void				print_preorder(t_node *node);
 #endif
