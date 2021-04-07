@@ -6,13 +6,13 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 15:45:05 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:23:27 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				return_parse(t_list *tokens, t_node **exec_tree, \
+int			return_parse(t_list *tokens, t_node **exec_tree, \
 	t_lexer *lexer, t_main *m)
 {
 	if (tokens != NULL || !exec_tree)
@@ -33,7 +33,7 @@ int				return_parse(t_list *tokens, t_node **exec_tree, \
 	return (1);
 }
 
-void				count_closing_parenthese(t_list **tokens, t_lexer *lexer)
+void		count_closing_parenthese(t_list **tokens, t_lexer *lexer)
 {
 	t_list	*tok;
 	t_list	*prev;
@@ -59,7 +59,8 @@ void				count_closing_parenthese(t_list **tokens, t_lexer *lexer)
 	}
 }
 
-void			sort_parenthese(t_node *exec_tree, t_list **tokens, t_lexer *lexer)
+void		sort_parenthese(t_node *exec_tree, t_list **tokens,
+								t_lexer *lexer)
 {
 	t_node *node;
 
@@ -76,7 +77,7 @@ void			sort_parenthese(t_node *exec_tree, t_list **tokens, t_lexer *lexer)
 	count_closing_parenthese(tokens, lexer);
 }
 
-int				call_multiligne(t_lexer *lexer, t_list *tokens)
+int			call_multiligne(t_lexer *lexer, t_list *tokens)
 {
 	t_list	*check;
 	int		type;
@@ -104,7 +105,7 @@ int				call_multiligne(t_lexer *lexer, t_list *tokens)
 	return (0);
 }
 
-int				parse(t_lexer *lexer, t_node **exec_tree, char **s, t_main *m)
+int			parse(t_lexer *lexer, t_node **exec_tree, char **s, t_main *m)
 {
 	t_list	*tokens;
 
