@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 20:45:05 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 22:32:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int					arrow_down(char **s, char **h, t_cursor *p);
 int					arrow_right(char *s, t_cursor *p);
 int					arrow_left(char *s, t_cursor *p);
 int					control_c(t_main *m, char *s);
-void				control_d(t_main *m);
+void				control_d(t_main *m, char **s);
 int					backspace(char *s, t_cursor *p);
 int					delete(char *s, char *buf, t_cursor *p);
 int					home(char *s, t_cursor *p);

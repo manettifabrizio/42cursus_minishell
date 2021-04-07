@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 11:55:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 17:13:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 23:32:59 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,23 @@ int		word_right(char *s, t_cursor *p)
 	i = len - pos;
 	if (!len || i == len)
 		return (1);
-	if (ft_isalpha(s[i]) || ft_isdigit(s[i]))
-		while ((ft_isalpha(s[i]) || ft_isdigit(s[i])) && i < len)
-		{
-			arrow_right(s, p);
-			i++;
-		}
+	while ((ft_isalpha(s[i]) || ft_isdigit(s[i])) && i < len)
+	{
+		arrow_right(s, p);
+		i++;
+	}
 	while (!(ft_isalpha(s[i]) || ft_isdigit(s[i])) && i < len)
 	{
 		arrow_right(s, p);
 		i++;
 	}
 	return (1);
+}
+
+static int		move_left(char *s, t_cursor *p, int i)
+{
+	arrow_left(s, p);
+	return (i - 1);
 }
 
 int		word_left(char *s, t_cursor *p)
@@ -45,22 +50,19 @@ int		word_left(char *s, t_cursor *p)
 
 	len = ft_strlen(s);
 	pos = (count_lines(s) == 1) ? p->lpos : p->spos;
-	i = (len - 1) - pos;
+	i = len - pos;
 	if (!len || i < 1)
 		return (1);
-	arrow_left(s, p);
-	if (!(ft_isalpha(s[i]) || ft_isdigit(s[i])))
-		while (!(ft_isalpha(s[i]) || ft_isdigit(s[i])) && i > 0)
-		{
-			arrow_left(s, p);
-			i--;
-		}
+	if (i > 0 && (ft_isalpha(s[i]) || ft_isdigit(s[i])))
+		i = move_left(s, p, i);
+	while (!(ft_isalpha(s[i]) || ft_isdigit(s[i])) && i > 0)
+		i = move_left(s, p, i);
 	while ((ft_isalpha(s[i]) || ft_isdigit(s[i])) && i > 0)
 	{
-		arrow_left(s, p);
-		i--;
 		if (i > 0 && !(ft_isalpha(s[i - 1]) || ft_isdigit(s[i - 1])))
 			break ;
+		arrow_left(s, p);
+		i--;
 	}
 	return (1);
 }

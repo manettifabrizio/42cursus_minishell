@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 13:22:15 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 22:34:13 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ static int		home_end(char *s, char c, t_cursor *p)
 	return (0);
 }
 
-static int		control(t_main *m, char *s, char *buf)
+static int		control(t_main *m, char **s, char *buf)
 {
 	if (buf[0] == CTRL_C)
-		return (control_c(m, s));
+		return (control_c(m, *s));
 	if (buf[0] == CTRL_D)
 	{
-		if (s[0] == '\0')
+		if ((*s)[0] == '\0')
 		{
 			if (m->p->multi == 1)
 			{
@@ -57,7 +57,7 @@ static int		control(t_main *m, char *s, char *buf)
 				return (1);
 			}
 			else
-				control_d(m);
+				control_d(m, s);
 		}
 		return (1);
 	}
@@ -83,7 +83,7 @@ int				check_key(t_main *m, char **s, char *buf)
 {
 	if (buf[0] == CTRL_C || buf[0] == CTRL_D ||
 		buf[0] == CTRL_Z || buf[0] == CTRL_BSLASH)
-		return (control(m, *s, buf));
+		return (control(m, s, buf));
 	if (buf[0] == TAB)
 		return (1);
 	if (buf[0] != ESCAPE)
