@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 19:56:35 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 20:37:58 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/08 01:38:14 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				builtins(t_main *m, char *cmd_name)
+int				builtins(t_main *m, char **s, char *cmd_name)
 {
 	if (ft_strcmp(cmd_name, "echo") == 0)
 		return (ft_echo(m, m->arr));
@@ -27,6 +27,6 @@ int				builtins(t_main *m, char *cmd_name)
 	else if (ft_strcmp(cmd_name, "env") == 0)
 		return (ft_env(m, m->ehead));
 	else if (ft_strcmp(cmd_name, "exit") == 0)
-		return (ft_exit(m, m->arr));
+		return (ft_exit(m, s, m->arr));
 	return (0);
 }

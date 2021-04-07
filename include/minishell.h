@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/08 00:10:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 01:38:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,20 @@ char				**get_directories_path(char **env);
 void				execute_ast_tree(t_main *m, t_node *exec_tree);
 char				**create_cmd_table(t_node *root, t_main *m);
 void				init_std(t_std *std);
-void				execute_inter_pipe(t_std *std, t_main *m, t_node *job);
-void				execute_command(t_main *m, t_node *command);
-void				execute_command_line(t_main *m, t_node *cmd_line,
-										int type);
+void				execute_inter_pipe(t_std *std, char **s, t_main *m,
+						t_node *job);
+void				execute_command(t_main *m, char **s, t_node *command);
+void				execute_command_line(t_main *m, char **s, t_node *cmd_line,
+						int type);
 char				*change_data(char *str, t_main *m);
-int					builtins(t_main *m, char *cmd_name);
+int					builtins(t_main *m, char **s, char *cmd_name);
 int					ft_echo(t_main *m, char **a);
 int					ft_cd(t_main *m, char *s);
 int					ft_pwd(t_main *m);
 int					ft_export(t_main *m, char **a, t_list **head);
 int					ft_unset(t_main *m, char **a, t_list **head);
 int					ft_env(t_main *m, t_list **head);
-int					ft_exit(t_main *m, char **a);
+int					ft_exit(t_main *m, char **s, char **a);
 char				*check_vars(t_main *m, char *s, t_list **head,
 						int exit_status);
 t_token				*t_access_tok(t_list *lst);

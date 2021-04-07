@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 20:41:47 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/08 01:39:22 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				main(int ac, char **av, char **env)
 			if ((lexer = build_lexer(m, &s)))
 				if (parse(&lexer, &exec_tree, &s, m))
 				{
-					execute_command_line(m, exec_tree, 0);
+					execute_command_line(m, &s, exec_tree, 0);
 					ast_delete_node(exec_tree);
 				}
 		free(s);
