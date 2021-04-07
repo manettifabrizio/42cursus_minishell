@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/07 14:28:47 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/04/07 20:46:01 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ FILES		=	minishell.c							\
 				keys/delete.c						\
 				keys/home_end.c						\
 				keys/move_word_or_column.c			\
+				keys/keys_utils.c					\
 				history/init_history.c				\
 				history/history.c					\
 				history/make_history.c				\
@@ -77,8 +78,7 @@ FILES		=	minishell.c							\
 				ast_tree/ast_tree.c					\
 				ast_tree/create_node.c 				\
 				errors_and_free/error.c				\
-				errors_and_free/free.c				\
-				utils.c
+				errors_and_free/free.c
 
 HFILES		=	minishell.h							\
 				struct.h							\

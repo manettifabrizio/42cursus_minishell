@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 20:34:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:45:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,5 @@ void				free_all(t_main *m);
 void				free_lexer(t_lexer *lexer);
 t_uint				count_lines(char *s);
 void				changing_line(t_cursor *p);
-void				print_preorder(t_node *node);
+
 #endif
