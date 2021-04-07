@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 16:23:16 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 16:05:27 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:34:25 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ char			*sort_backslash(char *str, t_main *m, int quote)
 		if (!quote && str[i] == '\\')
 			i++;
 		if (quote && str[i] == '\\' &&
-			str[i + 1] && str[i + 1] == '\\')
+			str[i + 1] && (str[i + 1] == '\\'
+			|| str[i + 1] == '\'' || str[i + 1] == '\"'))
 			i++;
 		new[j] = str[i];
 		j++;

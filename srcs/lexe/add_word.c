@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:12:52 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 22:38:06 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 19:33:38 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ static char				*get_data_word(t_list **prev, t_list **cur_tok,
 {
 	char	*data;
 	char	*tmp;
-	t_list	*wild;
 
-	wild = NULL;
 	if (!(data = malloc(sizeof(char))))
 		malloc_error(m, NULL, NO_READING);
 	*data = '\0';
@@ -92,7 +90,10 @@ static char				*get_data(t_list **prev, t_list **cur_tok, t_main *m)
 		else
 		{
 			if (!(tmp = get_data_inside_quote(prev, cur_tok, type, m)))
+			{
+				free(data);
 				return (NULL);
+			}
 			data = join_and_free(data, tmp);
 		}
 	}
@@ -104,11 +105,9 @@ int						add_new_word(t_list **prev, t_list **cur_tok, t_main *m)
 	char	*data;
 	t_list	*new_word;
 
-	data = get_data(prev, cur_tok, m);
-	if (!data)
+	if (!(data = get_data(prev, cur_tok, m)))
 		return (1);
 	new_word = generate_tok(data, WORD, m);
-	free(data);
 	(*prev)->next = new_word;
 	if (*cur_tok)
 		new_word->next = *cur_tok;

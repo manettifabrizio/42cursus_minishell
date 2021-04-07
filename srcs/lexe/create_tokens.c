@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 17:15:30 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/31 22:19:57 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:47:12 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_list				*generate_tok(char *data, t_token_type type, t_main *m)
 	token->type = type;
 	if (data)
 	{
-		if (!(token->data = ft_strdup(data)))
+		if (!(token->data = data))
 			malloc_error(m, NULL, NO_READING);
 	}
 	else
