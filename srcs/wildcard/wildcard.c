@@ -6,32 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 11:53:39 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:09:52 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*cut_str(char *s, int type)
-{
-	int		i;
-
-	i = 0;
-	while (s[i] && s[i] != '/')
-		i++;
-	if (type == 0)
-		return (ft_substr(s, 0, i));
-	if (type == 1)
-	{
-		i++;
-		char *tmp = ft_substr(s, i, ft_strlen(s) - i);
-		free(s);
-		return (tmp);
-	}
-	return (s);
-}
-
-int			is_dir(char *path, char *fname)
+static int		is_dir(char *path, char *fname)
 {
 	char			*npath;
 	struct stat		buf;
@@ -45,7 +26,7 @@ int			is_dir(char *path, char *fname)
 	return (0);
 }
 
-void	add_to_final(t_list **hmatch, char *path, t_list **final)
+static void		add_to_final(t_list **hmatch, char *path, t_list **final)
 {
 	t_list	*l;
 	char	*fname;
@@ -59,35 +40,56 @@ void	add_to_final(t_list **hmatch, char *path, t_list **final)
 	}
 }
 
-void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final)
+static char		*cut_str(char *s, int type)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (s[i] && s[i] != '/')
+		i++;
+	if (type == 0)
+		return (ft_substr(s, 0, i));
+	if (type == 1)
+	{
+		i++;
+		tmp = ft_substr(s, i, ft_strlen(s) - i);
+		free(s);
+		return (tmp);
+	}
+	return (s);
+}
+
+static void		r_create_list(char *s, char *path, t_list **head,
+	t_list **final)
 {
 	char	*fname;
 	char	*npath;
 	t_list	*hmatch;
-	t_list	*lmatch;
+	t_list	*l;
 
 	hmatch = star_to_str(cut_str(s, 0), path, head);
 	if (!ft_strchr(s, '/') && hmatch)
 		add_to_final(&hmatch, path, final);
-	lmatch = hmatch;
+	l = hmatch;
 	s = cut_str(s, 1);
-	while (lmatch && s[0] != 0)
+	while (l && s[0] != 0)
 	{
-		fname = t_access_files(lmatch)->name;
+		fname = t_access_files(l)->name;
 		if (is_dir(ft_strdup(path), fname))
 		{
 			npath = ft_strjoin(path, fname);
 			npath = ft_strjoin_nl(npath, "/");
-			r_create_list(m, ft_strdup(s), npath, head, final);
-			free (npath);
+			r_create_list(ft_strdup(s), npath, head, final);
+			free(npath);
 		}
-		lmatch = lmatch->next;
+		l = l->next;
 	}
 	ft_lstclear(&hmatch, files_del);
 	free(s);
 }
 
-t_list 			*wildcard(t_main *m, char *s)
+t_list			*wildcard(char *s)
 {
 	char		*path;
 	t_list		*head;
@@ -102,7 +104,7 @@ t_list 			*wildcard(t_main *m, char *s)
 		path = ft_strdup("");
 	final = NULL;
 	start = ft_strlen(path);
-	r_create_list(m, s + start, path, &head, &final);
+	r_create_list(s + start, path, &head, &final);
 	if (ft_lstsize(final) == 0)
 	{
 		free(path);

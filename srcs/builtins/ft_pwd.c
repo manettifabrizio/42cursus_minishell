@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:31:04 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/01 11:18:48 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:52:06 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_pwd(t_main *m)
 	}
 	else
 		set_env(m->ehead, "PWD", pwd);
-	printf("%s\n", pwd);
+	ft_putstr(pwd);
 	m->exit_status = 0;
 	return (1);
 }

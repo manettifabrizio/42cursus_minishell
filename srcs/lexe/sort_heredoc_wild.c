@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 22:21:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 15:44:34 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:08:31 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ static int		call_multi_back(char *str)
 	return (0);
 }
 
-static void		replace_wildcard(t_main *m, t_list **cur_tok, t_list *prev)
+static void		replace_wildcard(t_list **cur_tok, t_list *prev)
 {
 	t_list		*wild;
 	t_list		*tmp;
 
-	if ((wild = wildcard(m, ft_strdup(t_access_tok(*cur_tok)->data))))
+	if ((wild = wildcard(ft_strdup(t_access_tok(*cur_tok)->data))))
 	{
 		(prev)->next = wild;
 		wild = ft_lstlast(wild);
@@ -80,7 +80,7 @@ int				sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 				return (0);
 		}
 		else if (t_access_tok(cur_tok)->type == WILDCARD)
-			replace_wildcard(m, &cur_tok, prev);
+			replace_wildcard(&cur_tok, prev);
 		else if (t_access_tok(cur_tok)->type == WORD)
 		{
 			if (call_multi_back(t_access_tok(cur_tok)->data))

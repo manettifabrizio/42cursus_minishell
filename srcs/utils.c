@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:15:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 15:43:40 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:08:47 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void			print_preorder(t_node *node)
 t_uint		count_lines(char *s)
 {
 	int		x;
-	int 	wrd;
+	int		wrd;
 
 	x = 0;
 	wrd = 0;
@@ -49,7 +49,7 @@ t_uint		count_lines(char *s)
 	return (wrd);
 }
 
-void	changing_line(t_cursor *p)
+void		changing_line(t_cursor *p)
 {
 	ft_putstr(CURSOR_UP);
 	(p->lnum)--;

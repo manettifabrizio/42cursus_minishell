@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:21:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 20:06:39 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:37:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		multi_error(t_main *m, t_token_type type)
 {
 	if (type == SQUOTE || type == DQUOTE || type == CLOSE_PAR)
 	{
-		ft_putstr_fd("minish: unexpected EOF while looking for matching", 
+		ft_putstr_fd("minish: unexpected EOF while looking for matching",
 			STDERR_FILENO);
 		if (type == SQUOTE)
 			ft_putstr_fd(" `\''\n", STDERR_FILENO);
@@ -27,7 +27,7 @@ static void		multi_error(t_main *m, t_token_type type)
 	}
 	ft_putstr_fd("minish: ", STDERR_FILENO);
 	ft_putstr_fd(SYNTAX_ERROR, STDERR_FILENO);
-	ft_putstr_fd(": unexpected end of file\n", STDERR_FILENO); 
+	ft_putstr_fd(": unexpected end of file\n", STDERR_FILENO);
 	m->exit_status = 258;
 }
 
@@ -69,7 +69,8 @@ char			*multilines(t_main *m, char *s, t_token_type type)
 	shist = ft_strdup(s);
 	ft_putstr(MULTI_PROMPT);
 	s[0] = '\0';
-	while ((ret = reading(m, &s)) > 0);
+	while ((ret = reading(m, &s)) > 0)
+		;
 	if (ret < 0)
 	{
 		free(s);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 00:39:37 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 00:32:04 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:13:56 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_list			*list_sort_files(t_list **head)
 		}
 		else
 			l = l->next;
-	} // ricontrollare
+	}
 	ft_lstclear(head, free);
 	return (lhead);
 }

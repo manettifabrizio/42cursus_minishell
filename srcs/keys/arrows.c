@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:35:38 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/29 20:53:42 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:10:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		arrow_up(char **s, char **h, t_cursor *p)
 	int		i;
 
 	i = -1;
-	while (h[++i]);
+	i = ft_arrlen(h);
 	if ((p->hnum + 1) == (t_uint)i)
 		return (1);
 	if (p->hnum < (t_uint)(i - 1))
@@ -40,7 +40,7 @@ int		arrow_down(char **s, char **h, t_cursor *p)
 	int		i;
 
 	i = -1;
-	while (h[++i]);
+	i = ft_arrlen(h);
 	home(*s, p);
 	if (p->hnum > 0)
 		(p->hnum)--;
@@ -49,7 +49,6 @@ int		arrow_down(char **s, char **h, t_cursor *p)
 	p->lpos = 0;
 	p->spos = 0;
 	p->lnum = count_lines(h[p->hnum]) - 1;
-	// if (p->hnum > 0)
 	ft_free_array(p->arr);
 	p->arr = split_keep(h[p->hnum], '\n');
 	free(*s);

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 00:34:09 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:26:27 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ void				set_term_cano(struct termios *base_term);
 char				*line_read(t_main *m);
 int					reading(t_main *m, char **s);
 int					check_key(t_main *m, char **s, char *buf);
-int					arrows(t_main *m, char **s, char c);
-int					home_end(char *s, char c, t_cursor *p);
 int					word_move(char *s, t_cursor *p);
 char				*str_print_and_handle(char *s, char *buf, t_cursor *p);
 int					heredoc(t_main *m, char *keywrd);
 int					check_key_heredoc(t_main *m, char **s, char *buf);
 char				*multilines(t_main *m, char *s, t_token_type type);
 int					check_multi(char *s, t_token_type type, int x);
-t_list				*wildcard(t_main *m, char *s);
+t_list				*wildcard(char *s);
 t_list				*star_to_str(char *s, char *path, t_list **head);
 int					starcmp(char *s, char *s1);
 t_list				*create_files_elem(char *s);
@@ -92,7 +90,7 @@ t_node				*build_args(t_list **token, t_main *m);
 int					check(t_token_type tok_type, char **bufferptr,
 						t_list **token);
 int					check_par(t_token_type tok_type, t_list **token);
-t_node				*check_closing_par(int par,t_list **token, t_node *node);
+t_node				*check_closing_par(int par, t_list **token, t_node *node);
 int					check_line_open_par(t_list **token);
 t_node				*check_line_closing_par(t_list **token, t_node *node,
 						t_main *m, int par);
@@ -130,7 +128,6 @@ t_token				*t_access_tok(t_list *lst);
 t_env				*t_access_env(t_list *lst);
 t_files				*t_access_files(t_list *lst);
 t_list				*list_sort_env(t_list **head);
-void				print_list(t_list **head);
 void				ast_delete_node(t_node *node);
 void				ast_set_data(t_node *node, char *data);
 void				ast_set_type(t_node *node, int type);
@@ -138,7 +135,6 @@ void				ast_attach_branch(t_node *root, t_node *left,
 						t_node *right);
 void				ast_attach_right(t_node *root, t_node *right);
 void				print_preorder(t_node *node);
-char				**split_exp(char const *s, char c);
 char				**split_var(char *s);
 char				**split_keep(char *s, char c);
 int					arrow_up(char **s, char **h, t_cursor *p);

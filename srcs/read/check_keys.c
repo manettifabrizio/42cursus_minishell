@@ -6,16 +6,16 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/05 20:00:53 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:22:15 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		move_word_or_column(char *s, t_cursor *p)
+static int		move_word_or_column(char *s, t_cursor *p)
 {
 	char	buf[3];
-	
+
 	read(STDOUT_FILENO, buf, 2);
 	buf[2] = '\0';
 	if (ft_strcmp(buf, ";5") == 0)
@@ -34,7 +34,7 @@ int		move_word_or_column(char *s, t_cursor *p)
 	return (0);
 }
 
-int		home_end(char *s, char c, t_cursor *p)
+static int		home_end(char *s, char c, t_cursor *p)
 {
 	if (c == HOME)
 		return (home(s, p));
@@ -66,7 +66,7 @@ static int		control(t_main *m, char *s, char *buf)
 	return (0);
 }
 
-int		arrows(t_main *m, char **s, char c)
+static int		arrows(t_main *m, char **s, char c)
 {
 	if (c == ARR_UP)
 		return (arrow_up(s, m->hist, m->p));
@@ -79,9 +79,9 @@ int		arrows(t_main *m, char **s, char c)
 	return (0);
 }
 
-int		check_key(t_main *m, char **s, char *buf)
+int				check_key(t_main *m, char **s, char *buf)
 {
-	if (buf[0] == CTRL_C || buf[0] == CTRL_D || 
+	if (buf[0] == CTRL_C || buf[0] == CTRL_D ||
 		buf[0] == CTRL_Z || buf[0] == CTRL_BSLASH)
 		return (control(m, *s, buf));
 	if (buf[0] == TAB)

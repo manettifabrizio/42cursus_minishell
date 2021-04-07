@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:31:41 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/02 12:07:03 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:49:47 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		check_options(char **a, int *x)
 	{
 		if (ft_strncmp(a[*x], "-n", 2) != 0)
 			return (c);
-		i = 1;		
+		i = 1;
 		while (a[*x][++i])
 			if (a[*x][i] != 'n')
 				return (c);

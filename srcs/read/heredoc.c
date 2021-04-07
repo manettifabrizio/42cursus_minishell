@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 19:55:36 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:35:40 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,24 @@ static int		ending(t_main *m, int fd, char *s, t_uint type)
 	return (1);
 }
 
-int		heredoc(t_main *m, char *keywrd)
+static int		check_read_ret(int ret, char *keywrd, char *s, int fd)
+{
+	if (ret == 0 && ft_strcmp(keywrd, s) != 0)
+	{
+		ft_putstr_fd(s, fd);
+		ft_putchar_fd('\n', fd);
+	}
+	if (ret < 0)
+		return (0);
+	return (1);
+}
+
+int				heredoc(t_main *m, char *keywrd)
 {
 	int		fd;
 	char	*s;
 	int		ret;
-	
+
 	set_term_noncano();
 	if (!(fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0640)))
 		return (0);
@@ -41,14 +53,9 @@ int		heredoc(t_main *m, char *keywrd)
 	{
 		ft_putstr(MULTI_PROMPT);
 		(s)[0] = '\0';
-		while ((ret = reading(m, &s)) > 0);
-		if (ret == 0)
-			if (ft_strcmp(keywrd, s) != 0)
-			{
-				ft_putstr_fd(s, fd);
-				ft_putchar_fd('\n', fd);
-			}
-		if (ret < 0)
+		while ((ret = reading(m, &s)) > 0)
+			;
+		if (!(check_read_ret(ret, keywrd, s, fd)))
 			return (ending(m, fd, s, BREAK));
 		m->p->lpos = 0;
 		m->p->hnum = 0;

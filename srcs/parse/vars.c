@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/01 10:45:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:30:30 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char		*vars_replacer(char *s, t_list **head)
 {
-	char 	*tmp;
-	
+	char	*tmp;
+
 	if (ft_strcmp(s, "$") == 0)
 		tmp = ft_strdup("$");
 	else if (!(tmp = ft_strdup(get_env(head, s + 1))))
@@ -44,7 +44,6 @@ static char		*home_replacer(char *s, char *home, t_list **head)
 		else
 			tmp = ft_strdup(s);
 	}
-	// free(s);
 	return (tmp);
 }
 
@@ -52,12 +51,10 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 {
 	int		x;
 	char	*tmp;
-	char 	**a;
-	
+	char	**a;
+
 	x = -1;
-	// printf("check_vars\n");
 	a = split_var(s);
-	// ft_print_array(a, "a");
 	if (a[0])
 		while (a[++x])
 			if (a[x][0] == '$' || a[x][0] == '~')
@@ -71,6 +68,5 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 			}
 	if (!(tmp = ft_merge(a)))
 		malloc_error(m, s, NO_READING);
-	// printf("tmp = %s\n", tmp);
 	return (tmp);
 }

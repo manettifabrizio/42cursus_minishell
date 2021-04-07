@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 14:58:16 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/05 10:08:53 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:51:37 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int		export_var(t_main *m, char **a, t_list **ehead)
 	return (1);
 }
 
-int		ft_export(t_main *m, char **a, t_list **ehead)
+int				ft_export(t_main *m, char **a, t_list **ehead)
 {
 	t_list	*l;
 	t_env	*tmp;
@@ -103,14 +103,16 @@ int		ft_export(t_main *m, char **a, t_list **ehead)
 		{
 			tmp = t_access_env(l);
 			if (tmp->value)
-				printf ("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
 			else
-				printf ("declare -x %s\n", tmp->name);
+				printf("declare -x %s\n", tmp->name);
 			l = l->next;
 		}
 	else
+	{
 		if (!(export_var(m, a, ehead)))
 			malloc_error(m, NULL, NO_READING);
+	}
 	m->exit_status = (m->exit_status == -1) ? 1 : 0;
 	ft_lstclear(&lhead, free);
 	return (1);

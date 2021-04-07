@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:19:51 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 20:59:47 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:18:28 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ending(char **a, int ret)
+static int		ending(char **a, int ret)
 {
 	ft_free_array(a);
 	return (ret);
@@ -26,7 +26,8 @@ static int		beginning_and_end(char *s, char *fname)
 	if (s[0] != '*')
 	{
 		i = -1;
-		while (s[++i] != '*');
+		while (s[++i] != '*')
+			;
 		if (ft_strncmp(s, fname, i) != 0)
 			return (0);
 	}
@@ -82,7 +83,7 @@ static int		is_star(char *s)
 	return (1);
 }
 
-int		starcmp(char *s, char *fname)
+int				starcmp(char *s, char *fname)
 {
 	int		ret;
 	char	**a;

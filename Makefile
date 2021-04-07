@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: viroques <viroques@student.42.fr>          +#+  +:+       +#+         #
+#    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/06 23:08:34 by viroques         ###   ########.fr        #
+#    Updated: 2021/04/07 14:28:47 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ FILES		=	minishell.c							\
 				parse/env_path_parser.c				\
 				parse/lists/t_access.c				\
 				parse/lists/list_sort_env.c			\
-				parse/lists/print_list.c			\
-				parse/split/split_exp.c				\
 				parse/split/split_var.c				\
 				parse/split/split_keep.c			\
 				parse/build/args.c					\
