@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 00:30:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 11:53:39 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ char		*cut_str(char *s, int type)
 		i++;
 	if (type == 0)
 		return (ft_substr(s, 0, i));
-	else if (type == 1)
+	if (type == 1)
 	{
 		i++;
-		return (ft_substr(s, i, ft_strlen(s) - i));
+		char *tmp = ft_substr(s, i, ft_strlen(s) - i);
+		free(s);
+		return (tmp);
 	}
 	return (s);
 }
@@ -34,10 +36,8 @@ int			is_dir(char *path, char *fname)
 	char			*npath;
 	struct stat		buf;
 
-	// printf("\npath = %s\nfname = %s\n", path, fname);
-	npath = ft_strjoin(path, fname);
-	npath = ft_strjoin(npath, "/");
-	// printf("frankenpath = %s\n", path);
+	npath = ft_strjoin_nl(path, fname);
+	npath = ft_strjoin_nl(npath, "/");
 	stat(npath, &buf);
 	free(npath);
 	if (S_ISDIR(buf.st_mode))
@@ -78,7 +78,8 @@ void	r_create_list(t_main *m, char *s, char *path, t_list **head, t_list **final
 		{
 			npath = ft_strjoin(path, fname);
 			npath = ft_strjoin_nl(npath, "/");
-			r_create_list(m, s, npath, head, final);
+			r_create_list(m, ft_strdup(s), npath, head, final);
+			free (npath);
 		}
 		lmatch = lmatch->next;
 	}
@@ -102,7 +103,6 @@ t_list 			*wildcard(t_main *m, char *s)
 	final = NULL;
 	start = ft_strlen(path);
 	r_create_list(m, s + start, path, &head, &final);
-	free(s);
 	if (ft_lstsize(final) == 0)
 	{
 		free(path);
