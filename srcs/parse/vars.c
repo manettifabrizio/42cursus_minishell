@@ -6,17 +6,19 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 14:30:30 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:06:36 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		*vars_replacer(char *s, t_list **head)
+static char		*vars_replacer(char *s, t_list **head, int exit_status)
 {
 	char	*tmp;
 
-	if (ft_strcmp(s, "$") == 0)
+	if (ft_strcmp(s, "$?") == 0)
+		tmp = ft_itoa(exit_status);
+	else if (ft_strcmp(s, "$") == 0)
 		tmp = ft_strdup("$");
 	else if (!(tmp = ft_strdup(get_env(head, s + 1))))
 		tmp = ft_strdup("");
@@ -42,7 +44,10 @@ static char		*home_replacer(char *s, char *home, t_list **head)
 		else if (ft_strncmp(s, "~/", 2) == 0)
 			tmp = ft_strjoin_nl(tmp, s + 2);
 		else
+		{
+			free(tmp);
 			tmp = ft_strdup(s);
+		}
 	}
 	return (tmp);
 }
@@ -59,12 +64,13 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 		while (a[++x])
 			if (a[x][0] == '$' || a[x][0] == '~')
 			{
-				if (ft_strcmp(a[x], "$?") == 0)
-					a[x] = ft_itoa(exit_status);
-				else if (a[x][0] == '~')
+				if (a[x][0] == '~')
+				{
+					free(a[x]);
 					a[x] = home_replacer(s, m->home, head);
+				}
 				else
-					a[x] = vars_replacer(a[x], head);
+					a[x] = vars_replacer(a[x], head, exit_status);
 			}
 	if (!(tmp = ft_merge(a)))
 		malloc_error(m, s, NO_READING);

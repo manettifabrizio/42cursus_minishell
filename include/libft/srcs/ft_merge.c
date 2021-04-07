@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 16:12:21 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 17:23:27 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:00:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_merge(char **a)
 		if (x == 0)
 			ft_strcpy(s, a[x]);
 		else
-			ft_strcpy(s + ft_strlen(s), a[x]);
+			ft_strcpy(s + ft_strlen(a[x - 1]), a[x]);
 	s[len] = '\0';
 	ft_free_array(a);
 	return (s);

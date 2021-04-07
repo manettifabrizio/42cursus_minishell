@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:31:45 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/01/28 17:24:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:59:10 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ char			*ft_itoa(int n)
 	char	*s;
 
 	i = lenght(n);
-	if (!(s = (char*)malloc((i + 1) * sizeof(char))))
-		return (0);
-	s[i] = '\0';
-	i--;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	if (n == 0)
 		return (ft_strdup("0"));
+	if (!(s = (char*)malloc((i + 1) * sizeof(char))))
+		return (0);
+	s[i] = '\0';
+	i--;
 	if (n < 0)
 	{
 		s[0] = '-';

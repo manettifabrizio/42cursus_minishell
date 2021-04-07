@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 13:38:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:15:42 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char		*str_is_space(char *s)
 		if (!(ft_isspace(s[i])))
 			return (s);
 	free(s);
-	return (ft_strdup(""));
+	return (NULL);
 }
 
 int				reading(t_main *m, char **s)

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 22:21:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 14:35:37 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:10:04 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 		if (t_access_tok(cur_tok)->type == DLESSER)
 		{
 			if (!replace_heredoc(m, cur_tok, prev))
-				return (0);
+				return (-1);
 		}
 		else if (t_access_tok(cur_tok)->type == WILDCARD)
 			replace_wildcard(&cur_tok, prev);

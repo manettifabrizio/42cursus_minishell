@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:35:25 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 13:35:40 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:43:05 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int				heredoc(t_main *m, char *keywrd)
 	int		ret;
 
 	set_term_noncano();
-	if (!(fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0640)))
+	if ((fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0640)) < 0)
+	{
+		set_term_cano(m->base_term);
 		return (0);
+	}
 	s = ft_strdup("");
 	m->p->multi = 1;
 	while (ft_strcmp(keywrd, s) != 0)
