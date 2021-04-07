@@ -6,20 +6,11 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/06 22:53:12 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:45:05 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void			print_preorder(t_node *node)
-{
-	if (node == NULL)
-		return ;
-	printf("%s %i par%i\n", node->data, node->type, node->parenthese);
-	print_preorder(node->left);
-	print_preorder(node->right);
-}
 
 int				return_parse(t_list *tokens, t_node **exec_tree, \
 	t_lexer *lexer, t_main *m)
@@ -42,7 +33,33 @@ int				return_parse(t_list *tokens, t_node **exec_tree, \
 	return (1);
 }
 
-void			sort_parenthese(t_node *exec_tree)
+void				count_closing_parenthese(t_list **tokens, t_lexer *lexer)
+{
+	t_list	*tok;
+	t_list	*prev;
+	int		close;
+	int		open;
+
+	tok = lexer->tokens;
+	open = 0;
+	close = 0;
+	while (tok)
+	{
+		if (t_access_tok(tok)->type == CLOSE_PAR)
+			close++;
+		if (t_access_tok(tok)->type == OPEN_PAR)
+			open++;
+		prev = tok;
+		tok = tok->next;
+	}
+	if (close > open)
+	{
+		*tokens = prev;
+		t_access_tok(*tokens)->type = OPEN_PAR;
+	}
+}
+
+void			sort_parenthese(t_node *exec_tree, t_list **tokens, t_lexer *lexer)
 {
 	t_node *node;
 
@@ -56,6 +73,7 @@ void			sort_parenthese(t_node *exec_tree)
 		}
 		node = node->right;
 	}
+	count_closing_parenthese(tokens, lexer);
 }
 
 int				call_multiligne(t_lexer *lexer, t_list *tokens)
@@ -92,7 +110,7 @@ int				parse(t_lexer *lexer, t_node **exec_tree, char **s, t_main *m)
 
 	tokens = lexer->tokens;
 	*exec_tree = build_line(&(tokens), m);
-	sort_parenthese(*exec_tree);
+	sort_parenthese(*exec_tree, &tokens, lexer);
 	if (call_multiligne(lexer, tokens))
 	{
 		if ((*s = multilines(m, *s, t_access_tok(tokens)->type)))

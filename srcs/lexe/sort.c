@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 12:23:06 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 14:08:51 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:48:03 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		count_parenthese(t_lexer *lexer)
 			close++;
 		cur_tok = cur_tok->next;
 	}
-	if (open != close)
+	if (open > close)
 		return (CLOSE_PAR);
 	return (0);
 }
