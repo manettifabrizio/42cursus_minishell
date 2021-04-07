@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_heredoc_wild.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 22:21:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 11:53:34 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:09:24 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void		replace_wildcard(t_main *m, t_list **cur_tok, t_list *prev)
 		wild->next = (*cur_tok)->next;
 		tmp = *cur_tok;
 		*cur_tok = wild;
-		if (t_access_tok(tmp)->data)
-			free(t_access_tok(tmp)->data);
+		free(t_access_tok(tmp)->data);
+		free(t_access_tok(tmp));
 		free(tmp);
 	}
 	else
@@ -71,7 +71,7 @@ int				sort_heredoc_and_wildcard(t_main *m, t_lexer *lexer)
 	t_list		*prev;
 
 	cur_tok = lexer->tokens->next;
-	prev = cur_tok->next;
+	prev = lexer->tokens;
 	while (cur_tok)
 	{
 		if (t_access_tok(cur_tok)->type == DLESSER)
