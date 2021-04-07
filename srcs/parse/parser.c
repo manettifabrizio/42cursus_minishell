@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:59 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/07 16:45:53 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:17:31 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,24 @@ int			call_multiligne(t_lexer *lexer, t_list *tokens)
 	return (0);
 }
 
-int			parse(t_lexer *lexer, t_node **exec_tree, char **s, t_main *m)
+int			parse(t_lexer **lexer, t_node **exec_tree, char **s, t_main *m)
 {
 	t_list	*tokens;
 
-	tokens = lexer->tokens;
+	tokens = (*lexer)->tokens;
 	*exec_tree = build_line(&(tokens), m);
-	sort_parenthese(*exec_tree, &tokens, lexer);
-	if (call_multiligne(lexer, tokens))
+	sort_parenthese(*exec_tree, &tokens, *lexer);
+	if (call_multiligne(*lexer, tokens))
 	{
 		if ((*s = multilines(m, *s, t_access_tok(tokens)->type)))
 		{
-			lexer = build_lexer(m, s);
+			free_lexer(*lexer);
+			*lexer = build_lexer(m, s);
 			ast_delete_node(*exec_tree);
 			return (parse(lexer, exec_tree, s, m));
 		}
 		else
 			return (0);
 	}
-	return (return_parse(tokens, exec_tree, lexer, m));
+	return (return_parse(tokens, exec_tree, *lexer, m));
 }

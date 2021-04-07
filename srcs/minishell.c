@@ -6,7 +6,7 @@
 /*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 16:45:49 by viroques         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:12:19 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				main(int ac, char **av, char **env)
 		prompt(m->exit_status);
 		if ((s = line_read(m)))
 			if ((lexer = build_lexer(m, &s)))
-				if (parse(lexer, &exec_tree, &s, m))
+				if (parse(&lexer, &exec_tree, &s, m))
 				{
 					execute_command_line(m, exec_tree, 0);
 					ast_delete_node(exec_tree);

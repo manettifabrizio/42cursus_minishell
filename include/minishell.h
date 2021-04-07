@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viroques <viroques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 17:20:39 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 20:12:14 by viroques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char				**path_parser(t_list **head);
 char				*get_env(t_list **head, char *name);
 void				set_env(t_list **head, char *name, char *value);
 t_list				*create_env_elem(char *s);
-int					parse(t_lexer *lexer, t_node **exec_tree, char **s,
+int					parse(t_lexer **lexer, t_node **exec_tree, char **s,
 						t_main *m);
 t_node				*build_line(t_list **token, t_main *m);
 t_node				*build_job(t_list **token, t_main *m);
