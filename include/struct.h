@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 11:26:01 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 11:10:49 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:08:53 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@ typedef	struct		s_env
 
 typedef struct		s_cursor
 {
-	t_uint			multi;	// Value that indicates if we are in multilines mode
-	t_uint			lpos;	// Cursor position in line
-	t_uint			spos;	// Cursor position in whole string
-	t_uint			hnum;	// Line position in history array 
-	t_uint			lnum;	// Line position in multilines
-	char			**arr;	// Array used in multilines
+	t_uint			multi;
+	t_uint			lpos;
+	t_uint			spos;
+	t_uint			hnum;
+	t_uint			lnum;
+	char			**arr;
 }					t_cursor;
 
 typedef struct		s_files
 {
 	char			*name;
 }					t_files;
-
 
 typedef enum		e_token_type{
 	SEMICOLON,
@@ -92,13 +91,13 @@ typedef struct		s_node {
 	struct s_node	*right;
 }					t_node;
 
-typedef struct		s_std{
-	int fd_in;
-	int	fd_out;
-	int fd[2];
-	int	tmp_in;
-	int	tmp_out;
-}				t_std;
+typedef struct		s_std {
+	int				fd_in;
+	int				fd_out;
+	int				fd[2];
+	int				tmp_in;
+	int				tmp_out;
+}					t_std;
 
 typedef	struct		s_main
 {

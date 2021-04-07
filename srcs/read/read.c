@@ -6,16 +6,28 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 13:57:29 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:38:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		reading(t_main *m, char **s)
+static char		*str_is_space(char *s)
+{
+	int		i;
+
+	i = -1;
+	while (s[++i])
+		if (!(ft_isspace(s[i])))
+			return (s);
+	free(s);
+	return (ft_strdup(""));
+}
+
+int				reading(t_main *m, char **s)
 {
 	char	buf[2];
-	
+
 	ft_bzero(buf, 2);
 	read(STDOUT_FILENO, buf, 1);
 	m->p->arr = split_keep(*s, '\n');
@@ -32,22 +44,10 @@ int		reading(t_main *m, char **s)
 	return (1);
 }
 
-static char		*str_is_space(char *s)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-		if (!(ft_isspace(s[i])))
-			return (s);
-	free(s);
-	return (ft_strdup(""));
-}
-
-char	*line_read(t_main *m)
+char			*line_read(t_main *m)
 {
 	char	*s;
-	
+
 	s = ft_strdup("");
 	if (!(m->hist = add_history(s, m->hist)))
 		malloc_error(m, s, READING);

@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 15:30:49 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 00:19:16 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:15:11 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		files_parser(char *path, t_list **head)
+static void		files_parser(char *path, t_list **head)
 {
 	DIR				*dir_stream;
 	struct dirent	*dir;
@@ -34,7 +34,7 @@ void		files_parser(char *path, t_list **head)
 	free(tmp_path);
 }
 
-t_list		*find_matches(char *s, t_list **head)
+static t_list	*find_matches(char *s, t_list **head)
 {
 	t_list	*l;
 	t_list	*hmatch;
@@ -54,7 +54,7 @@ t_list		*find_matches(char *s, t_list **head)
 	return (hmatch);
 }
 
-t_list		*star_to_str(char *s, char *path, t_list **head)
+t_list			*star_to_str(char *s, char *path, t_list **head)
 {
 	*head = NULL;
 	if (ft_strcmp(s, "") == 0)

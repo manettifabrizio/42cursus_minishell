@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:11:18 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 18:56:44 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:14:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,14 @@ static int		init_shell(t_main **m, char **env)
 	(*m)->base_term = malloc(sizeof(struct termios));
 	if (!((*m)->ehead) || !((*m)->home) || !((*m)->p) ||
 		!((*m)->hist) || !((*m)->base_term))
-			return (0);
+		return (0);
 	init_cursor((*m)->p);
-	(*m)->hist_path = ft_strjoin(get_env((*m)->ehead, "PWD"), "/.minish_history");
+	(*m)->hist_path = ft_strjoin(get_env((*m)->ehead, "PWD"),
+		"/.minish_history");
 	(*m)->pathdirs = path_parser((*m)->ehead);
 	(*m)->exit_status = 0;
 	tcgetattr(STDIN_FILENO, (*m)->base_term);
 	return (1);
-}
-
-void			print_lst_tokens(t_lexer *lexer)
-{
-	t_list	*toto;
-
-	toto = lexer->tokens;
-	printf("\n LEXER \n");
-	while (toto)
-	{
-		t_token *t = toto->content;
-		printf("%s     ---------- %u\n", t->data, t->type);
-		toto = toto->next;
-	}
-	printf("nb=%d\n", lexer->nb_tokens);
 }
 
 int				main(int ac, char **av, char **env)

@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 01:20:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/10 01:20:41 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:23:02 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	char	*create(char **tmp)
+static char		*create(char **tmp)
 {
 	if (!(*tmp))
 	{
@@ -23,7 +23,7 @@ static	char	*create(char **tmp)
 	return (*tmp);
 }
 
-static	void	ft_cut(char **line, char **str)
+static void		ft_cut(char **line, char **str)
 {
 	int		x;
 	char	*tmp;
@@ -94,7 +94,7 @@ int				get_next_separator(int fd, char **line)
 		tmp = ft_strjoin(tmp2, buf);
 		free(tmp2);
 		if (ft_strchr(buf, 31))
-			break;
+			break ;
 	}
 	if (bd < 0)
 		return (-1);

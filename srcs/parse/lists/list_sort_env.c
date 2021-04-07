@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 20:23:19 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/25 00:39:32 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:23:59 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void		null(t_list **lhead)
 {
+	ft_lstclear(lhead, env_del);
 	lhead = NULL;
 }
 

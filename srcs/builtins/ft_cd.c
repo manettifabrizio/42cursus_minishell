@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:30:11 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/27 15:22:44 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:49:04 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,16 @@ int				corrector_is_bastard(t_main *m, char *s)
 		set_env(m->ehead, "OLDPWD", get_env(m->ehead, "PWD"));
 		set_env(m->ehead, "PWD", ft_strjoin(get_env(m->ehead, "PWD"), "/.."));
 	}
-		return (status_error(m, ERRNO, 0, " error retrieving current \
-directory: getcwd: cannot access parent directories:"));
+	ft_putstr_fd("minish: ", STDERR_FILENO);
+	ft_putstr_fd(ERROR, STDERR_FILENO);
+	ft_putchar_fd(':', STDERR_FILENO);
+	ft_putstr_fd("error retrieving current directory: ", STDERR_FILENO);
+	ft_putstr_fd("getcwd: cannot access parent directories:", STDERR_FILENO);
+	ft_putchar_fd(' ', STDERR_FILENO);
+	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	m->exit_status = 0;
+	return (1);
 }
 
 int				ft_cd(t_main *m, char *s)
@@ -61,6 +69,6 @@ int				ft_cd(t_main *m, char *s)
 	if (ft_strcmp(get_env(m->ehead, "PWD"), path) != 0)
 		set_env(m->ehead, "OLDPWD", get_env(m->ehead, "PWD"));
 	set_env(m->ehead, "PWD", path);
-	m->exit_status = 0; // Deve essere alla fine visto che cd è soggetto alle variabili
+	m->exit_status = 0;
 	return (1);
 }

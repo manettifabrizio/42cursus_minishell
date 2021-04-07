@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 19:40:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/31 11:20:23 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:52:54 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static int		check_errors(t_main *m, char *s)
 	return (0);
 }
 
-int		ft_unset(t_main *m, char **a, t_list **head)
+int				ft_unset(t_main *m, char **a, t_list **head)
 {
-	int x;
+	int		x;
 	t_list	*l;
 	t_list	*prev;
 

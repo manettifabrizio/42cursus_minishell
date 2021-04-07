@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:23:03 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/03/30 15:05:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:21:15 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_list		*create_env_elem(char *s)
 		return (0);
 	i = 0;
 	while (s[i] && s[i] != '=')
-			i++;
+		i++;
 	if (s)
 		l->name = ft_substr(s, 0, i);
 	if (s[i] && !s[i + 1])
@@ -38,7 +38,7 @@ t_list		*create_env_elem(char *s)
 
 void		env_parser(t_list **head, char **env)
 {
-	int		x; //segfault se c'è un  problema
+	int		x;
 	t_list	*tmp;
 
 	x = -1;
@@ -79,7 +79,7 @@ void		set_env(t_list **head, char *name, char *value)
 	}
 }
 
-char			**path_parser(t_list **head)
+char		**path_parser(t_list **head)
 {
 	int		x;
 	char	**path;

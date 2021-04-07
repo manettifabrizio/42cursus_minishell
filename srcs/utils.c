@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:15:14 by viroques          #+#    #+#             */
-/*   Updated: 2021/03/25 16:27:31 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:15:08 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_uint		count_lines(char *s)
 {
 	int		x;
-	int 	wrd;
+	int		wrd;
 
 	x = 0;
 	wrd = 0;
@@ -40,7 +40,7 @@ t_uint		count_lines(char *s)
 	return (wrd);
 }
 
-void	changing_line(t_cursor *p)
+void		changing_line(t_cursor *p)
 {
 	ft_putstr(CURSOR_UP);
 	(p->lnum)--;
