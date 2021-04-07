@@ -6,13 +6,13 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 11:55:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 23:32:59 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/07 23:37:43 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		word_right(char *s, t_cursor *p)
+int				word_right(char *s, t_cursor *p)
 {
 	t_uint	i;
 	t_uint	len;
@@ -42,7 +42,7 @@ static int		move_left(char *s, t_cursor *p, int i)
 	return (i - 1);
 }
 
-int		word_left(char *s, t_cursor *p)
+int				word_left(char *s, t_cursor *p)
 {
 	int		i;
 	t_uint	len;
@@ -67,7 +67,7 @@ int		word_left(char *s, t_cursor *p)
 	return (1);
 }
 
-int		column_up(char *s, t_cursor *p)
+int				column_up(char *s, t_cursor *p)
 {
 	t_uint lpos;
 
@@ -83,7 +83,7 @@ int		column_up(char *s, t_cursor *p)
 	return (1);
 }
 
-int		column_down(char *s, t_cursor *p)
+int				column_down(char *s, t_cursor *p)
 {
 	t_uint lpos;
 

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 13:37:24 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 22:32:47 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 00:10:25 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <termios.h>
 # include <math.h>
 # include <sys/wait.h>
-# include <sys/stat.h>
 # include <sys/errno.h>
 # include <sys/types.h>
 # include "struct.h"

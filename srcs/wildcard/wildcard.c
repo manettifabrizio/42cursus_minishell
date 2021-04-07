@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 14:36:44 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 14:09:52 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 00:10:15 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 static int		is_dir(char *path, char *fname)
 {
-	char			*npath;
-	struct stat		buf;
+	char	*npath;
+	DIR		*dir;
 
 	npath = ft_strjoin_nl(path, fname);
 	npath = ft_strjoin_nl(npath, "/");
-	stat(npath, &buf);
-	free(npath);
-	if (S_ISDIR(buf.st_mode))
+	if ((dir = opendir(npath)))
+	{
+		closedir(dir);
+		free(npath);
 		return (1);
+	}
+	free(npath);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 14:19:51 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 13:18:28 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 00:01:01 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ static int		beginning_and_end(char *s, char *fname)
 	int		i;
 	t_uint	len;
 
-	if (s[0] != '*')
+	if (s[0] && s[0] != '*')
 	{
-		i = -1;
-		while (s[++i] != '*')
-			;
+		i = 0;
+		while (s[i] && s[i] != '*')
+			i++;
 		if (ft_strncmp(s, fname, i) != 0)
 			return (0);
 	}
 	len = ft_strlen(s) - 1;
-	if (s[len] != '*')
+	if (s[len] && s[len] != '*')
 	{
 		i = len;
 		len = ft_strlen(fname) - 1;
