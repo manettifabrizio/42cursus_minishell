@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:02:50 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 16:06:36 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 11:16:09 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char		*vars_replacer(char *s, t_list **head, int exit_status)
 	return (tmp);
 }
 
-static char		*home_replacer(char *s, char *home, t_list **head)
+static char		*home_replacer(char *s, char *as, char *home, t_list **head)
 {
 	int		len;
 	char	*tmp;
@@ -34,6 +34,9 @@ static char		*home_replacer(char *s, char *home, t_list **head)
 
 	username = get_env(head, "USER");
 	len = ft_strlen(username);
+	if (s[ft_strlen(as)] == '$')
+		return (as);
+	free(as);
 	if (ft_strcmp(s, "~") == 0 || ft_strcmp(s + 1, username) == 0)
 		tmp = ft_strdup(home);
 	else
@@ -66,8 +69,7 @@ char			*check_vars(t_main *m, char *s, t_list **head, int exit_status)
 			{
 				if (a[x][0] == '~')
 				{
-					free(a[x]);
-					a[x] = home_replacer(s, m->home, head);
+					a[x] = home_replacer(s, a[x], m->home, head);
 				}
 				else
 					a[x] = vars_replacer(a[x], head, exit_status);
