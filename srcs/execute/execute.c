@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 16:14:51 by viroques          #+#    #+#             */
-/*   Updated: 2021/04/08 01:45:34 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 11:02:31 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ static void		execute_job(t_main *m, char **s, t_node *job, int logic_type)
 	}
 }
 
-void			execute_command_line(t_main *m, char **s, t_node *cmd_line, int type)
+void			execute_command_line(t_main *m, char **s, t_node *cmd_line,
+	int type)
 {
 	if (!cmd_line)
 		return ;

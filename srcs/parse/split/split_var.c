@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 01:16:29 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:07 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/08 11:00:26 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		count_wrd(char *s)
 			if (x == 0 || (x > 0 && s[x - 1] != '\\'))
 				wrd++;
 			x++;
-			while (s[x] && (ft_isalpha(s[x]) || s[x] == '?'))
+			while (s[x] && (ft_isalpha(s[x]) || s[x] == '_' || s[x] == '?'))
 				x++;
 		}
 		else
@@ -43,7 +43,7 @@ static int		is_var(char *s, char **a, int x)
 	int		start;
 
 	start = x - 1;
-	while (s[x] && (ft_isalpha(s[x]) || s[x] == '?'))
+	while (s[x] && (ft_isalpha(s[x]) || s[x] == '_' || s[x] == '?'))
 		x++;
 	(*a) = ft_substr(s, start, x - start);
 	return (x);
