@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/08 00:37:01 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/04/08 17:20:46 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,11 +131,6 @@ $(NAME): $(OBJ) $(HEADERS) $(INCLUDE)
 lib:
 	@make re bonus -C include/libft
 	@make clean -C include/libft
-
-key:
-	@gcc -o key keycode.c $(CFLAGS)
-	@./key
-	@rm key
 
 clean:
 	@/bin/rm -f $(OBJ)
