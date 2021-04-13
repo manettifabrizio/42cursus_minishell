@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 20:23:19 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 14:23:59 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/13 16:18:59 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ t_list			*list_sort_env(t_list **head)
 		tmp->next = t_access_env(l->next);
 		if (ft_strcmp(tmp->name, (tmp->next)->name) > 0)
 		{
-			ft_swap_s(&(tmp->name), &((tmp->next)->name));
-			ft_swap_s(&(tmp->value), &((tmp->next)->value));
+			ft_swap_c(&(tmp->name), &((tmp->next)->name));
+			ft_swap_c(&(tmp->value), &((tmp->next)->value));
 			l = lhead;
 		}
 		else

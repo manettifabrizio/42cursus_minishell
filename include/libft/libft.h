@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:15:22 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/06 17:26:25 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:46:09 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-char				**ft_sort_array(char **a);
+int					*ft_sort_array_i(int *a);
+char				**ft_sort_array_c(char **a);
 char				**ft_split(const char *s, char c);
 char				*ft_itoa(int n);
 char				*ft_merge(char **a);
@@ -93,6 +94,6 @@ void				ft_putstr(char *str);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_swap(int *a, int *b);
 void				ft_swap_f(double *a, double *b);
-void				ft_swap_s(char **s1, char **s2);
+void				ft_swap_c(char **s1, char **s2);
 
 #endif

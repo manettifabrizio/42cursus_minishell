@@ -6,107 +6,111 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/08 17:20:46 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/04/13 16:26:03 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	minish
+NAME			=	minish
 
-FILES		=	minishell.c							\
-				read/read.c							\
-				read/check_keys.c					\
-				read/str_print_and_handle.c			\
-				read/get_next_separator.c			\
-				read/heredoc.c						\
-				read/multilines.c					\
-				lexe/lexer.c						\
-				lexe/create_tokens.c				\
-				lexe/split_separator.c 				\
-				lexe/split_separator_utils.c 		\
-				lexe/sort.c 						\
-				lexe/sort_utils.c 					\
-				lexe/lexe_utils.c 					\
-				lexe/check_tokens.c 				\
-				lexe/add_word.c 					\
-				lexe/sort_heredoc_wild.c 			\
-				lexe/sort_spaces_quotes.c 			\
-				parse/env_path_parser.c				\
-				parse/lists/t_access.c				\
-				parse/lists/list_sort_env.c			\
-				parse/split/split_var.c				\
-				parse/split/split_keep.c			\
-				parse/build/args.c					\
-				parse/build/builtin.c				\
-				parse/build/command.c				\
-				parse/build/command2.c 				\
-				parse/build/job.c					\
-				parse/build/line.c					\
-				parse/parser.c						\
-				parse/check_parse_utils.c 			\
-				parse/vars.c						\
-				wildcard/star_to_str.c				\
-				wildcard/list_sort_files.c			\
-				wildcard/starcmp.c					\
-				wildcard/wild_lists.c				\
-				wildcard/wildcard.c					\
-				keys/arrows.c						\
-				keys/control.c						\
-				keys/delete.c						\
-				keys/home_end.c						\
-				keys/move_word_or_column.c			\
-				keys/keys_utils.c					\
-				history/init_history.c				\
-				history/history.c					\
-				history/make_history.c				\
-				execute/path.c						\
-				execute/signals_term.c				\
-				execute/execute.c					\
-				execute/execute_pipe_utils.c 		\
-				execute/execute_bin.c				\
-				execute/create_cmd_table.c 			\
-				execute/exit_status.c				\
-				execute/redirection.c				\
-				execute/change_data.c				\
-				builtins/builtins.c					\
-				builtins/ft_echo.c					\
-				builtins/ft_cd.c					\
-				builtins/ft_pwd.c					\
-				builtins/ft_export.c				\
-				builtins/ft_unset.c					\
-				builtins/ft_env.c					\
-				builtins/ft_exit.c					\
-				ast_tree/ast_tree.c					\
-				ast_tree/create_node.c 				\
-				errors_and_free/error.c				\
-				errors_and_free/free.c
+FILES			=	minishell.c							\
+					read/read.c							\
+					read/check_keys.c					\
+					read/str_print_and_handle.c			\
+					read/get_next_separator.c			\
+					read/heredoc.c						\
+					read/multilines.c					\
+					lexe/lexer.c						\
+					lexe/create_tokens.c				\
+					lexe/split_separator.c 				\
+					lexe/split_separator_utils.c 		\
+					lexe/sort.c 						\
+					lexe/sort_utils.c 					\
+					lexe/lexe_utils.c 					\
+					lexe/check_tokens.c 				\
+					lexe/add_word.c 					\
+					lexe/sort_heredoc_wild.c 			\
+					lexe/sort_spaces_quotes.c 			\
+					parse/env_path_parser.c				\
+					parse/lists/t_access.c				\
+					parse/lists/list_sort_env.c			\
+					parse/split/split_var.c				\
+					parse/split/split_keep.c			\
+					parse/build/args.c					\
+					parse/build/builtin.c				\
+					parse/build/command.c				\
+					parse/build/command2.c 				\
+					parse/build/job.c					\
+					parse/build/line.c					\
+					parse/parser.c						\
+					parse/check_parse_utils.c 			\
+					parse/vars.c						\
+					wildcard/star_to_str.c				\
+					wildcard/list_sort_files.c			\
+					wildcard/starcmp.c					\
+					wildcard/wild_lists.c				\
+					wildcard/wildcard.c					\
+					keys/arrows.c						\
+					keys/control.c						\
+					keys/delete.c						\
+					keys/home_end.c						\
+					keys/move_word_or_column.c			\
+					keys/keys_utils.c					\
+					history/init_history.c				\
+					history/history.c					\
+					history/make_history.c				\
+					execute/path.c						\
+					execute/signals_term.c				\
+					execute/execute.c					\
+					execute/execute_pipe_utils.c 		\
+					execute/execute_bin.c				\
+					execute/create_cmd_table.c 			\
+					execute/exit_status.c				\
+					execute/redirection.c				\
+					execute/change_data.c				\
+					builtins/builtins.c					\
+					builtins/ft_echo.c					\
+					builtins/ft_cd.c					\
+					builtins/ft_pwd.c					\
+					builtins/ft_export.c				\
+					builtins/ft_unset.c					\
+					builtins/ft_env.c					\
+					builtins/ft_exit.c					\
+					ast_tree/ast_tree.c					\
+					ast_tree/create_node.c 				\
+					errors_and_free/error.c				\
+					errors_and_free/free.c
+FILES_PATH		=	./srcs/
 
-HFILES		=	minishell.h							\
-				struct.h							\
-				macros.h					
 
-LIB			=	libft.a
+HFILES			=	minishell.h							\
+					struct.h							\
+					macros.h
+HFILES_PATH		=	./include/
 
-SOURCE		=	$(addprefix ./srcs/, $(FILES))
-HEADERS		=	$(addprefix ./include/, $(HFILES))
-INCLUDE		=	$(addprefix ./include/libft/, $(LIB))
+LIB				=	libft.a
+LIB_PATH		=	./include/libft/
 
-OBJ			=	$(SOURCE:%.c=%.o)
+SOURCE			=	$(addprefix $(FILES_PATH), $(FILES))
+HEADERS			=	$(addprefix $(HFILES_PATH), $(HFILES))
+LIBRARY			=	$(addprefix $(LIB_PATH), $(LIB))
 
-CC			= 	clang
+OBJ				=	$(SOURCE:%.c=%.o)
 
-CFLAGS		=   -I include/ -Wall -Wextra -Werror
-FSANITIZE	= 	-g3 -O0 -fsanitize=address
+CC				= 	clang
 
-RED			=	\033[0;31m
-GREEN		=	\033[0;32m
-WHITE		=	\033[0m
+CFLAGS			=   -I $(HFILES_PATH) -Wall -Wextra -Werror
+FSANITIZE		= 	-g3 -O0 -fsanitize=address
+
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+NO_COLOR		=	\033[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADERS) $(INCLUDE)
+$(NAME): $(OBJ) $(HEADERS) $(LIBRARY)
 	@printf "[ $(NAME) ] Compiling...\r"
-	@($(CC) -o $(NAME) $(SOURCE) $(INCLUDE) $(CFLAGS))
-	@printf "${GREEN}"
+	@($(CC) -o $(NAME) $(SOURCE) $(LIBRARY) $(CFLAGS))
+	@printf "$(GREEN)"
 	@printf "                          iiii                     iiii                  hhhhhhh                                lllllll lllllll  \n"
 	@printf "                         i::::i                   i::::i                 h:::::h                                l:::::l l:::::l  \n"
 	@printf "                          iiii                     iiii                  h:::::h                                l:::::l l:::::l  \n"
@@ -123,23 +127,28 @@ $(NAME): $(OBJ) $(HEADERS) $(INCLUDE)
 	@printf "m::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::is::::::::::::::s h:::::h     h:::::h e::::::::eeeeeeee l::::::ll::::::l \n"
 	@printf "m::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i s:::::::::::ss  h:::::h     h:::::h  ee:::::::::::::e l::::::ll::::::l \n"
 	@printf "mmmmmm   mmmmmm   mmmmmmiiiiiiii nnnnnn    nnnnnniiiiiiii  sssssssssss    hhhhhhh     hhhhhhh    eeeeeeeeeeeeee llllllllllllllll \n"
-	@printf "${WHITE}"
+	@printf "$(NO_COLOR))"
 	@printf "┏┓ ╻ ╻   ┏━╸┏┳┓┏━┓┏┓╻┏━╸╺┳╸╺┳╸╻   ┏┓     ╻ ╻╻┏━┓┏━┓┏━┓╻ ╻┏━╸┏━┓     ┏━╸┏━┓┏┳┓┏━┓╻╻  ┏━╸╺┳┓  ${GREEN}┏━┓╻ ╻┏━╸┏━╸┏━╸┏━┓┏━┓┏━╸╻ ╻╻  ╻  ╻ ╻\n${WHITE}"
 	@printf "┣┻┓┗┳┛   ┣╸ ┃┃┃┣━┫┃┗┫┣╸  ┃  ┃ ┃   ┃╺╋╸   ┃┏┛┃┣┳┛┃ ┃┃┓┃┃ ┃┣╸ ┗━┓     ┃  ┃ ┃┃┃┃┣━┛┃┃  ┣╸  ┃┃  ${GREEN}┗━┓┃ ┃┃  ┃  ┣╸ ┗━┓┗━┓┣╸ ┃ ┃┃  ┃  ┗┳┛\n${WHITE}"
 	@printf "┗━┛ ╹    ╹  ╹ ╹╹ ╹╹ ╹┗━╸ ╹  ╹ ╹   ┗━┛    ┗┛ ╹╹┗╸┗━┛┗┻┛┗━┛┗━╸┗━┛     ┗━╸┗━┛╹ ╹╹  ╹┗━╸┗━╸╺┻┛  ${GREEN}┗━┛┗━┛┗━╸┗━╸┗━╸┗━┛┗━┛╹  ┗━┛┗━╸┗━╸ ╹ \n${WHITE}"
 
+san: $(OBJ) $(HEADERS) $(LIBRARY)
+	@printf "[ $(NAME) ] Compiling with fsanitize...\r"
+	@($(CC) -o $(NAME) $(SOURCE) $(LIBRARY) $(CFLAGS) $(FSANITIZE))
+	@printf "[ $(NAME) ] Created $(GREEN)Successfully$(NO_COLOR) with fsanitize\n" $(SUCCESS)
+
 lib:
-	@make re bonus -C include/libft
-	@make clean -C include/libft
+	@make re bonus -C $(LIB_PATH)
+	@make clean -C $(LIB_PATH)
 
 clean:
 	@/bin/rm -f $(OBJ)
-	@printf "Object files ${RED}removed\n${WHITE}"
+	@printf "Object files $(RED)removed\n$(NO_COLOR)"
 
 fclean: clean
 	@/bin/rm -rf $(NAME)*
 	@/bin/rm -rf .vscode .minish_history
-	@printf "[ $(NAME) ] ${RED}removed\n${WHITE}"
+	@printf "[ $(NAME) ] $(RED)removed\n$(NO_COLOR)"
 
 re: fclean all
 
