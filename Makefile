@@ -6,7 +6,7 @@
 #    By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/26 17:06:32 by fmanetti          #+#    #+#              #
-#    Updated: 2021/04/13 16:26:03 by fmanetti         ###   ########.fr        #
+#    Updated: 2021/04/15 16:25:26 by fmanetti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,10 +127,10 @@ $(NAME): $(OBJ) $(HEADERS) $(LIBRARY)
 	@printf "m::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::is::::::::::::::s h:::::h     h:::::h e::::::::eeeeeeee l::::::ll::::::l \n"
 	@printf "m::::m   m::::m   m::::mi::::::i n::::n    n::::ni::::::i s:::::::::::ss  h:::::h     h:::::h  ee:::::::::::::e l::::::ll::::::l \n"
 	@printf "mmmmmm   mmmmmm   mmmmmmiiiiiiii nnnnnn    nnnnnniiiiiiii  sssssssssss    hhhhhhh     hhhhhhh    eeeeeeeeeeeeee llllllllllllllll \n"
-	@printf "$(NO_COLOR))"
-	@printf "┏┓ ╻ ╻   ┏━╸┏┳┓┏━┓┏┓╻┏━╸╺┳╸╺┳╸╻   ┏┓     ╻ ╻╻┏━┓┏━┓┏━┓╻ ╻┏━╸┏━┓     ┏━╸┏━┓┏┳┓┏━┓╻╻  ┏━╸╺┳┓  ${GREEN}┏━┓╻ ╻┏━╸┏━╸┏━╸┏━┓┏━┓┏━╸╻ ╻╻  ╻  ╻ ╻\n${WHITE}"
-	@printf "┣┻┓┗┳┛   ┣╸ ┃┃┃┣━┫┃┗┫┣╸  ┃  ┃ ┃   ┃╺╋╸   ┃┏┛┃┣┳┛┃ ┃┃┓┃┃ ┃┣╸ ┗━┓     ┃  ┃ ┃┃┃┃┣━┛┃┃  ┣╸  ┃┃  ${GREEN}┗━┓┃ ┃┃  ┃  ┣╸ ┗━┓┗━┓┣╸ ┃ ┃┃  ┃  ┗┳┛\n${WHITE}"
-	@printf "┗━┛ ╹    ╹  ╹ ╹╹ ╹╹ ╹┗━╸ ╹  ╹ ╹   ┗━┛    ┗┛ ╹╹┗╸┗━┛┗┻┛┗━┛┗━╸┗━┛     ┗━╸┗━┛╹ ╹╹  ╹┗━╸┗━╸╺┻┛  ${GREEN}┗━┛┗━┛┗━╸┗━╸┗━╸┗━┛┗━┛╹  ┗━┛┗━╸┗━╸ ╹ \n${WHITE}"
+	@printf "$(NO_COLOR)"
+	@printf "┏┓ ╻ ╻   ┏━╸┏┳┓┏━┓┏┓╻┏━╸╺┳╸╺┳╸╻   ┏┓     ╻ ╻╻┏━┓┏━┓┏━┓╻ ╻┏━╸┏━┓     ┏━╸┏━┓┏┳┓┏━┓╻╻  ┏━╸╺┳┓  $(GREEN)┏━┓╻ ╻┏━╸┏━╸┏━╸┏━┓┏━┓┏━╸╻ ╻╻  ╻  ╻ ╻\n$(NO_COLOR)"
+	@printf "┣┻┓┗┳┛   ┣╸ ┃┃┃┣━┫┃┗┫┣╸  ┃  ┃ ┃   ┃╺╋╸   ┃┏┛┃┣┳┛┃ ┃┃┓┃┃ ┃┣╸ ┗━┓     ┃  ┃ ┃┃┃┃┣━┛┃┃  ┣╸  ┃┃  $(GREEN)┗━┓┃ ┃┃  ┃  ┣╸ ┗━┓┗━┓┣╸ ┃ ┃┃  ┃  ┗┳┛\n$(NO_COLOR)"
+	@printf "┗━┛ ╹    ╹  ╹ ╹╹ ╹╹ ╹┗━╸ ╹  ╹ ╹   ┗━┛    ┗┛ ╹╹┗╸┗━┛┗┻┛┗━┛┗━╸┗━┛     ┗━╸┗━┛╹ ╹╹  ╹┗━╸┗━╸╺┻┛  $(GREEN)┗━┛┗━┛┗━╸┗━╸┗━╸┗━┛┗━┛╹  ┗━┛┗━╸┗━╸ ╹ \n$(NO_COLOR)"
 
 san: $(OBJ) $(HEADERS) $(LIBRARY)
 	@printf "[ $(NAME) ] Compiling with fsanitize...\r"
