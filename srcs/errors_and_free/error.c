@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 18:46:05 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 17:16:59 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/05/10 14:34:03 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	malloc_error(t_main *m, char *s, int errtype)
 		free(s);
 	error(ERRNO, NULL);
 	free_all(m);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	malloc_error_lexer(t_main *m, t_lexer *lexer)
@@ -69,5 +69,5 @@ void	malloc_error_lexer(t_main *m, t_lexer *lexer)
 	ft_putchar_fd('\n', STDERR_FILENO);
 	free_all(m);
 	free_lexer(lexer);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

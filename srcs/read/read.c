@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:06:59 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 15:15:42 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/05/10 14:39:29 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int				reading(t_main *m, char **s)
 	char	buf[2];
 
 	ft_bzero(buf, 2);
-	read(STDOUT_FILENO, buf, 1);
+	read(STDIN_FILENO, buf, 1);	// Add case for ./minishell < file.txt
 	m->p->arr = split_keep(*s, '\n');
 	if (!(check_key(m, s, buf)))
 		*s = str_print_and_handle(*s, buf, m->p);

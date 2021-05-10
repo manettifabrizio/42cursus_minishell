@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:23 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 22:34:13 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/05/10 13:58:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static int		move_word_or_column(char *s, t_cursor *p)
 {
 	char	buf[3];
 
-	read(STDOUT_FILENO, buf, 2);
+	read(STDIN_FILENO, buf, 2);
 	buf[2] = '\0';
 	if (ft_strcmp(buf, ";5") == 0)
 	{
-		read(STDOUT_FILENO, buf, 1);
+		read(STDIN_FILENO, buf, 1);
 		buf[1] = '\0';
 		if (buf[0] == ARR_RIGHT)
 			return (word_right(s, p));
@@ -88,10 +88,10 @@ int				check_key(t_main *m, char **s, char *buf)
 		return (1);
 	if (buf[0] != ESCAPE)
 		return (0);
-	read(STDOUT_FILENO, buf, 1);
+	read(STDIN_FILENO, buf, 1);
 	if (buf[0] == '[' || buf[0] == 'O')
 	{
-		read(STDOUT_FILENO, buf, 1);
+		read(STDIN_FILENO, buf, 1);
 		if (buf[0] == ARR_UP || buf[0] == ARR_DOWN ||
 			buf[0] == ARR_RIGHT || buf[0] == ARR_LEFT)
 			return (arrows(m, s, buf[0]));

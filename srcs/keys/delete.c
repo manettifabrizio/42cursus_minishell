@@ -6,7 +6,7 @@
 /*   By: fmanetti <fmanetti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:42 by fmanetti          #+#    #+#             */
-/*   Updated: 2021/04/07 14:11:18 by fmanetti         ###   ########.fr       */
+/*   Updated: 2021/05/10 13:58:20 by fmanetti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		delete(char *s, char *buf, t_cursor *p)
 {
 	t_uint	pos;
 
-	read(STDOUT_FILENO, buf, 1);
+	read(STDIN_FILENO, buf, 1);
 	if (buf[0] == '~')
 	{
 		pos = (count_lines(s) == 1) ? p->lpos : p->spos;
